@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高原信息技术 · Plateau IT | 雪域藏地好物</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            snow: { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',800:'#1e293b',900:'#0f172a',950:'#020617' },
+            gold: { 400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
+            tibet: { crimson:'#9f1239', turquoise:'#0d9488', indigo:'#312e81' }
+          },
+          fontFamily: {
+            sans: ['Noto Sans Tibetan','Noto Sans SC','Inter','Microsoft Himalaya','Kailasa','PingFang SC','Microsoft YaHei','system-ui','sans-serif'],
+            display: ['Noto Sans Tibetan','Noto Sans SC','Inter','Microsoft Himalaya','PingFang SC','system-ui','sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+Tibetan:wght@400;500;600;700&display=swap');
+    body, h1, h2, h3, h4, span, p, a, button {
+      font-family: 'Noto Sans Tibetan', 'Noto Sans SC', 'Inter', 'Microsoft Himalaya', 'Kailasa', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    img { -webkit-user-drag: none !important; user-select: none !important; -webkit-user-select: none !important; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); }
+    .glass-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+    .service-card { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .service-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2); }
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:linear-gradient(90deg,#f59e0b,#fbbf24); transition:width 0.3s ease; }
+    .nav-link:hover::after { width:100%; }
+    .hero-it {
+      background-image: linear-gradient(to bottom, rgba(15,23,42,0.45) 0%, rgba(15,23,42,0.8) 60%, rgba(15,23,42,0.95) 100%),
+                        url('images/portal-it.jpg');
+      background-size: cover; background-position: center;
+    }
+    .section-title { background:linear-gradient(135deg,#0f172a 0%,#334155 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  </style>
+</head>
+<body class="bg-snow-50 text-snow-900 font-sans antialiased">
+
+  <header class="fixed top-0 left-0 right-0 z-40 bg-snow-950/95 backdrop-blur-xl shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        <a href="index.html" class="flex items-center gap-3 group shrink-0">
+          <img src="images/logo.jpg" alt="雪域藏地好物" class="w-10 h-10 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform" />
+          <div>
+            <span class="text-white font-display text-lg font-semibold tracking-wide block" data-i18n="brand_title">雪域藏地好物</span>
+            <span class="block text-gold-400 text-[10px] tracking-widest uppercase">SNOWREALM</span>
+          </div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-6">
+          <a href="index.html#services" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_services">三大服务</a>
+          <a href="products.html" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_products">藏地特产</a>
+          <a href="photography.html" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_photo">摄影专题</a>
+          <a href="#services" class="nav-link text-gold-400 text-sm font-medium" data-i18n="nav_it">信息技术</a>
+          <a href="#contact" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_contact">联系我们</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <div class="relative group">
+            <button class="flex items-center gap-2 px-3 py-1.5 rounded-full glass text-white text-sm hover:bg-white/20 transition">
+              <i class="fas fa-globe text-gold-400"></i>
+              <span id="currentLang">中文</span>
+              <i class="fas fa-chevron-down text-xs text-white/70"></i>
+            </button>
+            <div class="absolute right-0 mt-2 w-36 rounded-xl glass-card shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 overflow-hidden">
+              <button onclick="setLang('zh')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800">🇨🇳 中文</button>
+              <button onclick="setLang('en')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800">🇬🇧 English</button>
+              <button onclick="setLang('bo')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800">བོད་ཡིག</button>
+            </div>
+          </div>
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-600 text-white text-sm font-medium rounded-full shadow-lg hover:scale-105 transition">
+            <i class="fas fa-phone text-xs"></i>
+            <span data-i18n="contact_us">联系我们</span>
+          </a>
+          <button id="mobileMenuBtn" class="lg:hidden text-white p-2"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="lg:hidden hidden bg-snow-950/95 border-t border-white/10 px-4 py-4 space-y-2">
+      <a href="index.html#services" class="block text-white py-2" data-i18n="nav_services">三大服务</a>
+      <a href="products.html" class="block text-white py-2" data-i18n="nav_products">藏地特产</a>
+      <a href="photography.html" class="block text-white py-2" data-i18n="nav_photo">摄影专题</a>
+      <a href="#services" class="block text-gold-400 py-2 font-medium" data-i18n="nav_it">信息技术</a>
+      <a href="#contact" class="block text-white py-2" data-i18n="nav_contact">联系我们</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-it relative min-h-[70vh] flex items-center justify-center pt-20">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center text-white">
+      <span class="inline-block px-4 py-1.5 rounded-full glass text-gold-400 text-sm mb-5" data-i18n="hero_tag">高原信息技术 · Plateau IT</span>
+      <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+        <span data-i18n="hero_title">让科技服务高原</span>
+      </h1>
+      <p class="text-white/80 text-base sm:text-lg mb-2" data-i18n="hero_sub">让信息连接未来</p>
+      <p class="text-white/55 text-sm mb-8" data-i18n="hero_bo">ཚན་རྩལ་གྱིས་མཐོ་སྒང་ལ་ཞབས་འདེགས། ཆ་འཕྲིན་གྱིས་མ་འོངས་པ་མཐུད།</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#services" class="px-8 py-3.5 glass text-white font-medium rounded-full hover:bg-white/20 transition flex items-center gap-2">
+          <span data-i18n="btn_services">核心业务</span>
+          <i class="fas fa-arrow-down"></i>
+        </a>
+        <a href="#contact" class="px-8 py-3.5 glass text-white font-medium rounded-full hover:bg-white/20 transition flex items-center gap-2">
+          <i class="fas fa-headset text-gold-400"></i>
+          <span data-i18n="btn_contact">立即咨询</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-teal-50 text-teal-700 text-sm font-medium mb-4" data-i18n="about_tag">关于我们</span>
+      <h2 class="font-display text-2xl sm:text-4xl font-bold section-title mb-6" data-i18n="about_title">高原信息技术</h2>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed" data-i18n="about_desc">
+        扎根高原，专注服务。我们的工程师团队深入本地社区，以专业技术解决实际问题，让每一次服务都温暖人心。
+      </p>
+    </div>
+  </section>
+
+  <!-- CORE SERVICES -->
+  <section id="services" class="py-16 bg-snow-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-gold-100 text-gold-700 text-sm font-medium mb-3" data-i18n="core_tag">核心业务</span>
+        <h2 class="font-display text-2xl sm:text-4xl font-bold section-title" data-i18n="core_title">服务项目</h2>
+        <p class="text-slate-500 mt-2 text-sm" data-i18n="core_sub">手机维修 · 电脑维修 · 网络维护 · 数据恢复</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" id="serviceGrid">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-10">
+        <h2 class="font-display text-2xl sm:text-3xl font-bold section-title mb-3" data-i18n="brands_title">支持品牌</h2>
+        <p class="text-slate-500 text-sm max-w-2xl mx-auto" data-i18n="brands_desc">技术团队经过专业培训，精通主流手机品牌维修，为您的设备提供可靠支持。</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="brandsGrid"></div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="py-16 bg-gradient-to-b from-snow-900 to-snow-950 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 text-gold-400 text-sm font-medium mb-3" data-i18n="why_tag">服务优势</span>
+        <h2 class="font-display text-2xl sm:text-4xl font-bold text-white" data-i18n="why_title">为什么选择我们</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6" id="whyGrid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold section-title mb-4" data-i18n="contact_title">联系我们</h2>
+      <p class="text-slate-600 text-sm mb-8" data-i18n="contact_desc">立足青海果洛高原，以专业技术和真诚服务，期待与您相遇。</p>
+      <div class="glass-card rounded-2xl p-8 space-y-4 text-left max-w-md mx-auto">
+        <p class="flex items-center gap-3 text-slate-700">
+          <i class="fas fa-building text-gold-500 w-5"></i>
+          <span data-i18n="company_name">高原信息技术</span>
+        </p>
+        <p class="flex items-center gap-3 text-slate-700">
+          <i class="fas fa-phone text-gold-500 w-5"></i>
+          <a href="tel:+8618097089771" class="hover:text-gold-600">+86 18097089771</a>
+        </p>
+        <p class="flex items-center gap-3 text-slate-700">
+          <i class="fab fa-weixin text-gold-500 w-5"></i>
+          <span>renqingtibet</span>
+        </p>
+        <p class="flex items-center gap-3 text-slate-700">
+          <i class="fas fa-envelope text-gold-500 w-5"></i>
+          <a href="mailto:renqingtibet@gmail.com" class="hover:text-gold-600">renqingtibet@gmail.com</a>
+        </p>
+        <p class="flex items-start gap-3 text-slate-600 text-sm">
+          <i class="fas fa-map-marker-alt text-gold-500 w-5 mt-0.5"></i>
+          <span data-i18n="address">青海省果洛藏族自治州</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-snow-950 text-white/70 pt-10 pb-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+      <p class="mb-2" data-i18n="footer_slogan">让科技服务高原，让信息连接未来</p>
+      <p>© 2026 雪域藏地好物 SnowRealm · <span data-i18n="company_name">高原信息技术</span></p>
+      <div class="mt-4 flex justify-center gap-4">
+        <a href="index.html" class="hover:text-gold-400">首页</a>
+        <a href="photography.html" class="hover:text-gold-400">摄影</a>
+        <a href="products.html" class="hover:text-gold-400">特产</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const t = {
+      zh: {
+        brand_title: "雪域藏地好物",
+        nav_services: "三大服务", nav_products: "藏地特产", nav_photo: "摄影专题",
+        nav_it: "信息技术", nav_contact: "联系我们", contact_us: "联系我们",
+        hero_tag: "高原信息技术 · Plateau IT",
+        hero_title: "让科技服务高原",
+        hero_sub: "让信息连接未来",
+        hero_bo: "ཚན་རྩལ་གྱིས་མཐོ་སྒང་ལ་ཞབས་འདེགས། ཆ་འཕྲིན་གྱིས་མ་འོངས་པ་མཐུད།",
+        btn_services: "核心业务", btn_contact: "立即咨询",
+        about_tag: "关于我们", about_title: "高原信息技术",
+        about_desc: "扎根高原，专注服务。我们的工程师团队深入本地社区，以专业技术解决实际问题，让每一次服务都温暖人心。",
+        core_tag: "核心业务", core_title: "服务项目",
+        core_sub: "手机维修 · 电脑维修 · 网络维护 · 数据恢复",
+        brands_title: "支持品牌",
+        brands_desc: "技术团队经过专业培训，精通主流手机品牌维修，为您的设备提供可靠支持。",
+        why_tag: "服务优势", why_title: "为什么选择我们",
+        contact_title: "联系我们",
+        contact_desc: "立足青海果洛高原，以专业技术和真诚服务，期待与您相遇。",
+        company_name: "高原信息技术",
+        address: "青海省果洛藏族自治州",
+        footer_slogan: "让科技服务高原，让信息连接未来",
+        learn_more: "了解详情"
+      },
+      en: {
+        brand_title: "SnowRealm",
+        nav_services: "Services", nav_products: "Specialties", nav_photo: "Photo Series",
+        nav_it: "IT Services", nav_contact: "Contact", contact_us: "Contact Us",
+        hero_tag: "Plateau Information Technology",
+        hero_title: "Tech Serving the Plateau",
+        hero_sub: "Information Connecting the Future",
+        hero_bo: "Technology serves the highlands · Information links tomorrow",
+        btn_services: "Our Services", btn_contact: "Get in Touch",
+        about_tag: "About Us", about_title: "Plateau Information Technology",
+        about_desc: "Rooted in the plateau, focused on service. Our engineers work deep in local communities, solving real problems with professional skills—so every service feels warm and reliable.",
+        core_tag: "Core Business", core_title: "Service Portfolio",
+        core_sub: "Phone Repair · PC Repair · Network · Data Recovery",
+        brands_title: "Supported Brands",
+        brands_desc: "Our trained team is skilled across major smartphone brands, delivering dependable care for your devices.",
+        why_tag: "Why Us", why_title: "Why Choose Us",
+        contact_title: "Contact Us",
+        contact_desc: "Based in Guoluo, Qinghai—professional skills and sincere service. We look forward to meeting you.",
+        company_name: "Plateau Information Technology",
+        address: "Guoluo Tibetan Autonomous Prefecture, Qinghai",
+        footer_slogan: "Tech serving the plateau · Information connecting the future",
+        learn_more: "Learn more"
+      },
+      bo: {
+        brand_title: "གངས་ལྗོངས་ནོར་བུ།",
+        nav_services: "ཞབས་ཞུ་གསུམ།", nav_products: "ཁྱད་ཐོན།", nav_photo: "པར་སྐྲུན།",
+        nav_it: "ཆ་འཕྲིན།", nav_contact: "འབྲེལ་བ།", contact_us: "འབྲེལ་བ་བྱེད་པ།",
+        hero_tag: "མཐོ་སྒང་ཆ་འཕྲིན་ཚན་རྩལ།",
+        hero_title: "ཚན་རྩལ་གྱིས་མཐོ་སྒང་ལ་ཞབས་འདེགས།",
+        hero_sub: "ཆ་འཕྲིན་གྱིས་མ་འོངས་པ་མཐུད།",
+        hero_bo: "ཚན་རྩལ་གྱིས་མཐོ་སྒང་ལ་ཞབས་འདེགས། ཆ་འཕྲིན་གྱིས་མ་འོངས་པ་མཐུད།",
+        btn_services: "ལྟེ་བའི་ལས་སྒོ།", btn_contact: "འབྲེལ་གཏུག",
+        about_tag: "ངེད་ཅག་གི་སྐོར།", about_title: "མཐོ་སྒང་ཆ་འཕྲིན་ཚན་རྩལ།",
+        about_desc: "མཐོ་སྒང་ལ་རྩ་བ་ཚུགས་ཤིང་། ཞབས་ཞུ་ལ་དམིགས་པ། བཟོ་བཀོད་པའི་ཚོགས་པ་ས་གནས་སུ་ཟབ་ཞུགས་བྱས་ཏེ། ཆེད་ལས་ལག་རྩལ་གྱིས་དངོས་ཡོད་དཀའ་ངལ་སེལ་བར་བྱེད།",
+        core_tag: "ལྟེ་བའི་ལས་སྒོ།", core_title: "ཞབས་ཞུའི་རྣམ་གྲངས།",
+        core_sub: "ཁ་པར་ཉམས་གསོ། · གློག་ཀླད། · དྲ་རྒྱ། · གཞི་གྲངས་སླར་གསོ།",
+        brands_title: "རྒྱབ་སྐྱོར་ཐོན་རྫས།",
+        brands_desc: "ལག་རྩལ་ཚོགས་པར་ཆེད་ལས་གསོ་སྦྱོང་ཐོབ་ཅིང་། གཙོ་རྒྱུགས་ཁ་པར་སྙན་གྲགས་ཅན་གྱི་ཉམས་གསོར་བྱང་ཆ་ལྡན།",
+        why_tag: "ཞབས་ཞུའི་ལེགས་ཆ།", why_title: "ཅིའི་ཕྱིར་ངེད་ཅག་འདེམས།",
+        contact_title: "ངེད་ཅག་ལ་འབྲེལ་བ་གནང་།",
+        contact_desc: "མགོ་ལོག་མཐོ་སྒང་དུ་གཞི་ཚུགས། ཆེད་ལས་ལག་རྩལ་དང་ལྷག་བསམ་གྱི་ཞབས་ཞུས་ཁྱེད་དང་འཕྲད་པར་རེ།",
+        company_name: "མཐོ་སྒང་ཆ་འཕྲིན་ཚན་རྩལ།",
+        address: "མཚོ་སྔོན་མགོ་ལོག་བོད་རིགས་རང་སྐྱོང་ཁུལ།",
+        footer_slogan: "ཚན་རྩལ་གྱིས་མཐོ་སྒང་ལ་ཞབས་འདེགས། ཆ་འཕྲིན་གྱིས་མ་འོངས་པ་མཐུད།",
+        learn_more: "ཞིབ་ཕྲ།"
+      }
+    };
+
+    const services = [
+      {
+        img: "images/it-phone.svg",
+        icon: "fa-mobile-screen-button",
+        title: { zh: "手机维修", en: "Phone Repair", bo: "ལག་ཐོག་ཁ་པར་ཉམས་གསོ།" },
+        desc: {
+          zh: "配备标准化专业维修工作台与精密检测仪器，为每一台设备提供严谨、细致的技术支持，确保维修过程规范、安全。",
+          en: "Standardized repair benches and precision tools deliver careful, professional support for every device—safe and by the book.",
+          bo: "ཚད་ལྡན་ཉམས་གསོའི་ལས་སྟེགས་དང་ཞིབ་དག་བཤེར་འཇལ་ཡོ་བྱད་བཀོད་སྒྲིག་བྱས་ཏེ། སྒྲིག་ཆས་རེ་རེར་ནན་ཏན་ལག་རྩལ་རྒྱབ་སྐྱོར་འདོན།"
+        }
+      },
+      {
+        img: "images/it-pc.svg",
+        icon: "fa-laptop",
+        title: { zh: "电脑维修", en: "Computer Repair", bo: "གློག་ཀླད་ཉམས་གསོ།" },
+        desc: {
+          zh: "资深硬件工程师提供主板级维修服务，专注细节，为设备提供专业、可靠的故障诊断与修复方案。",
+          en: "Senior hardware engineers offer board-level repair, focused diagnostics, and reliable fix plans for your machines.",
+          bo: "མཁྲེགས་ཆས་བཟོ་བཀོད་པས་གཙོ་པང་རིམ་པའི་ཉམས་གསོ་མཁོ་འདོན། སྐྱོན་གནད་ངོས་འཛིན་དང་ཉམས་གསོའི་ཇུས་གཞི་ཆེད་ལས་ཡིན།"
+        }
+      },
+      {
+        img: "images/it-net.svg",
+        icon: "fa-network-wired",
+        title: { zh: "网络维护", en: "Network Maintenance", bo: "དྲ་རྒྱ་བདག་སྐྱོང་།" },
+        desc: {
+          zh: "配备专业网络机柜与标准化设备，打造安全、可靠、易于管理的核心网络硬件基础。",
+          en: "Professional cabinets and standard gear build a secure, reliable, easy-to-manage network foundation.",
+          bo: "ཆེད་ལས་དྲ་རྒྱའི་སྒམ་སྟེགས་དང་ཚད་ལྡན་སྒྲིག་ཆས་བཀོད་སྒྲིག་བྱས་ཏེ། བདེ་འཇགས་བློས་འཁེལ་བའི་དྲ་རྒྱའི་རྨང་གཞི་བསྐྲུན།"
+        }
+      },
+      {
+        img: "images/it-data.svg",
+        icon: "fa-hard-drive",
+        title: { zh: "数据恢复", en: "Data Recovery", bo: "གཞི་གྲངས་སླར་གསོ།" },
+        desc: {
+          zh: "企业级数据恢复设备与专业技术，针对各类存储故障提供高效、安全的数据抢救方案。",
+          en: "Enterprise-grade recovery tools and skilled techniques rescue data from many storage failures—efficiently and safely.",
+          bo: "ལས་ཁུངས་རིམ་པའི་གཞི་གྲངས་སླར་གསོའི་སྒྲིག་ཆས་དང་ཆེད་ལས་ལག་རྩལ་གྱིས། གསོག་འཇོག་སྐྱོན་གནད་ལ་མྱུར་སྐྱོབ་ཇུས་གཞི་མཁོ་འདོན།"
+        }
+      }
+    ];
+
+    const brands = [
+      { name: "Apple", sub: { zh: "全系深度维修", en: "Full-line deep repair", bo: "ཟབ་ཚད་ཉམས་གསོ།" } },
+      { name: "HUAWEI", sub: { zh: "鸿蒙与硬件维护", en: "HarmonyOS & hardware", bo: "ཧུང་མོང་དང་མཁྲེགས་ཆས།" } },
+      { name: "Xiaomi", sub: { zh: "旗舰与折叠屏", en: "Flagship & foldables", bo: "དར་ཆ་དང་ལྟེབ་བརྩེགས།" } },
+      { name: "OPPO", sub: { zh: "影像与快充系统", en: "Imaging & fast charge", bo: "གཟུགས་བརྙན་དང་མྱུར་གསོ།" } },
+      { name: "vivo", sub: { zh: "芯片与系统优化", en: "Chip & system tune", bo: "ལྷེབ་མ་དང་རྒྱུད་ཁོངས།" } }
+    ];
+
+    const why = [
+      {
+        icon: "fa-screwdriver-wrench",
+        title: { zh: "专业可靠", en: "Professional & Reliable", bo: "ཆེད་ལས་བློས་འཁེལ།" },
+        desc: {
+          zh: "工程师具备丰富行业经验，严谨专注，持续精进，以专业态度应对复杂技术挑战。",
+          en: "Experienced engineers stay focused and keep improving—meeting complex tech challenges with care.",
+          bo: "བཟོ་བཀོད་པར་ཉམས་མྱོང་ཕུན་སུམ་ཚོགས། ནན་ཏན་དང་ལག་རྩལ་ཇེ་ལེགས། རྙོག་འཛིང་ལག་རྩལ་ལ་ཁ་གཏད།"
+        }
+      },
+      {
+        icon: "fa-heart",
+        title: { zh: "客户至上", en: "Customer First", bo: "ཞབས་ཞུ་ཞུ་ཡུལ་མཆོག" },
+        desc: {
+          zh: "以客户需求为中心，耐心沟通、透明报价，让每一次服务都安心、放心。",
+          en: "We put your needs first—clear communication and transparent pricing so every visit feels easy.",
+          bo: "ཞབས་ཞུ་ཞུ་ཡུལ་གྱི་དགོས་མཁོ་ལ་གཙོ་བོར་བྱས་ཏེ། གསལ་བཤད་དང་རིན་གོང་གསལ་པོ།"
+        }
+      },
+      {
+        icon: "fa-mountain-sun",
+        title: { zh: "本地化特色", en: "Local Roots", bo: "ས་གནས་ཀྱི་ཁྱད་ཆོས།" },
+        desc: {
+          zh: "立足青海果洛，深知高原需求。以本地视角深耕服务，让科技与人文和谐共生。",
+          en: "Based in Guoluo, Qinghai—we know highland needs and blend tech with local life.",
+          bo: "མཚོ་སྔོན་མགོ་ལོག་ལ་གཞི་ཚུགས། མཐོ་སྒང་གི་དགོས་མཁོ་ཤེས། ཚན་རྩལ་དང་མི་ཆོས་འཆམ་མཐུན།"
+        }
+      }
+    ];
+
+    let currentLang = 'zh';
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('currentLang').textContent = { zh:'中文', en:'English', bo:'བོད་ཡིག' }[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[lang][key]) el.textContent = t[lang][key];
+      });
+      renderServices();
+      renderBrands();
+      renderWhy();
+    }
+
+    function renderServices() {
+      document.getElementById('serviceGrid').innerHTML = services.map(s => `
+        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-sm border border-snow-200">
+          <div class="relative h-40 overflow-hidden">
+            <img src="${s.img}" alt="" class="w-full h-full object-cover">
+            <div class="absolute top-3 left-3 w-11 h-11 rounded-xl bg-white/90 flex items-center justify-center shadow">
+              <i class="fas ${s.icon} text-teal-600"></i>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-slate-800 text-lg mb-2">${s.title[currentLang]}</h3>
+            <p class="text-slate-500 text-xs leading-relaxed">${s.desc[currentLang]}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderBrands() {
+      document.getElementById('brandsGrid').innerHTML = brands.map(b => `
+        <div class="rounded-2xl border border-snow-200 bg-snow-50 p-4 text-center hover:border-gold-400 hover:shadow-md transition">
+          <p class="font-bold text-slate-800 text-lg">${b.name}</p>
+          <p class="text-xs text-slate-500 mt-1">${b.sub[currentLang]}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderWhy() {
+      document.getElementById('whyGrid').innerHTML = why.map(w => `
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center mb-4">
+            <i class="fas ${w.icon} text-white text-lg"></i>
+          </div>
+          <h3 class="font-bold text-white text-lg mb-2">${w.title[currentLang]}</h3>
+          <p class="text-white/65 text-sm leading-relaxed">${w.desc[currentLang]}</p>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+    document.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
+    window.onload = () => setLang('zh');
+  </script>
+</body>
+</html>

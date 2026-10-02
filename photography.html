@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅游与摄影服务 · 光落在世界屋脊 | 雪域藏地好物</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            snow: { 50:'#f8fafc',100:'#f1f5f9',200:'#e2e8f0',800:'#1e293b',900:'#0f172a',950:'#020617' },
+            gold: { 400:'#fbbf24',500:'#f59e0b',600:'#d97706' },
+            tibet: { crimson:'#9f1239', turquoise:'#0d9488', indigo:'#312e81' }
+          },
+          fontFamily: {
+            sans: ['Noto Sans Tibetan','Noto Sans SC','Inter','Microsoft Himalaya','Kailasa','PingFang SC','Microsoft YaHei','system-ui','sans-serif'],
+            display: ['Noto Sans Tibetan','Noto Sans SC','Inter','Microsoft Himalaya','PingFang SC','system-ui','sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+Tibetan:wght@400;500;600;700&display=swap');
+    body, h1, h2, h3, h4, span, p, a, button {
+      font-family: 'Noto Sans Tibetan', 'Noto Sans SC', 'Inter', 'Microsoft Himalaya', 'Kailasa', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    img { -webkit-user-drag: none !important; user-select: none !important; -webkit-user-select: none !important; }
+    .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.12); }
+    .glass-card { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+    .feature-card { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .feature-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2); }
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:linear-gradient(90deg,#f59e0b,#fbbf24); transition:width 0.3s ease; }
+    .nav-link:hover::after { width:100%; }
+    ::-webkit-scrollbar { width:8px; }
+    ::-webkit-scrollbar-track { background:#0f172a; }
+    ::-webkit-scrollbar-thumb { background:#475569; border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:#f59e0b; }
+    .section-title { background:linear-gradient(135deg,#0f172a 0%,#334155 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-photo {
+      background-image: linear-gradient(to bottom, rgba(15,23,42,0.4) 0%, rgba(15,23,42,0.75) 60%, rgba(15,23,42,0.95) 100%),
+                        url('images/photo/p01.jpg');
+      background-size: cover; background-position: center 40%;
+    }
+  </style>
+</head>
+<body class="bg-snow-50 text-snow-900 font-sans antialiased">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-snow-950/95 backdrop-blur-xl shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-4">
+        <a href="index.html" class="flex items-center gap-3 group shrink-0">
+          <img src="images/logo.jpg" alt="雪域藏地好物" class="w-10 h-10 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform" />
+          <div>
+            <span class="text-white font-display text-lg font-semibold tracking-wide block" data-i18n="brand_title">雪域藏地好物</span>
+            <span class="block text-gold-400 text-[10px] tracking-widest uppercase">SNOWREALM</span>
+          </div>
+        </a>
+        <nav class="hidden lg:flex items-center gap-6">
+          <a href="index.html#services" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_services">三大服务</a>
+          <a href="products.html" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_products">藏地特产</a>
+          <a href="#features" class="nav-link text-gold-400 text-sm font-medium" data-i18n="nav_photo">摄影专题</a>
+          <a href="index.html#gallery" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_gallery">摄影作品</a>
+          <a href="index.html#about" class="nav-link text-white/90 hover:text-white text-sm font-medium" data-i18n="nav_about">关于我们</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <div class="relative group">
+            <button class="flex items-center gap-2 px-3 py-1.5 rounded-full glass text-white text-sm hover:bg-white/20 transition">
+              <i class="fas fa-globe text-gold-400"></i>
+              <span id="currentLang">中文</span>
+              <i class="fas fa-chevron-down text-xs text-white/70"></i>
+            </button>
+            <div class="absolute right-0 mt-2 w-40 rounded-xl glass-card shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 overflow-hidden z-50">
+              <button onclick="setLang('zh')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800 flex items-center gap-2">🇨🇳 中文</button>
+              <button onclick="setLang('en')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800 flex items-center gap-2">🇬🇧 English</button>
+              <button onclick="setLang('bo')" class="w-full text-left px-4 py-3 text-sm hover:bg-gold-50 text-slate-800 flex items-center gap-2">🏔️ བོད་ཡིག</button>
+            </div>
+          </div>
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-600 text-white text-sm font-medium rounded-full shadow-lg hover:scale-105 transition">
+            <i class="fas fa-paper-plane"></i>
+            <span data-i18n="contact_us">联系我们</span>
+          </a>
+          <button id="mobileMenuBtn" class="lg:hidden text-white p-2"><i class="fas fa-bars text-xl"></i></button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="lg:hidden hidden bg-snow-950/95 border-t border-white/10">
+      <div class="px-4 py-4 space-y-3">
+        <a href="index.html#services" class="block text-white py-2" data-i18n="nav_services">三大服务</a>
+        <a href="products.html" class="block text-white py-2" data-i18n="nav_products">藏地特产</a>
+        <a href="#features" class="block text-gold-400 py-2 font-medium" data-i18n="nav_photo">摄影专题</a>
+        <a href="index.html#gallery" class="block text-white py-2" data-i18n="nav_gallery">摄影作品</a>
+        <a href="#contact" class="block text-white py-2" data-i18n="contact_us">联系我们</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-photo relative min-h-[70vh] flex items-center justify-center pt-20">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center text-white">
+      <span class="inline-block px-4 py-1.5 rounded-full glass text-gold-400 text-sm mb-5" data-i18n="hero_tag">十二专题摄影服务 · 高原视觉叙事</span>
+      <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+        <span data-i18n="hero_title">光落在世界屋脊</span>
+      </h1>
+      <p class="text-white/80 text-base sm:text-lg mb-2" data-i18n="hero_en">Qinghai: Light Falling Upon the Plateau</p>
+      <p class="text-white/60 text-sm mb-8" data-i18n="hero_bo">འཛམ་གླིང་ཡང་རྩེ་རུ་འཕྲོ་བའི་འོད་སྣང་།</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#features" class="px-8 py-3.5 glass text-white font-medium rounded-full hover:bg-white/20 transition flex items-center gap-2">
+          <span data-i18n="btn_explore">探索专题</span>
+          <i class="fas fa-arrow-down"></i>
+        </a>
+        <a href="#contact" class="px-8 py-3.5 glass text-white font-medium rounded-full hover:bg-white/20 transition flex items-center gap-2">
+          <i class="fas fa-camera text-gold-400"></i>
+          <span data-i18n="btn_book">立即预订</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold section-title mb-6" data-i18n="manifesto_title">品牌宣言</h2>
+	  <p class="text-slate-800 leading-relaxed text-base sm:text-lg mb-4" data-i18n="manifesto_bo">པར་མིག་གི་གྲུ་གཟིངས་བརྟེན་ནས། མཐོ་སྒང་གི་རྒྱ་མཚོ་ཆེན་པོར་འགྲུལ་བཞུད་བྱས།  ང་ཚོས་ས་ཆེན་པོའི་ཡང་རྩེར་འདིར་སྐད་ཅིག་མ་རེ་རེའི་འགྱུར་བག་ཚོར། རང་བྱུང་ཁམས་ཀྱི་རང་བཞིན་ལ་བརྩེ་བ་གླན་བཞིན་དུ། དངོས་ཡོད་གནས་ཚུལ་ལ་ཇི་ལྟ་བ་བཞིན་ལག་ཏུནབླངས་ནས། ང་ཚིའི་མངོན་སུམ་དབང་བོའི་ཡུལ་དུ་རླུང་གི་སྒྲ་དང་། འོད་ཀྱི་སྣང་བ། དེ་བཞིན་མཐོ་སྒང་གི་དབུགས་རྒྱུན་ལ་ཉན་པ་དང་མཐོང་བ། ཚོར་བ་བཅས་བྱེད་ཐུབ་པར་བྱེད་ཀྱི་ཡོད།</p>
+      <p class="text-slate-600 leading-relaxed text-base sm:text-lg mb-4" data-i18n="manifesto_zh">以镜头为舟，穿行在高原与荒野之间，我们记录光在青海大地上的每一次转瞬——湖面、雪峰、草原与经年风化的盐田。尊重自然与文化，追求真实的视觉叙事，让观者在画面中听见风、看见光、感受高原的呼吸。</p>
+      <p class="text-slate-500 text-sm leading-relaxed italic" data-i18n="manifesto_en">With camera as our vessel, we traverse plateau and wilderness to capture each fleeting turn of light across Qinghai—on lakes, peaks, grasslands and time-worn salt plains. We honor nature and culture, pursue honest visual stories, and aim to let viewers hear the wind, see the light, and feel the plateau’s breath.</p>
+    </div>
+  </section>
+
+  <!-- OVERVIEW + NOTE -->
+  <section class="py-12 bg-snow-50 border-y border-snow-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-10">
+      <div>
+        <h3 class="font-bold text-lg text-slate-800 mb-3 flex items-center gap-2">
+          <i class="fas fa-images text-gold-500"></i>
+          <span data-i18n="overview_title">摄影集简介</span>
+        </h3>
+        <p class="text-slate-600 text-sm leading-relaxed" data-i18n="overview_zh">本系列以“光”作为叙事主轴，十二个专题覆盖青海的湖泊、雪山、草原、寺院与荒野，以多季节、多光线记录高原景观的质感与色彩。文字与影像并行，提供摄影看点与实用建议，助你在高海拔环境中安全、负责地创作。</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg text-slate-800 mb-3 flex items-center gap-2">
+          <i class="fas fa-quote-left text-gold-500"></i>
+          <span data-i18n="note_title">摄影师寄语</span>
+        </h3>
+        <p class="text-slate-600 text-sm leading-relaxed" data-i18n="note_zh">摄影对我来说是与地方对话的方式：在光与时间交错处，我试图听见景物的脉动而非强加叙事。来到青海，耐心与敬意比镜头更重要。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS -->
+  <section class="py-12 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <h3 class="font-bold text-lg text-slate-800 mb-5 flex items-center gap-2">
+        <i class="fas fa-exclamation-triangle text-amber-500"></i>
+        <span data-i18n="tips_title">通用旅行摄影提示</span>
+      </h3>
+      <ul class="space-y-2 text-sm text-slate-600" id="tipsList">
+        <!-- filled by JS -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 FEATURES -->
+  <section id="features" class="py-16 bg-snow-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-gold-100 text-gold-700 text-sm font-medium mb-3" data-i18n="features_tag">以光为轴 · 记录高原的每一次呼吸</span>
+        <h2 class="font-display text-2xl sm:text-4xl font-bold section-title" data-i18n="features_title">十二专题</h2>
+        <p class="text-slate-500 mt-2 text-sm" data-i18n="features_sub">Twelve Features · 点击卡片查看详情</p>
+      </div>
+      <div id="featureGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL MODAL -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden bg-snow-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div class="sticky top-0 bg-white border-b border-snow-200 p-4 flex items-center justify-between z-10">
+        <h3 id="modalTitle" class="font-bold text-lg text-slate-800 pr-4"></h3>
+        <button onclick="closeDetail()" class="w-10 h-10 rounded-full bg-snow-100 hover:bg-snow-200 flex items-center justify-center shrink-0">
+          <i class="fas fa-times text-slate-600"></i>
+        </button>
+      </div>
+      <div id="modalContent" class="p-6 space-y-5"></div>
+    </div>
+  </div>
+
+  <!-- CONTACT / SERVICE -->
+  <section id="contact" class="py-16 bg-gradient-to-br from-snow-900 via-snow-950 to-indigo-950 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-20 right-20 w-72 h-72 bg-gold-500 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 left-10 w-96 h-96 bg-tibet-turquoise rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <h2 class="font-display text-2xl sm:text-4xl font-bold mb-4" data-i18n="service_title">服务说明与联系方式</h2>
+      <p class="text-white/80 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto" data-i18n="service_desc">本摄影服务以「光落在高原之上」系列为内容核心，提供定制拍摄向导、专题路线规划与摄影工作坊。所有行程均强调生态尊重、文化礼仪与高原安全。</p>
+      <div class="grid sm:grid-cols-3 gap-4 mb-10 text-left">
+        <div class="p-5 rounded-2xl glass">
+          <i class="fas fa-phone text-gold-400 text-xl mb-2"></i>
+          <p class="text-xs text-white/60 mb-1" data-i18n="tel_label">电话</p>
+          <a href="tel:+8618097089771" class="font-semibold text-white hover:text-gold-400">+86 18097089771</a>
+        </div>
+        <div class="p-5 rounded-2xl glass">
+          <i class="fab fa-weixin text-gold-400 text-xl mb-2"></i>
+          <p class="text-xs text-white/60 mb-1" data-i18n="wechat_label">微信</p>
+          <p class="font-semibold">renqingtibet</p>
+        </div>
+        <div class="p-5 rounded-2xl glass">
+          <i class="fas fa-envelope text-gold-400 text-xl mb-2"></i>
+          <p class="text-xs text-white/60 mb-1">E-mail</p>
+          <a href="mailto:renqingtibet@gmail.com" class="font-semibold text-white hover:text-gold-400 break-all">renqingtibet@gmail.com</a>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#features" class="px-6 py-2.5 bg-white text-snow-900 font-medium rounded-full text-sm hover:scale-105 transition" data-i18n="btn_explore">探索专题</a>
+        <a href="mailto:renqingtibet@gmail.com" class="px-6 py-2.5 glass text-white font-medium rounded-full text-sm hover:bg-white/20 transition" data-i18n="btn_book">立即预订</a>
+        <a href="tel:+8618097089771" class="px-6 py-2.5 glass text-white font-medium rounded-full text-sm hover:bg-white/20 transition" data-i18n="btn_contact">联系我们</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <!-- PHOTO LIGHTBOX -->
+  <div id="photoLightbox" class="fixed inset-0 z-[80] hidden bg-black/95 backdrop-blur-sm flex flex-col items-center justify-center p-4" onclick="if(event.target===this)closePhotoLightbox()">
+    <button onclick="closePhotoLightbox()" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center z-10">
+      <i class="fas fa-times text-lg"></i>
+    </button>
+    <img id="lightboxImg" src="" alt="" class="max-w-full max-h-[82vh] object-contain rounded-lg shadow-2xl">
+    <div class="mt-4 text-center">
+      <p id="lightboxTitle" class="text-white font-semibold text-lg"></p>
+      <p id="lightboxSub" class="text-gold-400 text-sm mt-1"></p>
+    </div>
+  </div>
+
+  <footer class="bg-snow-950 text-white/70 pt-10 pb-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+      <p>© 2026 雪域藏地好物 SnowRealm. <span data-i18n="rights">保留所有权利.</span></p>
+      <div class="flex items-center gap-6">
+        <a href="index.html" class="hover:text-gold-400 transition" data-i18n="back_home">返回首页</a>
+        <a href="products.html" class="hover:text-gold-400 transition" data-i18n="nav_products">藏地特产</a>
+        <button onclick="setLang('zh')" class="hover:text-gold-400">中文</button>
+        <button onclick="setLang('en')" class="hover:text-gold-400">English</button>
+        <button onclick="setLang('bo')" class="hover:text-gold-400">བོད་ཡིག</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const t = {
+      zh: {
+        brand_title: "雪域藏地好物", nav_services: "三大服务", nav_products: "藏地特产", nav_photo: "摄影专题",
+        nav_gallery: "摄影作品", nav_about: "关于我们", contact_us: "联系我们",
+        hero_tag: "十二专题摄影服务 · 高原视觉叙事",
+        hero_title: "光落在世界屋脊",
+        hero_en: "Where Light Falls on the Roof of the Word",
+        hero_bo: "འཛམ་གླིང་ཡང་རྩེ་རུ་འཕྲོ་བའི་འོད་སྣང་།",
+        btn_explore: "探索专题", btn_book: "立即预订", btn_contact: "联系我们",
+        manifesto_title: "品牌宣言",
+		manifesto_bo:"པར་མིག་གི་གྲུ་གཟིངས་བརྟེན་ནས། མཐོ་སྒང་གི་རྒྱ་མཚོ་ཆེན་པོར་འགྲུལ་བཞུད་བྱས།  ང་ཚོས་ས་ཆེན་པོའི་ཡང་རྩེར་འདིར་སྐད་ཅིག་མ་རེ་རེའི་འགྱུར་བག་ཚོར། རང་བྱུང་ཁམས་ཀྱི་རང་བཞིན་ལ་བརྩེ་བ་གླན་བཞིན་དུ། དངོས་ཡོད་གནས་ཚུལ་ལ་ཇི་ལྟ་བ་བཞིན་ལག་ཏུནབླངས་ནས། ང་ཚིའི་མངོན་སུམ་དབང་བོའི་ཡུལ་དུ་རླུང་གི་སྒྲ་དང་། འོད་ཀྱི་སྣང་བ། དེ་བཞིན་མཐོ་སྒང་གི་དབུགས་རྒྱུན་ལ་ཉན་པ་དང་མཐོང་བ། ཚོར་བ་བཅས་བྱེད་ཐུབ་པར་བྱེད་ཀྱི་ཡོད།",
+        manifesto_zh: "以镜头为舟，穿行在高原与荒野之间，我们记录光在青海大地上的每一次转瞬——湖面、雪峰、草原与经年风化的盐田。尊重自然与文化，追求真实的视觉叙事，让观者在画面中听见风、看见光、感受高原的呼吸。",
+        manifesto_en: "With camera as our vessel, we traverse plateau and wilderness to capture each fleeting turn of light across Qinghai—on lakes, peaks, grasslands and time-worn salt plains. We honor nature and culture, pursue honest visual stories, and aim to let viewers hear the wind, see the light, and feel the plateau’s breath.",
+        overview_title: "摄影集简介",
+        overview_zh: "本系列以“光”作为叙事主轴，十二个专题覆盖青海的湖泊、雪山、草原、寺院与荒野，以多季节、多光线记录高原景观的质感与色彩。文字与影像并行，提供摄影看点与实用建议，助你在高海拔环境中安全、负责地创作。",
+        note_title: "摄影师寄语",
+        note_zh: "摄影对我来说是与地方对话的方式：在光与时间交错处，我试图听见景物的脉动而非强加叙事。来到青海，耐心与敬意比镜头更重要。",
+        tips_title: "通用旅行摄影提示",
+        features_tag: "以光为轴 · 记录高原的每一次呼吸",
+        features_title: "十二专题",
+        features_sub: "点击卡片查看详情",
+        service_title: "服务说明与联系方式",
+        service_desc: "本摄影服务以「光落在高原之上」系列为内容核心，提供定制拍摄向导、专题路线规划与摄影工作坊。所有行程均强调生态尊重、文化礼仪与高原安全。",
+        tel_label: "电话", wechat_label: "微信", rights: "保留所有权利.", back_home: "返回首页",
+        highlights: "摄影看点", tips_shoot: "最佳拍摄建议", tips_travel: "旅行提示",
+        view_detail: "查看详情", placeholder: "（照片待补充）"
+      },
+      en: {
+        brand_title: "SnowRealm", nav_services: "Services", nav_products: "Specialties", nav_photo: "Photo Series",
+        nav_gallery: "Gallery", nav_about: "About", contact_us: "Contact Us",
+        hero_tag: "12 Themed Photography Services · Plateau Visual Narrative",
+        hero_title: "Where Light Falls on the Roof of the Word",
+        hero_en: "光落在世界屋脊",
+        hero_bo: "འཛམ་གླིང་ཡང་རྩེ་རུ་འཕྲོ་བའི་འོད་སྣང་།",
+        btn_explore: "Explore Features", btn_book: "Book a Shoot", btn_contact: "Contact Us",
+        manifesto_title: "Brand Manifesto",
+		    manifesto_bo: "པར་མིག་གི་གྲུ་གཟིངས་བརྟེན་ནས། མཐོ་སྒང་གི་རྒྱ་མཚོ་ཆེན་པོར་འགྲུལ་བཞུད་བྱས།  ང་ཚོས་ས་ཆེན་པོའི་ཡང་རྩེར་འདིར་སྐད་ཅིག་མ་རེ་རེའི་འགྱུར་བག་ཚོར། རང་བྱུང་ཁམས་ཀྱི་རང་བཞིན་ལ་བརྩེ་བ་གླན་བཞིན་དུ། དངོས་ཡོད་གནས་ཚུལ་ལ་ཇི་ལྟ་བ་བཞིན་ལག་ཏུནབླངས་ནས། ང་ཚིའི་མངོན་སུམ་དབང་བོའི་ཡུལ་དུ་རླུང་གི་སྒྲ་དང་། འོད་ཀྱི་སྣང་བ། དེ་བཞིན་མཐོ་སྒང་གི་དབུགས་རྒྱུན་ལ་ཉན་པ་དང་མཐོང་བ། ཚོར་བ་བཅས་བྱེད་ཐུབ་པར་བྱེད་ཀྱི་ཡོད།",
+        manifesto_zh: "以镜头为舟，穿行在高原与荒野之间，我们记录光在青海大地上的每一次转瞬——湖面、雪峰、草原与经年风化的盐田。尊重自然与文化，追求真实的视觉叙事，让观者在画面中听见风、看见光、感受高原的呼吸。",
+        manifesto_en: "With camera as our vessel, we traverse plateau and wilderness to capture each fleeting turn of light across Qinghai—on lakes, peaks, grasslands and time-worn salt plains. We honor nature and culture, pursue honest visual stories, and aim to let viewers hear the wind, see the light, and feel the plateau’s breath.",
+        overview_title: "Portfolio Overview",
+        overview_zh: "This series uses “light” as its narrative axis. Twelve features cover Qinghai’s lakes, mountains, grasslands, monasteries and wilderness across seasons and light conditions, documenting the plateau’s textures and hues. Text accompanies imagery with shooting highlights and practical tips to help you create responsibly and safely at high elevation.",
+        note_title: "Photographer’s Note",
+        note_zh: "Photography is my way of conversing with a place: where light and time intersect I try to hear the rhythm of the landscape rather than impose a story. In Qinghai, patience and respect matter more than the lens.",
+        tips_title: "General Travel & Photography Tips",
+        features_tag: "Light as Axis · Recording Every Breath of the Plateau",
+        features_title: "Twelve Features",
+        features_sub: "Click a card for details",
+        service_title: "Services & Contact",
+        service_desc: "This photography service centers on the “Light Falling Upon the Plateau” series, offering custom shooting guides, themed itineraries and workshops. All journeys prioritize ecological respect, cultural etiquette and high-altitude safety.",
+        tel_label: "Tel", wechat_label: "WeChat", rights: "All Rights Reserved.", back_home: "Back to Home",
+        highlights: "Shooting Highlights", tips_shoot: "Best Tips", tips_travel: "Travel Tips",
+        view_detail: "View Details", placeholder: "(Photos pending)"
+      },
+      bo: {
+        brand_title: "གངས་ལྗོངས་བོད་ཀྱི་ཁྱད་ནོར།", nav_services: "ཞབས་ཞུ་ཆེན་པོ་གསུམ།", nav_products: "བོད་ཀྱི་ཁྱད་ཐོན།",
+        nav_photo: "འདྲ་པར་བརྩམས་ཆོས།", nav_gallery: "པར་མཛོད།", nav_about: "ང་ཚོའི་སྐོར།", contact_us: "འབྲེལ་བ་བྱེད་པ།",
+        hero_tag: "འདྲ་པར་བརྩམས་ཆོས་བཅུ་གཉིས།",
+        hero_title: "འཛམ་གླིང་ཡང་རྩེ་རུ་འཕྲོ་བའི་འོད་སྣང་།",
+        hero_en: "Where Light Falls on the Roof of the Word",
+        hero_bo: "光落在世界屋脊",
+        btn_explore: "བརྩམས་ཆོས་ལ་བལྟ་བ།", btn_book: "མངག་སྒྲུབ་བྱེད་པ།", btn_contact: "འབྲེལ་བ་བྱེད་པ།",
+        manifesto_title: "མགྱོགས་གནས།",
+		manifesto_zh: "བརྙན་མིག་གི་གྲུ་གཟིངས་བརྟེན་ནས། མཐོ་སྒང་གི་རྒྱ་མཚོ་ཆེན་པོར་འགྲུལ་བཞུད་བྱས་ཏེ།  ང་ཚོས་ས་ཆེན་པོའི་ཡང་རྩེར་འདིར་སྐད་ཅིག་མ་རེ་རེའི་འགྱུར་བག་ཚོར། རང་བྱུང་ཁམས་ཀྱི་རང་བཞིན་ལ་བརྩེ་བ་གླན་བཞིན་དུ། དངོས་ཡོད་གནས་ཚུལ་ལ་ཇི་ལྟ་བ་བཞིན་ལག་ཏུ་བླངས་ནས། ང་ཚོའི་མངོན་སུམ་དབང་བོའི་ཡུལ་དུ་རླུང་གི་སྒྲ་དང་། འོད་ཀྱི་སྣང་བ། དེ་བཞིན་མཐོ་སྒང་གི་དབུགས་རྒྱུན་ལ་ཉན་པ་དང་མཐོང་བ། ཚོར་བ་བཅས་བྱེད་ཐུབ་པར་བྱེད་ཀྱི་ཡོད།",
+        manifesto_zh: "以镜头为舟，穿行在高原与荒野之间，我们记录光在青海大地上的每一次转瞬——湖面、雪峰、草原与经年风化的盐田。尊重自然与文化，追求真实的视觉叙事，让观者在画面中听见风、看见光、感受高原的呼吸。",
+        manifesto_en: "With camera as our vessel, we traverse plateau and wilderness...",
+        overview_title: "པར་མཛོད་ངོ་སྤྲོད།",
+        overview_zh: "本系列以“光”作为叙事主轴，十二个专题覆盖青海的湖泊、雪山、草原、寺院与荒野。",
+        note_title: "པར་ལེན་པའི་གཏམ།",
+        note_zh: "摄影对我来说是与地方对话的方式：在光与时间交错处，我试图听见景物的脉动而非强加叙事。",
+        tips_title: "སྤྱིར་བཏང་གི་ལམ་སྟོན།",
+        features_tag: "འོད་ཀྱི་སྲོག་ཤིང་།",
+        features_title: "བརྩམས་ཆོས་བཅུ་གཉིས།",
+        features_sub: "ཞིབ་ཕྲ་བལྟ་བ།",
+        service_title: "ཞབས་ཞུ་དང་འབྲེལ་གཏུག",
+        service_desc: "本摄影服务以「光落在高原之上」系列为内容核心，提供定制拍摄向导、专题路线规划与摄影工作坊。",
+        tel_label: "ཁ་པར།", wechat_label: "སྐད་འཕྲིན།", rights: "ཐོབ་ཐང་ཡོངས་རྫོགས་ཉར་ཡོད།", back_home: "མདུན་ངོས་ལ་ལོག་པ།",
+        highlights: "པར་ལེན་གྱི་གནད།", tips_shoot: "པར་ལེན་ལམ་སྟོན།", tips_travel: "ཡུལ་སྐོར་ལམ་སྟོན།",
+        view_detail: "ཞིབ་ཕྲ་བལྟ་བ།", placeholder: "（པར་རིས་ད་དུང་མེད།）"
+      }
+    };
+
+    const tips = {
+      zh: [
+        "关注高原反应：提前适应、避免剧烈运动、携带常用急救药物并了解最近医疗点位置。",
+        "防范天气骤变：携带防风防雨装备与多层保暖衣物，早晚温差大。",
+        "尊重生态与野生动物：勿接近、喂食或追逐野生动物，保持安全距离并使用长焦镜头。",
+        "尊重宗教与人物肖像：在寺院、祭祀或拍摄人物前请先征得同意，避免触碰供具与不当入内。",
+        "遵守无人机规定：提前查询并遵守当地无人机管理与禁飞区规则，保护野生动物与飞行安全。"
+      ],
+      en: [
+        "Altitude awareness: acclimatize early, avoid intense activity, carry basic meds and know nearest medical points.",
+        "Prepare for sudden weather: wind/rain gear and layered clothing; large day–night temperature swings.",
+        "Protect wildlife: do not approach, feed or chase animals; keep safe distance and use telephoto lenses.",
+        "Respect religious sites and portrait subjects: ask permission before shooting at monasteries or of people.",
+        "Follow drone regulations: check local rules and no-fly zones; protect wildlife and flight safety."
+      ],
+      bo: [
+        "མཐོ་སྒང་གི་ནད་ལ་དོ་སྣང་བྱེད་དགོས།",
+        "གནམ་གཤིས་འགྱུར་ལྡོག་ལ་གྲ་སྒྲིག་བྱེད་དགོས།",
+        "རི་དྭགས་དང་ཁོར་ཡུག་ལ་གུས་བརྩི་བྱེད་དགོས།",
+        "ཆོས་ལུགས་དང་མི་སྣའི་པར་ལེན་ལ་གུས་བརྩི་བྱེད་དགོས།",
+        "གནམ་བསྐྱོད་པར་ལེན་གྱི་སྒྲིག་གཞི་ལ་བརྩི་སྲུང་བྱེད་དགོས།"
+      ]
+    };
+
+    // 12 Features data (photos pending - using Unsplash placeholders for structure)
+    const features = [
+      {
+        id: 1,
+        num: "01",
+        img: "images/photo/p02.jpg",
+        name: { zh: "青海湖日出与候鸟", en: "Qinghai Lake Sunrise & Migratory Birds", bo: "མཚོ་སྔོན་མཚོ་ཉི་ཤར།" },
+        sub: { zh: "苍蓝之晨：湖面、光线与迁徙的节律", en: "Azure Mornings: Lake, Light and the Rhythm of Migration", bo: "མཚོ་ངོས་དང་འོད།" },
+        desc: {
+          zh: "青海湖的清晨常以层叠的冷暖色带示人：浅蓝的湖面、金黄的晨光、以及成群的候鸟划过天际。春秋迁徙季节，湖畔成为候鸟补给与停歇的重要驿站。摄影可捕捉水面倒影、鸟群剪影与光束穿透薄雾的瞬间，呈现动静之间的高原韵律。",
+          en: "Mornings at Qinghai Lake reveal bands of cool and warm tones: pale blue water, golden first light, and flocks of migratory birds carving the sky. During spring and autumn migrations the lakeshore is a vital rest stop.",
+          bo: "མཚོ་སྔོན་མཚོའི་ཞོགས་པ།"
+        },
+        highlights: {
+          zh: ["日出前的蓝调与第一缕金光的色彩对比", "候鸟群飞形成的线条与湖面倒影的构图关系", "湖面薄雾与光斑产生的层次感"],
+          en: ["Blue hour vs first golden light contrast", "Bird flight lines and lake reflections", "Mist and light patches creating depth"],
+          bo: ["ཉི་ཤར་གྱི་ཁ་དོག", "བྱ་ཚོགས་ཀྱི་ཐིག", "སྨུག་པ་དང་འོད།"]
+        },
+        tips: {
+          zh: ["使用长焦与广角结合：长焦压缩鸟群动作，广角表现湖面与天空空间", "早到一小时预设好机位并带三脚架与快拆平板以应对快速变化的光线"],
+          en: ["Combine telephoto and wide-angle: tele compresses flocks, wide shows space", "Arrive one hour early, set position with tripod for changing light"],
+          bo: ["རིང་ཐག་དང་ཞེང་ཆེན།", "སྔ་མོ་སླེབས་པ།"]
+        },
+        travel: {
+          zh: "春秋两季早晚温差大，携带防风保暖层并注意高反症状。",
+          en: "Large day–night temperature swings in spring/autumn; layer clothing and watch for altitude symptoms.",
+          bo: "དཔྱིད་སྟོན་དུས་ཚ་གྲང་ཁྱད་པར་ཆེ།"
+        }
+      },
+      {
+        id: 2, num: "02",
+        img: "images/photo/p04.jpg",
+        name: { zh: "茶卡盐湖天空之镜", en: "Chaka Salt Lake — Sky Mirror", bo: "ཚྭ་མཚོ་ནམ་མཁའི་མེ་ལོང་།" },
+        sub: { zh: "镜面之境：风静时的对称世界", en: "Mirror Realm: Symmetry When the Wind Sleeps", bo: "མེ་ལོང་གི་ཡུལ།" },
+        desc: {
+          zh: "茶卡盐湖以其平静时的“天空之镜”著称，湖面反射出天空与远山，形成对称的画面。晴朗与微风时段差异明显：无风可见完美倒影，微风则带来碎形反光。盐面质感、人物与远景的相互比例，构成极简而强烈的视觉语言。",
+          en: "Chaka Salt Lake is famed for its mirror-like stillness, reflecting sky and distant peaks into near-perfect symmetry. Calm conditions yield flawless reflections; slight wind fractures the mirror into textured highlights.",
+          bo: "ཚྭ་མཚོའི་མེ་ལོང་།"
+        },
+        highlights: {
+          zh: ["完美对称的倒影时刻与镜面破碎后的纹理", "盐晶地表在不同光角下呈现的纹理与色差", "人像或小尺度元素在广阔镜面中的尺度对比"],
+          en: ["Perfect symmetry vs fractured mirror textures", "Salt crystal textures under different light angles", "Scale contrast of figures in the vast mirror"],
+          bo: ["མེ་ལོང་གི་དབྱིབས།", "ཚྭ་རྡོའི་རིས།", "ཆེ་ཆུང་གི་ཁྱད་པར།"]
+        },
+        tips: {
+          zh: ["利用低角度拍摄增强镜面延展感，尝试将主题置于画面1/3处打破对称", "避免正午强烈直射光，早晚或多云时段更利于柔和反射"],
+          en: ["Low angles enhance mirror expanse; place subject at 1/3 to break symmetry", "Avoid harsh noon light; soft morning/evening or cloudy light preferred"],
+          bo: ["དམའ་སར་པར་ལེན།", "ཉི་དྲོད་སྤང་བ།"]
+        },
+        travel: {
+          zh: "遵守景区限定区域与环保指引，不在盐面长时间踩踏或留下垃圾；无人机请提前查询禁飞规定。",
+          en: "Stay in designated areas, avoid prolonged walking on salt or leaving litter; check drone no-fly rules.",
+          bo: "ས་ཁུལ་སྲུང་སྐྱོབ།"
+        }
+      },
+      {
+        id: 3, num: "03",
+        img: "images/photo/p05.jpg",
+        name: { zh: "祁连山草原与雪峰", en: "Qilian Mountains — Grassland & Snow Peaks", bo: "ཆི་ལིན་རི་རྒྱུད།" },
+        sub: { zh: "山脉的脊与草的呼吸", en: "Ridge of Mountains, Breath of Grass", bo: "རི་རྒྱུད་དང་རྩྭ་ཐང་།" },
+        desc: {
+          zh: "祁连山系在近远景中切换：近处是起伏草甸与牦牛点缀，远方是终年雪峰与云带。光线随着海拔和云罩瞬间变化，形成强烈的立体感。无论是低云笼罩的柔光，还是晴日雪峰的强反差，祁连都提供多层次的高原景观。",
+          en: "The Qilian range alternates between rolling meadows dotted with yaks in the foreground and snow-capped peaks with cloud bands in the distance. Light shifts rapidly with elevation and cloud cover.",
+          bo: "ཆི་ལིན་རི་རྒྱུད།"
+        },
+        highlights: {
+          zh: ["草原与雪峰的色温对比及立体层次", "动物活动与人类牧业活动的画面化元素", "云影投射在山体与草甸上的动态变化"],
+          en: ["Color temperature contrast between grassland and peaks", "Animals and pastoral activity as visual elements", "Cloud shadows moving across slopes and meadows"],
+          bo: ["ཁ་དོག་གི་ཁྱད་པར།", "སྲོག་ཆགས་དང་འབྲོག་པ།", "སྤྲིན་གྱི་གྲིབ་མ།"]
+        },
+        tips: {
+          zh: ["携带偏振镜以管理天空与雪面的反光，同时保持颜色饱和度", "使用中长焦压缩山脊层次，或用超广角呈现辽阔草原与天空"],
+          en: ["Polarizer for sky and snow reflections while keeping saturation", "Medium tele for ridge compression; ultra-wide for expansive grass and sky"],
+          bo: ["འོད་སྒྱུར་ཤེལ།", "རིང་ཐག་དང་ཞེང་ཆེན།"]
+        },
+        travel: {
+          zh: "尊重牧区生活，不随意进入帐篷或驱赶牲畜，保持安全距离。",
+          en: "Respect pastoral life; do not enter tents or drive livestock; keep safe distance.",
+          bo: "འབྲོག་པའི་འཚོ་བ་ལ་གུས་བརྩི།"
+        }
+      },
+      {
+        id: 4, num: "04",
+        img: "images/photo/p08.jpg",
+        name: { zh: "门源百里油菜花", en: "Menyuan Rapeseed Fields", bo: "སྒོ་ཡུལ་ཡུངས་དཀར།" },
+        sub: { zh: "金色地毯下的流光", en: "A Golden Carpet of Flowing Light", bo: "གསེར་མདོག་གི་གདན།" },
+        desc: {
+          zh: "每到夏季，门源盆地被连片的油菜花染成金黄，与远处山脉和阶地形成强烈层次。花海中的小路、农舍与当地人的劳作场景，为画面提供尺度与人文温度。光影在花丛间穿行，适合用浅景深突出前景细节或广角呈现层叠纵深。",
+          en: "In summer, Menyuan Basin turns into a swath of yellow rapeseed, contrasted with distant mountains and terraced fields. Paths, cottages and local agricultural activity provide scale and human warmth.",
+          bo: "སྒོ་ཡུལ་གྱི་ཡུངས་དཀར།"
+        },
+        highlights: {
+          zh: ["花海与远山的色彩层次与透视引导线", "人物与田园元素的点缀，增加叙事性", "逆光或侧光下花朵边缘的金色轮廓"],
+          en: ["Color layers and leading lines from fields to mountains", "Human and rural elements adding narrative", "Golden rim light on petals in back/side light"],
+          bo: ["ཁ་དོག་གི་རིམ་པ།", "མི་སྣ་དང་ཞིང་ལས།", "འོད་ཀྱི་མཐའ།"]
+        },
+        tips: {
+          zh: ["利用黄金时段的侧光与逆光来强调花朵的纹理与立体感", "搭配前景小物或人物作为尺度参考，注意构图层次"],
+          en: ["Golden-hour side and back light for texture and depth", "Use foreground elements or people for scale and layering"],
+          bo: ["གསེར་དུས་ཀྱི་འོད།", "མདུན་ངོས་ཀྱི་དངོས་པོ།"]
+        },
+        travel: {
+          zh: "花季游客较多，保护花田勿踩踏或采摘，尽量走既定小径并尊重当地农事。",
+          en: "Peak season is busy; protect fields—no trampling or picking; stay on paths and respect farming.",
+          bo: "མེ་ཏོག་སྲུང་སྐྱོབ།"
+        }
+      },
+      {
+        id: 5, num: "05",
+        img: "images/photo/p11.jpg",
+        name: { zh: "三江源湿地", en: "Sanjiangyuan Wetlands", bo: "ཆུ་གསུམ་འབྱུང་ཁུངས།" },
+        sub: { zh: "大地的滤镜：高原湿地的呼吸", en: "The Earth’s Filter: Breath of the Plateau Wetlands", bo: "ས་གཞིའི་དབུགས།" },
+        desc: {
+          zh: "三江源地区为青海多条重要河流的源头，湿地、苔甸和小湖泊交织，形成高原独特的生态格局。湿地在不同季节展现迥异面貌：春夏葱茏、秋季金黄、冬季结冰。清晨雾气与反光常带来富有诗意的景致，适合呈现生态与地貌的微观细节。",
+          en: "Sanjiangyuan is the headwaters of several major rivers, where wetlands, peatlands and small lakes interlace to form a unique highland ecology. Wetlands shift with the seasons—lush in spring/summer, golden in autumn, frozen in winter.",
+          bo: "ཆུ་གསུམ་འབྱུང་ཁུངས།"
+        },
+        highlights: {
+          zh: ["湿地反光与苔藓、浮叶的纹理细节", "河源小湖与流淌水线形成的自然引导线", "不同季节植被色彩的转变与候鸟活动"],
+          en: ["Reflections and textures of moss and floating leaves", "Small source lakes and water lines as leading lines", "Seasonal color shifts and migratory bird activity"],
+          bo: ["ཆུ་ངོས་ཀྱི་འོད།", "ཆུ་ཕྲན་གྱི་ཐིག", "དུས་ཚིགས་ཀྱི་ཁ་དོག"]
+        },
+        tips: {
+          zh: ["携带防水靴与脚架，靠近水体但注意保护湿地植被", "用微距或中长焦捕捉细节，广角用于表现湿地生态结构"],
+          en: ["Waterproof boots and tripod; approach water carefully without damaging vegetation", "Macro/tele for details; wide for ecological structure"],
+          bo: ["ཆུ་སྲུང་ལྷམ།", "ཞིབ་ཆ་དང་ཞེང་ཆེན།"]
+        },
+        travel: {
+          zh: "湿地生态脆弱，勿踩踏苔田或湿地植物；保持垃圾随身带走并远离鸟类栖息区。",
+          en: "Fragile ecology—do not trample peat or plants; pack out all litter; stay clear of bird nesting areas.",
+          bo: "ནags་ཚལ་སྲུང་སྐྱོབ།"
+        }
+      },
+      {
+        id: 6, num: "06",
+        img: "images/photo/p12.jpg",
+        name: { zh: "可可西里荒野与藏羚羊", en: "Hoh Xil Wilderness & Tibetan Antelope", bo: "ཁོ་ཁོ་ཞི་ལི།" },
+        sub: { zh: "荒野之眼：风与羚影", en: "Wilderness Gaze: Wind and Antelope Shadows", bo: "དབེན་པའི་མིག" },
+        desc: {
+          zh: "可可西里是一片高海拔的无人荒原，开阔而冷峻，是藏羚羊等高原特有物种的栖息地。这里的光线冷峻，地表色彩多为灰褐与蓝调，动物的动态与地形纹理构成视觉焦点。拍摄需要耐心等待动物出现，且在行动中保持低干扰原则。",
+          en: "Hoh Xil is a high-elevation, sparsely populated wilderness—harsh yet expansive—home to Tibetan antelope and other plateau specialists. Light is austere; landscape tones are gray-brown and blue.",
+          bo: "ཁོ་ཁོ་ཞི་ལི།"
+        },
+        highlights: {
+          zh: ["羚羊的群体移动与荒漠背景之间的尺度对比", "荒原光影下地表纹理与动势的结合", "日落或晨光中羚羊剪影的图形化表现"],
+          en: ["Scale of antelope herds against desert backdrop", "Ground textures and motion under austere light", "Graphic silhouettes at sunrise/sunset"],
+          bo: ["གཙོད་ཀྱི་ཚོགས།", "ས་ངོས་ཀྱི་རིས།", "གྲིབ་གཟུགས།"]
+        },
+        tips: {
+          zh: ["使用远摄镜头与静默快门，保持长距离观测以减少对动物的干扰", "提前侦察光线方向并选择隐蔽机位，携带望远镜观察群体动向"],
+          en: ["Long lenses and silent shutter; observe from distance to minimize disturbance", "Scout light direction, choose concealed positions; use binoculars for herd movement"],
+          bo: ["རིང་ཐག་པར་ལེན།", "སྔོན་ལ་བརྟག་དཔྱད།"]
+        },
+        travel: {
+          zh: "可可西里生态敏感且医疗救援条件有限，遵守保护区规定，不接近或驱赶野生动物；航行或徒步请结伴并告知行程。",
+          en: "Sensitive ecology and limited rescue—obey reserve rules, do not approach or drive wildlife; travel with companions and share itinerary.",
+          bo: "སྲུང་སྐྱོབ་ཁུལ་གྱི་སྒྲིག་གཞི།"
+        }
+      },
+      {
+        id: 7, num: "07",
+        img: "images/photo/p13.jpg",
+        name: { zh: "东台吉乃尔湖", en: "Dongtai-Jinair Lake", bo: "ཤར་ཐའི་ཇི་ནའེར་མཚོ།" },
+        sub: { zh: "潮汐之外的色彩湖面", en: "A Palette Beyond Tides", bo: "ཁ་དོག་གི་མཚོ།" },
+        desc: {
+          zh: "东台吉乃尔湖以其独特的矿物沉积与盐碱地貌，呈现出多变的色彩，从翠绿色到粉蓝再到砖红，随季节与水位波动而更迭。湖岸线的曲度、盐结晶的纹理与远山的对比，是构成画面的要素。光线角度决定颜色饱和与反射强度，是拍摄关键。",
+          en: "Dongtai-Jinair Lake displays varied hues—from emerald to powder blue to brick red—due to mineral deposits and saline terrain, shifting with season and water level.",
+          bo: "ཤར་ཐའི་ཇི་ནའེར་མཚོ།"
+        },
+        highlights: {
+          zh: ["湖面色彩的分层与矿物纹理形成的天然抽象", "岸边盐结晶与微生物斑块的细节质感", "水位变化带来的线性纹理与几何构图"],
+          en: ["Layered colors and mineral textures as natural abstraction", "Salt crystals and microbial patches on shore", "Linear textures and geometry from water-level change"],
+          bo: ["ཁ་དོག་གི་རིམ་པ།", "ཚྭ་རྡོའི་རིས།", "ཆུ་ཚད་ཀྱི་ཐིག"]
+        },
+        tips: {
+          zh: ["在不同光角（侧光、反光）尝试多组曝光以捕捉色彩细节", "使用偏振镜减少反光、提高色彩对比，或在低角度强化前景纹理"],
+          en: ["Multiple exposures at different light angles for color detail", "Polarizer to cut glare and boost contrast; low angle for foreground texture"],
+          bo: ["འོད་ཀྱི་ཟུར་ཁུག", "འོད་སྒྱུར་ཤེལ།"]
+        },
+        travel: {
+          zh: "湖区多为裸露盐碱地，防晒与补水需充分准备，遵守保护区标识避免踩踏敏感地貌。",
+          en: "Exposed saline flats—strong sun protection and hydration; obey reserve signs and avoid sensitive terrain.",
+          bo: "ཉི་སྲུང་དང་ཆུ།"
+        }
+      },
+      {
+        id: 8, num: "08",
+        img: "images/photo/p03.jpg",
+        name: { zh: "翡翠湖与盐湖色彩", en: "Emerald Lake & Salt Lake Colors", bo: "གཡུ་མཚོ་དང་ཚྭ་མཚོ།" },
+        sub: { zh: "色板与静物：盐湖的矿物调色", en: "Palettes and Still Lifes: Mineral Hues of Salt Lakes", bo: "ཁ་དོག་གི་པང་ལེབ།" },
+        desc: {
+          zh: "青海的若干盐湖在不同含盐与藻类条件下展现出丰富的色谱，尤以翡翠般的浅绿与深蓝、甚至粉紫与白色盐滩为特色。湖面与盐结晶形成的图纹，配合天空色温，构成抽象画般的景观。细节摄影与航拍都能呈现极高的观赏度（遵守空域规定）。",
+          en: "Several Qinghai salt lakes display a broad palette—from jade greens and deep blues to pinks and white salt flats—driven by salinity and algal conditions. Lake surfaces and salt crust patterns form abstract compositions.",
+          bo: "གཡུ་མཚོ།"
+        },
+        highlights: {
+          zh: ["不同矿物与藻类造成的色斑与纹理", "盐结晶几何与光影下的纯粹色彩对比", "低角度与俯拍两种视觉语言的互补"],
+          en: ["Color patches and textures from minerals and algae", "Salt crystal geometry and pure color contrast", "Complementary low-angle and overhead viewpoints"],
+          bo: ["ཁ་དོག་གི་ཐིག་ལེ།", "ཚྭ་རྡོའི་དབྱིབས།", "དམའ་ས་དང་མཐོ་ས།"]
+        },
+        tips: {
+          zh: ["结合俯拍与低视角：俯拍呈现抽象色块，低角度强化前景纹理", "在无风时拍摄镜面反射，风大时专注纹理与色块的分解"],
+          en: ["Combine overhead (abstract blocks) and low angle (foreground texture)", "Calm for mirror; wind for texture and color breakup"],
+          bo: ["མཐོ་ས་དང་དམའ་ས།", "རླུང་མེད་དང་རླུང་ཡོད།"]
+        },
+        travel: {
+          zh: "尊重无人机管理与地面保护规定；近岸拍摄请避免干扰盐滩生态并带走所有垃圾。",
+          en: "Obey drone and ground protection rules; avoid disturbing salt-flat ecology; pack out all litter.",
+          bo: "གནམ་བསྐྱོད་སྒྲིག་གཞི།"
+        }
+      },
+      {
+        id: 9, num: "09",
+        img: "images/photo/p06.jpg",
+        name: { zh: "玉树峡谷与河流", en: "Yushu Canyons & Rivers", bo: "ཡུལ་ཤུལ་རོང་དང་ཆུ།" },
+        sub: { zh: "峡谷之脉：水与石的刻痕", en: "Canyon Veins: The Carving of Water and Stone", bo: "རོང་གི་རྩ་རྒྱུས།" },
+        desc: {
+          zh: "玉树地区峡谷纵横，河流在断崖之间穿行，形成深切的地形与多变的流光。河道的曲线、河滩的石色与峡谷的光影共同构成戏剧性画面。雨季与枯水期的河流呈现不同表情，适合捕捉流水质感与峡谷尺度。",
+          en: "Yushu’s canyons channel rivers through steep cliffs, creating deeply incised terrains and shifting light. River curves, stony riverbeds and canyon shadows create dramatic scenes.",
+          bo: "ཡུལ་ཤུལ་རོང་།"
+        },
+        highlights: {
+          zh: ["河流曲线与峡谷线条的引导与对比", "岩石色泽与河床纹理在光线下的呈现", "雨后与晴日两种截然不同的水色与光感"],
+          en: ["River curves and canyon lines as leading contrast", "Rock color and riverbed texture under light", "Distinct water color and light after rain vs clear days"],
+          bo: ["ཆུ་ཐིག་དང་རོང་ཐིག", "རྡོའི་ཁ་དོག", "ཆར་རྗེས་དང་ཉི་མ།"]
+        },
+        tips: {
+          zh: ["使用ND滤镜拍摄慢速快门表现水流丝滑质感，注意三脚架稳固", "选择高点俯瞰或低点仰视以切换场景气氛"],
+          en: ["ND filter for silky water; secure tripod essential", "High overlook vs low upward angles to change mood"],
+          bo: ["ND ཤེལ།", "མཐོ་ས་དང་དམའ་ས།"]
+        },
+        travel: {
+          zh: "峡谷地形复杂，防滑与登攀安全必备，避免独自深入险段并注意天气突变可能引发的山洪。",
+          en: "Complex terrain—anti-slip and climbing safety essential; avoid solo travel on hazardous sections; watch for flash floods.",
+          bo: "བདེ་འཇགས་ལ་དོ་སྣང་།"
+        }
+      },
+      {
+        id: 10, num: "10",
+        img: "images/photo/p07.jpg",
+        name: { zh: "果洛草原与帐篷", en: "Golog Grassland & Tents", bo: "མགོ་ལོག་རྩྭ་ཐང་།" },
+        sub: { zh: "风吹草低与温暖的帐篷灯", en: "Low Grass, Warm Tent Light", bo: "རླུང་གིས་རྩྭ་དམའ།" },
+        desc: {
+          zh: "果洛的草原在季节更替中呈现广阔的线性地貌，帐篷与马匹、牧人的日常活动构成草原叙事。黄昏与夜晚的帐篷灯光在草地上投射温柔色温，与周围冷色调形成对照，适合昼夜连续记录生活节奏。",
+          en: "Golog’s grasslands reveal broad linear landscapes where tents, horses and pastoral routines form the narrative. Twilight and tent lights cast warm tones on cool surroundings—great for day-to-night storytelling.",
+          bo: "མགོ་ལོག་རྩྭ་ཐང་།"
+        },
+        highlights: {
+          zh: ["草原的层次与帐篷群的节奏感", "牧业生活细节与人与动物的互动瞬间", "夜幕下帐篷灯与星空的色温对比"],
+          en: ["Grassland layers and rhythm of tent clusters", "Pastoral details and human–animal moments", "Warm tent light vs cool starry sky"],
+          bo: ["རྩྭ་ཐང་གི་རིམ་པ།", "འབྲོག་པའི་འཚོ་བ།", "གུར་གྱི་འོད།"]
+        },
+        tips: {
+          zh: ["傍晚用大光圈人文半身或全景记录帐篷生活，夜间带足光源并使用高感或长曝记录灯光与星轨", "与牧民沟通取得同意后拍摄人物与生活场景，尊重隐私与文化习俗"],
+          en: ["Wide aperture for tent life at dusk; high ISO or long exposure for lights and star trails at night", "Ask permission for people and living spaces; respect privacy and customs"],
+          bo: ["དགོང་དྲོའི་པར་ལེན།", "གནང་བ་ཞུ་བ།"]
+        },
+        travel: {
+          zh: "拍摄人物与居住空间前请征得许可，尊重当地风俗并对礼物或报酬保持透明与礼貌。",
+          en: "Obtain permission before photographing people or dwellings; be transparent and polite about gifts or payment.",
+          bo: "གནང་བ་དང་གུས་བརྩི།"
+        }
+      },
+      {
+        id: 11, num: "11",
+        img: "images/photo/p01.jpg",
+        name: { zh: "塔尔寺晨光", en: "Ta’er (Kumbum) Monastery Morning Light", bo: "སྐུ་འབུམ་བྱམས་པ་གླིང་།" },
+        sub: { zh: "经幡与光的节律", en: "Prayer Flags and the Rhythm of Light", bo: "རླུང་རྟ་དང་འོད།" },
+        desc: {
+          zh: "塔尔寺作为青海重要的藏传佛教寺院，其院落、壁画与彩绘屋顶在晨光中展现出质朴而深沉的色彩。晨钟暮鼓以及转经人穿行的节奏，为摄影提供时间感与人物叙事。拍摄寺院需格外注意宗教礼仪与信众活动空间。",
+          en: "Ta’er (Kumbum) Monastery, a key Tibetan Buddhist site in Qinghai, displays sober yet profound colors across courtyards, murals and painted roofs in morning light. Rituals and pilgrims crossing the precincts give temporal rhythm and human stories.",
+          bo: "སྐུ་འབུམ།"
+        },
+        highlights: {
+          zh: ["屋脊与经幡在晨光下的色彩与纹理", "朝拜人群的动作节律与信仰表情", "寺内壁画、堆栈经轮等细节的材质与色彩"],
+          en: ["Roof ridges and prayer flags in morning light", "Rhythm of pilgrims and expressions of faith", "Murals, prayer wheels and material details"],
+          bo: ["ཁང་ཐོག་དང་རླུང་རྟ།", "སྐོར་བ་བྱེད་མཁན།", "ལྡེབས་རིས།"]
+        },
+        tips: {
+          zh: ["尊重场所与仪式，使用长焦和远景记录信众活动，避免在礼拜高峰干扰镜头前方", "早晨或傍晚柔光时段拍摄建筑外观与屋顶细节，室内低光结合自然光完成曝光控制"],
+          en: ["Respect place and ritual; use telephoto for pilgrims without blocking worship", "Soft morning/evening light for exteriors; natural light for interiors"],
+          bo: ["གུས་བརྩི་དང་རིང་ཐག།", "འཇམ་པོའི་འོད།"]
+        },
+        travel: {
+          zh: "寺院为宗教场所，请着装得体、保持安静、在拍摄前征求寺方或当事人同意，勿在禁拍区域使用闪光或脚架影响信众。",
+          en: "Religious site—dress modestly, keep quiet, ask permission; no flash or tripods in restricted areas that disturb worshippers.",
+          bo: "ཆོས་ལུགས་ཀྱི་ས་གནས།"
+        }
+      },
+      {
+        id: 12, num: "12",
+        img: "images/photo/p12.jpg",
+        name: { zh: "青海冬季星空", en: "Qinghai Winter Starry Skies", bo: "མཚོ་སྔོན་དགུན་གྱི་སྐར་མ།" },
+        sub: { zh: "寒夜之穹：星河与银白陆地", en: "The Cold Vault: Stars and a Silvered Land", bo: "གྲང་མཚན་གྱི་གནམ།" },
+        desc: {
+          zh: "冬季的青海天空在干冷条件下透明度极高，星空、银河在无光污染的背景中格外明亮。雪地或结冰湖面反射星光，形成景深与冷暖对比。夜间拍摄需应对低温与电池耗尽，同时注意保暖与夜间安全。",
+          en: "Qinghai’s winter skies are extremely clear in cold, dry conditions—stars and the Milky Way appear vivid against near-zero light pollution. Snowfields and frozen lakes reflect starlight, creating depth and cool–warm contrasts.",
+          bo: "དགུན་གྱི་སྐར་མ།"
+        },
+        highlights: {
+          zh: ["皑皑白地与银河的冷暖对比", "星轨、极光或短暂天文现象在高原低湿度条件下的清晰度", "冰面与雪地对星光的二次反射与前景构成"],
+          en: ["Cool–warm contrast of snow and Milky Way", "Clarity of star trails or rare phenomena in low humidity", "Secondary reflections on ice/snow and foreground composition"],
+          bo: ["གངས་དང་སྐར་མ།", "སྐར་ཐིག", "འཁྱག་ངོས་ཀྱི་འོད།"]
+        },
+        tips: {
+          zh: ["使用大光圈高感与长曝结合，或多张堆栈降噪；备多块电池并放在贴身保温", "做好前景构图（树、帐篷、雪脊），并准确对焦遥远光源或使用实时取景放大对星点调焦"],
+          en: ["Wide aperture + high ISO + long exposure or stacking; keep spare batteries warm against body", "Compose with foreground (trees, tents, ridges); precise focus on distant light or live-view magnification"],
+          bo: ["ཁ་ཆེན་དང་ཚོར་བ་མཐོ།", "མདུན་ངོས་བཀོད་པ།"]
+        },
+        travel: {
+          zh: "冬夜极其寒冷，穿着分层保暖并随身携带备用电池与热饮；夜间单独外出需结伴并告知行程。",
+          en: "Extremely cold nights—layered clothing, spare batteries and warm drinks; never go alone at night without sharing itinerary.",
+          bo: "གྲང་ངར་ལ་གྲ་སྒྲིག"
+        }
+      }
+    ];
+
+    let currentLang = 'zh';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const names = { zh: '中文', en: 'English', bo: 'བོད་ཡིག' };
+      document.getElementById('currentLang').textContent = names[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[lang] && t[lang][key]) el.textContent = t[lang][key];
+      });
+      // tips
+      document.getElementById('tipsList').innerHTML = tips[lang].map(tip =>
+        `<li class="flex gap-2"><i class="fas fa-check text-gold-500 mt-1 shrink-0"></i><span>${tip}</span></li>`
+      ).join('');
+      renderFeatures();
+    }
+
+    function renderFeatures() {
+      document.getElementById('featureGrid').innerHTML = features.map(f => `
+        <div class="feature-card bg-white rounded-2xl overflow-hidden shadow-sm border border-snow-200 cursor-pointer group" onclick="openDetail(${f.id})">
+          <div class="relative h-52 overflow-hidden">
+            <img src="${f.img}" alt="${f.name[currentLang]}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+            <span class="absolute top-3 left-3 w-10 h-10 rounded-full bg-gold-500 text-white text-sm font-bold flex items-center justify-center shadow">${f.num}</span>
+            <button type="button" onclick="event.stopPropagation(); openPhotoLightbox('${f.img}', '${f.name[currentLang].replace(/'/g, "\\'")}', '${f.sub[currentLang].replace(/'/g, "\\'")}')"
+              class="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-black/50 hover:bg-black/70 text-white text-xs flex items-center gap-1.5 backdrop-blur-sm transition opacity-0 group-hover:opacity-100">
+              <i class="fas fa-expand"></i> 原图
+            </button>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800 text-base mb-1">${f.name[currentLang]}</h3>
+            <p class="text-slate-500 text-xs line-clamp-2 mb-3">${f.sub[currentLang]}</p>
+            <span class="inline-flex items-center gap-1 text-gold-600 text-xs font-medium">
+              ${t[currentLang].view_detail} <i class="fas fa-arrow-right text-[10px]"></i>
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openDetail(id) {
+      const f = features.find(x => x.id === id);
+      if (!f) return;
+      document.getElementById('modalTitle').textContent = f.num + '  ' + f.name[currentLang];
+      document.getElementById('modalContent').innerHTML = `
+        <div class="relative mb-4 group cursor-pointer" onclick="openPhotoLightbox('${f.img}', '${f.name[currentLang].replace(/'/g, "\\'")}', '${f.sub[currentLang].replace(/'/g, "\\'")}')">
+          <img src="${f.img}" class="w-full h-64 object-cover rounded-xl">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition rounded-xl flex items-center justify-center">
+            <span class="opacity-0 group-hover:opacity-100 transition px-4 py-2 rounded-full bg-black/60 text-white text-sm"><i class="fas fa-expand mr-1"></i>查看原图</span>
+          </div>
+        </div>
+        <p class="text-gold-600 text-sm font-medium mb-2">${f.sub[currentLang]}</p>
+        <p class="text-slate-600 text-sm leading-relaxed mb-5">${f.desc[currentLang]}</p>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-2"><i class="fas fa-camera text-gold-500"></i>${t[currentLang].highlights}</h4>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-1">${f.highlights[currentLang].map(h => `<li>${h}</li>`).join('')}</ul>
+          </div>
+          <div>
+            <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-2"><i class="fas fa-lightbulb text-gold-500"></i>${t[currentLang].tips_shoot}</h4>
+            <ul class="list-disc list-inside text-slate-600 text-sm space-y-1">${f.tips[currentLang].map(h => `<li>${h}</li>`).join('')}</ul>
+          </div>
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-3">
+            <h4 class="font-semibold text-amber-800 text-sm mb-1 flex items-center gap-2"><i class="fas fa-hiking"></i>${t[currentLang].tips_travel}</h4>
+            <p class="text-amber-700 text-xs">${f.travel[currentLang]}</p>
+          </div>
+        </div>
+        <div class="mt-6 flex gap-3">
+          <a href="#contact" onclick="closeDetail()" class="flex-1 py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-white text-center font-semibold rounded-full text-sm">${t[currentLang].btn_book}</a>
+          <a href="tel:+8618097089771" class="px-5 py-3 glass-card text-slate-700 font-medium rounded-full text-sm flex items-center gap-2"><i class="fas fa-phone"></i>${t[currentLang].btn_contact}</a>
+        </div>
+      `;
+      document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeDetail() {
+      document.getElementById('detailModal').classList.add('hidden');
+    }
+
+    function openPhotoLightbox(src, title, sub) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxTitle').textContent = title || '';
+      document.getElementById('lightboxSub').textContent = sub || '';
+      document.getElementById('photoLightbox').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePhotoLightbox() {
+      document.getElementById('photoLightbox').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+    document.getElementById('detailModal').addEventListener('click', e => {
+      if (e.target.id === 'detailModal') closeDetail();
+    });
+
+    document.addEventListener('contextmenu', e => { if (e.target && e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('dragstart', e => { if (e.target && e.target.tagName === 'IMG') e.preventDefault(); });
+
+    window.onload = () => {
+      try {
+        const f = localStorage.getItem('snowrealm_features');
+        if (f) { const data = JSON.parse(f); if (Array.isArray(data) && data.length) { features.length = 0; data.forEach(x => features.push(x)); } }
+      } catch(e) {}
+      setLang('zh');
+    };
+  </script>
+</body>
+</html>
