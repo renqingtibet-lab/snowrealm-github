@@ -1,1 +1,150 @@
-PLACEHOLDER_WILL_FAIL
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完整后台 · 雪域藏地好物</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.tab-btn.active{background:#f59e0b;color:#fff}
+.panel{display:none}.panel.active{display:block}
+#loginGate{display:flex}#adminApp{display:none}
+#loginGate.hidden{display:none}#adminApp.visible{display:block}
+.item-card img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+.portal-img{width:100%;height:120px;object-fit:cover;border-radius:12px}
+code{background:#f1f5f9;padding:1px 6px;border-radius:4px;font-size:12px}
+.lang-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+@media(max-width:640px){.lang-row{grid-template-columns:1fr}}
+.lang-label{font-size:10px;color:#64748b;margin-bottom:2px}
+</style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+<div id="loginGate" class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center p-4">
+<div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm space-y-5">
+<div class="text-center"><div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-3">🔒</div>
+<h1 class="text-xl font-bold">雪域后台</h1><p class="text-sm text-slate-500 mt-1">仅管理员可进入</p></div>
+<div><label class="block text-sm font-medium mb-1">密码</label>
+<input id="adminPwd" type="password" placeholder="请输入后台密码" class="w-full border rounded-xl px-4 py-3" onkeydown="if(event.key==='Enter')tryLogin()"></div>
+<p id="loginError" class="text-red-500 text-sm hidden">密码错误</p>
+<button onclick="tryLogin()" class="w-full py-3 rounded-xl bg-amber-500 text-white font-medium">进入后台</button>
+</div></div>
+<div id="adminApp">
+<header class="bg-slate-900 text-white px-4 py-4 sticky top-0 z-50">
+<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+<div><h1 class="text-lg font-bold">雪域藏地好物 · 完整后台</h1>
+<p class="text-xs text-white/50">三大入口 · 特产 · 摄影 · 藏汉英完整可改</p></div>
+<div class="flex gap-2">
+<button onclick="exportAll()" class="px-3 py-1.5 rounded-lg bg-white/10 text-sm">导出备份</button>
+<button onclick="logout()" class="px-3 py-1.5 rounded-lg bg-white/10 text-sm">退出</button>
+<a href="index.html" class="px-3 py-1.5 rounded-lg bg-amber-500 text-sm font-medium">查看前台</a>
+</div></div></header>
+<div class="max-w-6xl mx-auto p-4 sm:p-6">
+<div class="mb-5 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-sm text-amber-900">
+<strong>本机预览：</strong>改完点「保存到本机」→ 刷新前台（只有你自己看到）。<br>
+<strong>永久上线：</strong>「同步到源文件」→ 复制代码 → 粘贴进 HTML → 推送 GitHub。<br>
+<strong>三语完整：</strong>中文 / English / 藏文全部可改，原有内容一个都不丢。
+</div>
+<div class="flex flex-wrap gap-2 mb-6">
+<button class="tab-btn active px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="home">首页文案</button>
+<button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="portals">三大入口</button>
+<button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="products">推荐特产</button>
+<button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="gallery">摄影作品</button>
+<button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="sync">同步到源文件</button>
+<button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="help">使用说明</button>
+</div>
+<div id="panel-home" class="panel active bg-white rounded-2xl shadow p-6 space-y-4">
+<h2 class="font-bold text-lg">首页文案</h2>
+<div class="grid sm:grid-cols-2 gap-4">
+<label class="block text-sm font-medium">主标题<input id="t_hero_title_1" type="text" class="mt-1 w-full border rounded-lg px-3 py-2"></label>
+<label class="block text-sm font-medium">副标题<input id="t_hero_title_2" type="text" class="mt-1 w-full border rounded-lg px-3 py-2"></label>
+<label class="block text-sm font-medium sm:col-span-2">副文案<textarea id="t_hero_subtitle" class="mt-1 w-full border rounded-lg px-3 py-2" rows="2"></textarea></label>
+<label class="block text-sm font-medium">三大入口标题<input id="t_portals_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2"></label>
+<label class="block text-sm font-medium">推荐特产标题<input id="t_prod_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2"></label>
+<label class="block text-sm font-medium sm:col-span-2">关于我们<textarea id="t_about_desc" class="mt-1 w-full border rounded-lg px-3 py-2" rows="3"></textarea></label>
+</div>
+<button onclick="saveHomeTexts()" class="px-6 py-2.5 rounded-full bg-amber-500 text-white font-medium">保存到本机</button>
+</div>
+<div id="panel-portals" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div><h2 class="font-bold text-lg">核心三大入口（藏汉英）</h2>
+<p class="text-sm text-slate-500">旅游摄影 · 藏地特产 · 信息技术 —— 标题、说明、图片均可改，三语完整保留。</p></div>
+<button onclick="savePortals()" class="px-5 py-2 rounded-lg bg-amber-500 text-white text-sm font-medium">保存到本机</button>
+</div>
+<div id="portalsList" class="space-y-5"></div>
+</div>
+<div id="panel-products" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div><h2 class="font-bold text-lg">首页推荐特产（藏汉英）</h2></div>
+<div class="flex gap-2">
+<button onclick="addProduct()" class="px-4 py-2 rounded-lg bg-slate-100 text-sm">＋ 添加</button>
+<button onclick="saveProductsVisual()" class="px-5 py-2 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+</div></div>
+<div id="productsList" class="space-y-5"></div>
+</div>
+<div id="panel-gallery" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div><h2 class="font-bold text-lg">首页摄影作品（藏汉英）</h2></div>
+<div class="flex gap-2">
+<button onclick="addGallery()" class="px-4 py-2 rounded-lg bg-slate-100 text-sm">＋ 添加</button>
+<button onclick="saveGalleryVisual()" class="px-5 py-2 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+</div></div>
+<div id="galleryList" class="space-y-5"></div>
+</div>
+<div id="panel-sync" class="panel bg-white rounded-2xl shadow p-6 space-y-5">
+<h2 class="font-bold text-lg">同步到源文件（永久上线）</h2>
+<div class="text-sm text-slate-600 bg-slate-50 rounded-xl p-4"><p>本机保存只影响你自己。所有人看到需：保存 → 复制代码 → 粘贴进 HTML → 推送 GitHub。</p></div>
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="border rounded-xl p-4 space-y-3">
+<button onclick="copyProductsCode()" class="w-full py-2.5 rounded-lg bg-emerald-600 text-white text-sm">复制推荐特产代码</button>
+<button onclick="copyGalleryCode()" class="w-full py-2.5 rounded-lg bg-emerald-600 text-white text-sm">复制摄影作品代码</button>
+<button onclick="copyPortalsCode()" class="w-full py-2.5 rounded-lg bg-emerald-600 text-white text-sm">复制三大入口代码</button>
+</div>
+<div class="border rounded-xl p-4 bg-slate-50">
+<button onclick="exportAll()" class="w-full py-2.5 rounded-lg bg-slate-800 text-white text-sm">下载完整备份 JSON</button>
+</div></div></div>
+<div id="panel-help" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+<h2 class="font-bold text-lg">使用说明</h2>
+<div class="text-sm text-slate-600 space-y-3">
+<p><strong>完整可改</strong>：三大入口、推荐特产、摄影作品、首页文案 —— 藏汉英三语全部可改，原有内容完整保留。</p>
+<p><strong>改内容</strong>：直接改 → 点「保存到本机」→ 刷新前台（仅本机）。</p>
+<p><strong>换照片</strong>：新图放到 images/，在对应卡片改「图片路径」。</p>
+<p class="text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">密码：<code>rqdj123456</code></p>
+</div></div>
+</div></div>
+<script>
+const ADMIN_PASSWORD='rqdj123456';
+const DEFAULT_PRODUCTS=[{id:"p1",category:"特产",img:"images/IMG_8450.jpg",price:"¥1,280",badge:{zh:"珍稀",en:"Rare",bo:"རྩ་ཆེན།"},name:{zh:"冬虫夏草",en:"Cordyceps",bo:"དབྱར་རྩྭ་དགུན་འབུ།"},desc:{zh:"雪域珍稀 · 天然共生体",en:"Plateau rare · Natural organism",bo:"གངས་ལྗོངས་རྩ་ཆེ།"}},{id:"p2",category:"特产",img:"images/IMG_8447.jpg",price:"¥88",badge:{zh:"热销",en:"Hot",bo:"ཚོང་ལེགས།"},name:{zh:"传统牦牛酥油",en:"Yak Butter",bo:"འབྲི་མར།"},desc:{zh:"牧区手工 · 纯正奶香",en:"Handcrafted · Pure dairy aroma",bo:"འབྲི་མོའི་འོ་མ།"}},{id:"p3",category:"特产",img:"images/IMG_8437.jpg",price:"¥128",badge:{zh:"精选",en:"Selected",bo:"ཧྲགས་བསྡུས།"},name:{zh:"风干牦牛肉",en:"Air-dried Yak Beef",bo:"ནོར་ཤ་སྐམ་པོ།"},desc:{zh:"自然风干 · 肉香嚼劲",en:"Wind-dried · Savory chew",bo:"རང་བྱུང་རླུང་སྐམ།"}},{id:"p4",category:"特产",img:"images/IMG_8442.jpg",price:"¥48",badge:{zh:"新品",en:"New",bo:"ཐོན་རྫས་གསརབ།།"},name:{zh:"藏香",en:"Tibetan Incense",bo:"བོད་སྤོས།"},desc:{zh:"天然草木 · 传统气息",en:"Natural botanicals · Traditional scent",bo:"རང་བྱུང་རྩི་ཤིང་།"}}];
+const DEFAULT_GALLERY=[{id:"g1",category:"摄影",img:"images/photo/p01.jpg",keywords:"青海 青海湖",title:{zh:"光落在高原之上",en:"Light Upon the Plateau",bo:"མཐོ་སྒང་འོད་སྣང་།"},sub:{zh:"青海摄影系列",en:"Qinghai Series",bo:"མཚོ་སྔོན་པར་སྐྲུན།"},span:"col-span-1 row-span-2 aspect-[3/4]"},{id:"g2",category:"摄影",img:"images/photo/p02.jpg",keywords:"青海湖 日出",title:{zh:"青海湖日出",en:"Qinghai Lake Sunrise",bo:"མཚོ་སྔོན་མཚོ་ཉི་ཤར།"},sub:{zh:"候鸟与晨光",en:"Birds & Dawn Light",bo:"བྱ་དང་ཞོགས་འོད།"},span:"aspect-square"},{id:"g3",category:"摄影",img:"images/photo/p03.jpg",keywords:"青海湖",title:{zh:"青海湖湖光",en:"Qinghai Lake Vista",bo:"མཚོ་སྔོན་མཚོ་འོད།"},sub:{zh:"湖光山色",en:"Lake & Mountains",bo:"མཚོ་དང་རི།"},span:"aspect-square"},{id:"g4",category:"摄影",img:"images/photo/p04.jpg",keywords:"候鸟",title:{zh:"高原候鸟",en:"Plateau Migratory Bird",bo:"མཐོ་སྒང་བྱ།"},sub:{zh:"湿地精灵",en:"Wetland Spirit",bo:"འདམ་རྫར་གྱི་བླ་སྲོག"},span:"aspect-square"},{id:"g5",category:"摄影",img:"images/photo/p05.jpg",keywords:"祁连山",title:{zh:"祁连山雪峰",en:"Qilian Snow Peaks",bo:"ཆི་ལིན་གངས་རི།"},sub:{zh:"草原与山脉",en:"Grassland & Mountains",bo:"རྩྭ་ཐང་དང་རི།"},span:"aspect-square"},{id:"g6",category:"摄影",img:"images/photo/p06.jpg",keywords:"祁连落日",title:{zh:"祁连落日",en:"Qilian Sunset",bo:"ཆི་ལིན་ཉི་ནུབ།"},sub:{zh:"金色雪峰",en:"Golden Peaks",bo:"གསེར་མདོག་གངས་རི།"},span:"aspect-square"},{id:"g7",category:"摄影",img:"images/photo/p07.jpg",keywords:"门源",title:{zh:"门源油菜花",en:"Menyuan Rapeseed",bo:"སྒོ་ཡུལ་ཡུངས་དཀར།"},sub:{zh:"金色地毯",en:"Golden Carpet",bo:"གསེར་མདོག་གདན།"},span:"col-span-1 row-span-2 aspect-[3/4]"},{id:"g8",category:"摄影",img:"images/photo/p08.jpg",keywords:"门源花海",title:{zh:"门源花海细节",en:"Menyuan Flower Detail",bo:"སྒོ་ཡུལ་མེ་ཏོག"},sub:{zh:"野花与油菜",en:"Wildflowers & Canola",bo:"རི་སྐྱེས་མེ་ཏོག"},span:"aspect-square"},{id:"g9",category:"摄影",img:"images/photo/p09.jpg",keywords:"果洛",title:{zh:"果洛草原帐篷",en:"Guoluo Grassland Tent",bo:"མགོ་ལོག་རྩྭ་ཐང་གུར།"},sub:{zh:"牧区人家",en:"Pastoral Home",bo:"འབྲོག་པའི་ཁྱིམ།"},span:"aspect-square"},{id:"g10",category:"摄影",img:"images/photo/p10.jpg",keywords:"牦牛",title:{zh:"草原牦牛犊",en:"Grassland Yak Calves",bo:"རྩྭ་ཐང་གཡག་ཕྲུག"},sub:{zh:"高原生灵",en:"Plateau Life",bo:"མཐོ་སྒང་སྲོག་ཆགས།"},span:"aspect-square"},{id:"g11",category:"摄影",img:"images/photo/p11.jpg",keywords:"三江源",title:{zh:"三江源湿地",en:"Sanjiangyuan Wetlands",bo:"ཆུ་གསུམ་འབྱུང་ཁུངས།"},sub:{zh:"大地的呼吸",en:"Earth's Breath",bo:"ས་ཆེན་དབུག་རྔུབ།"},span:"aspect-square"},{id:"g12",category:"摄影",img:"images/photo/p12.jpg",keywords:"可可西里",title:{zh:"可可西里荒野",en:"Hoh Xil Wilderness",bo:"ཁུ་ནུ་ཧོ་ཞིལ།"},sub:{zh:"藏羚羊之乡",en:"Antelope Homeland",bo:"གཙོད་ཀྱི་ཕ་ཡུལ།"},span:"aspect-square"},{id:"g13",category:"摄影",img:"images/photo/p13.jpg",keywords:"蜥蜴",title:{zh:"荒野生灵",en:"Desert Dweller",bo:"བྱེ་ཐང་སྲོག་ཆགས།"},sub:{zh:"高原蜥蜴",en:"Plateau Lizard",bo:"མཐོ་སྒང་རྩངས་པ།"},span:"aspect-square"}];
+const DEFAULT_PORTALS=[{id:"p1",href:"photography.html",img:"images/portal-photo.jpg",title:{zh:"旅游与摄影服务",en:"Tourism & Photography",bo:"ལྗོངས་རྒྱུ་དང་པར་ལེན་ཞབས་ཞུ།"},desc:{zh:"专业向导、定制摄影之旅、航拍与人像拍摄，记录雪域最美瞬间",en:"Custom photo tours, expert local guides, drone filming, and portraits capturing Himalayan moments.",bo:"ཆེད་ལས་སྣེ་ཤན་དང་པར་ལེན་ལྗོངས་རྒྱུ།"}},{id:"p2",href:"products.html",img:"images/portal-products.jpg",title:{zh:"藏地特产销售与展览",en:"Tibetan Specialties & Exhibition",bo:"བོད་ཀྱི་ཁྱད་ལྡན་ཐོན་རྫས་ཚོང་འགྲེམས།"},desc:{zh:"精选藏香、唐卡、牦牛制品、手工艺品，线上商城 + 线下展览体验",en:"Handcrafted incense, Thangka art, yak products & crafts through online shop and exhibitions.",bo:"བོད་སྤོས་དང་ཐང་ག ནོར་གནག་གི་ཐོན་རྫས།"}},{id:"p3",href:"it.html",img:"images/portal-it.jpg",title:{zh:"高原信息技术",en:"Plateau Information Technology",bo:"མཐོ་སྒང་ཆ་འཕྲིན་ཚན་རྩལ།"},desc:{zh:"手机电脑维修、网络维护、数据恢复，为高原提供可靠技术支持",en:"Phone & PC repair, network maintenance, data recovery—tech serving the plateau",bo:"ཁ་པར་གློག་ཀླད་ཉམས་གསོ། དྲ་རྒྱ། གཞི་གྲངས་སླར་གསོ།"}}];
+const DEFAULT_TEXTS={hero_title_1:"雪域藏地好物",hero_title_2:"极致高原体验",hero_subtitle:"旅游摄影 · 藏地特产 · 信息技术 — 深度连接雪域高原的美好与智慧",portals_title:"选择您的雪域之旅",prod_title:"推荐藏地特产",about_desc:"我们植根雪域高原，融合传统与现代。通过旅游摄影记录美，通过特产传播文化和发展本地经济，通过信息技术赋能未来。"};
+let products=[],gallery=[],portals=[];
+function tryLogin(){if(document.getElementById('adminPwd').value===ADMIN_PASSWORD){sessionStorage.setItem('snowrealm_admin_ok','1');showAdmin()}else{document.getElementById('loginError').classList.remove('hidden');document.getElementById('adminPwd').value='';document.getElementById('adminPwd').focus()}}
+function showAdmin(){document.getElementById('loginGate').classList.add('hidden');document.getElementById('adminApp').classList.add('visible');loadAll()}
+function logout(){sessionStorage.removeItem('snowrealm_admin_ok');location.reload()}
+if(sessionStorage.getItem('snowrealm_admin_ok')==='1')showAdmin();
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');document.getElementById('panel-'+btn.dataset.tab).classList.add('active')})});
+function ensureLang(obj){obj=obj||{};return{zh:obj.zh||'',en:obj.en||'',bo:obj.bo||''}}
+function loadAll(){let texts=DEFAULT_TEXTS;try{const raw=localStorage.getItem('snowrealm_home_texts');if(raw)texts=Object.assign({},DEFAULT_TEXTS,(JSON.parse(raw).zh||JSON.parse(raw)))}catch(e){}Object.keys(DEFAULT_TEXTS).forEach(k=>{const el=document.getElementById('t_'+k);if(el)el.value=texts[k]||''});try{const s=localStorage.getItem('snowrealm_home_products');products=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_PRODUCTS))}catch(e){products=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS))}products=products.map(p=>({...p,name:ensureLang(p.name),desc:ensureLang(p.desc),badge:ensureLang(p.badge)}));renderProducts();try{const s=localStorage.getItem('snowrealm_home_gallery');gallery=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_GALLERY))}catch(e){gallery=JSON.parse(JSON.stringify(DEFAULT_GALLERY))}gallery=gallery.map(g=>({...g,title:ensureLang(g.title),sub:ensureLang(g.sub)}));renderGallery();try{const s=localStorage.getItem('snowrealm_portals');portals=s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_PORTALS))}catch(e){portals=JSON.parse(JSON.stringify(DEFAULT_PORTALS))}portals=portals.map(p=>({...p,title:ensureLang(p.title),desc:ensureLang(p.desc)}));renderPortals()}
+function esc(s){return String(s||'').replace(/&/g,'&').replace(/"/g,'"').replace(/</g,'<')}
+function langInputs(obj,pathPrefix){return '<div class="lang-row"><div><div class="lang-label">中文</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 text-sm" value="'+esc(obj.zh)+'" onchange="'+pathPrefix+'.zh=this.value"></div><div><div class="lang-label">English</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 text-sm" value="'+esc(obj.en)+'" onchange="'+pathPrefix+'.en=this.value"></div><div><div class="lang-label">བོད་ཡིག</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 text-sm" value="'+esc(obj.bo)+'" onchange="'+pathPrefix+'.bo=this.value"></div></div>'}
+function renderPortals(){const box=document.getElementById('portalsList');const labels=['① 旅游摄影','② 藏地特产','③ 信息技术'];box.innerHTML=portals.map((p,i)=>{p.title=ensureLang(p.title);p.desc=ensureLang(p.desc);return '<div class="item-card border rounded-xl p-4 bg-slate-50/50 space-y-3"><div class="font-semibold text-amber-700">'+labels[i]+'</div><img class="portal-img" src="'+esc(p.img)+'" alt="" onerror="this.style.opacity=0.3"><div><div class="text-xs font-medium text-slate-500 mb-1">图片路径</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 font-mono text-xs" value="'+esc(p.img)+'" onchange="portals['+i+'].img=this.value;renderPortals()"></div><div><div class="text-xs font-medium text-slate-600 mb-1">标题（三语）</div>'+langInputs(p.title,'portals['+i+'].title')+'</div><div><div class="text-xs font-medium text-slate-600 mb-1">说明（三语）</div>'+langInputs(p.desc,'portals['+i+'].desc')+'</div></div>'}).join('')}
+function savePortals(){localStorage.setItem('snowrealm_portals',JSON.stringify(portals));alert('三大入口已保存到本机（含藏汉英）！')}
+function renderProducts(){const box=document.getElementById('productsList');if(!products.length){box.innerHTML='<p class="text-slate-400 text-sm">暂无产品</p>';return}box.innerHTML=products.map((p,i)=>{p.name=ensureLang(p.name);p.desc=ensureLang(p.desc);p.badge=ensureLang(p.badge);return '<div class="item-card border rounded-xl p-4 bg-slate-50/50 space-y-3"><div class="flex gap-3 items-start"><img src="'+esc(p.img)+'" alt="" onerror="this.style.opacity=0.3"><div class="flex-1 space-y-1"><div class="text-xs font-medium text-slate-500">图片路径</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 font-mono text-xs" value="'+esc(p.img)+'" onchange="products['+i+'].img=this.value;renderProducts()"><div class="flex gap-2 mt-1"><input type="text" class="border rounded-lg px-2 py-1.5 text-sm w-28" value="'+esc(p.price)+'" onchange="products['+i+'].price=this.value" placeholder="价格"><button onclick="removeProduct('+i+')" class="px-3 py-1 rounded-lg bg-red-50 text-red-600 text-xs">删除</button></div></div></div><div><div class="text-xs font-medium text-slate-600 mb-1">名称（三语）</div>'+langInputs(p.name,'products['+i+'].name')+'</div><div><div class="text-xs font-medium text-slate-600 mb-1">描述（三语）</div>'+langInputs(p.desc,'products['+i+'].desc')+'</div><div><div class="text-xs font-medium text-slate-600 mb-1">角标（三语）</div>'+langInputs(p.badge,'products['+i+'].badge')+'</div></div>'}).join('')}
+function addProduct(){products.push({id:'p'+Date.now(),category:'特产',img:'images/',price:'¥0',badge:{zh:'新品',en:'New',bo:''},name:{zh:'新产品',en:'New Product',bo:''},desc:{zh:'请填写描述',en:'',bo:''}});renderProducts()}
+function removeProduct(i){if(confirm('确定删除？')){products.splice(i,1);renderProducts()}}
+function saveProductsVisual(){localStorage.setItem('snowrealm_home_products',JSON.stringify(products));alert('推荐特产已保存到本机（含藏汉英）！')}
+function renderGallery(){const box=document.getElementById('galleryList');if(!gallery.length){box.innerHTML='<p class="text-slate-400 text-sm">暂无作品</p>';return}box.innerHTML=gallery.map((g,i)=>{g.title=ensureLang(g.title);g.sub=ensureLang(g.sub);return '<div class="item-card border rounded-xl p-4 bg-slate-50/50 space-y-3"><div class="flex gap-3 items-start"><img src="'+esc(g.img)+'" alt="" onerror="this.style.opacity=0.3"><div class="flex-1 space-y-1"><div class="text-xs font-medium text-slate-500">图片路径</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 font-mono text-xs" value="'+esc(g.img)+'" onchange="gallery['+i+'].img=this.value;renderGallery()"><div class="text-xs font-medium text-slate-500 mt-1">关键词</div><input type="text" class="w-full border rounded-lg px-2 py-1.5 text-sm" value="'+esc(g.keywords)+'" onchange="gallery['+i+'].keywords=this.value"><button onclick="removeGallery('+i+')" class="mt-1 px-3 py-1 rounded-lg bg-red-50 text-red-600 text-xs">删除</button></div></div><div><div class="text-xs font-medium text-slate-600 mb-1">标题（三语）</div>'+langInputs(g.title,'gallery['+i+'].title')+'</div><div><div class="text-xs font-medium text-slate-600 mb-1">说明（三语）</div>'+langInputs(g.sub,'gallery['+i+'].sub')+'</div></div>'}).join('')}
+function addGallery(){gallery.push({id:'g'+Date.now(),category:'摄影',img:'images/photo/',keywords:'',title:{zh:'新作品',en:'New Work',bo:''},sub:{zh:'请填写说明',en:'',bo:''},span:'aspect-square'});renderGallery()}
+function removeGallery(i){if(confirm('确定删除？')){gallery.splice(i,1);renderGallery()}}
+function saveGalleryVisual(){localStorage.setItem('snowrealm_home_gallery',JSON.stringify(gallery));alert('摄影作品已保存到本机（含藏汉英）！')}
+function saveHomeTexts(){const zh={};Object.keys(DEFAULT_TEXTS).forEach(k=>{const el=document.getElementById('t_'+k);if(el)zh[k]=el.value});localStorage.setItem('snowrealm_home_texts',JSON.stringify({zh:zh}));alert('文案已保存到本机！')}
+function copyProductsCode(){copyText('let productsData = '+JSON.stringify(products,null,2)+';','推荐特产代码已复制（含三语）！')}
+function copyGalleryCode(){copyText('let galleryData = '+JSON.stringify(gallery,null,2)+';','摄影作品代码已复制（含三语）！')}
+function copyPortalsCode(){copyText('const portalsData = '+JSON.stringify(portals,null,2)+';','三大入口代码已复制（含三语）！')}
+function copyText(t,m){navigator.clipboard.writeText(t).then(()=>alert(m)).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert(m)})}
+function exportAll(){const all={home_texts:safeParse('snowrealm_home_texts'),portals:portals,home_products:products,home_gallery:gallery,exported_at:new Date().toISOString()};const blob=new Blob([JSON.stringify(all,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='snowrealm-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function safeParse(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+</script>
+</body>
+</html>
