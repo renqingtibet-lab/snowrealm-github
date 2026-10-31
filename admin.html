@@ -8,150 +8,270 @@
   <style>
     body { font-family: system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
     .tab-btn.active { background: #f59e0b; color: #fff; }
-    textarea, input[type=text] { font-size: 13px; }
+    textarea, input[type=text], input[type=password] { font-size: 13px; }
     .panel { display: none; }
     .panel.active { display: block; }
     code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+    #loginGate { display: flex; }
+    #adminApp { display: none; }
+    #loginGate.hidden { display: none; }
+    #adminApp.visible { display: block; }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen">
-  <header class="bg-slate-900 text-white px-4 sm:px-6 py-4 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+
+  <!-- ========== 登录门禁（别人打不开） ========== -->
+  <div id="loginGate" class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm space-y-5">
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-3">🔒</div>
+        <h1 class="text-xl font-bold text-slate-800">雪域后台</h1>
+        <p class="text-sm text-slate-500 mt-1">仅管理员可进入</p>
+      </div>
       <div>
-        <h1 class="text-lg font-bold">雪域藏地好物 · 完整后台</h1>
-        <p class="text-xs text-white/50">改文字 / 改图片路径 · 可复制粘贴 · 保存到本机浏览器</p>
+        <label class="block text-sm font-medium text-slate-700 mb-1">密码</label>
+        <input id="adminPwd" type="password" placeholder="请输入后台密码"
+               class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+               onkeydown="if(event.key==='Enter') tryLogin()">
       </div>
-      <div class="flex gap-2">
-        <button onclick="exportAll()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-sm">导出全部备份</button>
-        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-sm font-medium">查看前台</a>
-      </div>
+      <p id="loginError" class="text-red-500 text-sm hidden">密码错误，请重试</p>
+      <button onclick="tryLogin()" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-medium transition">进入后台</button>
+      <p class="text-xs text-slate-400 text-center">密码写在本文件源码顶部，可自行修改</p>
     </div>
-  </header>
+  </div>
 
-  <div class="max-w-6xl mx-auto p-4 sm:p-6">
-    <div class="flex flex-wrap gap-2 mb-6">
-      <button class="tab-btn active px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="home">首页文案</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="products">推荐特产</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="gallery">摄影作品</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="features">十二专题</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="fullprod">特产全库</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="qr">支付二维码</button>
-      <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="help">使用说明</button>
-    </div>
-
-    <div id="panel-home" class="panel active bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">首页文案（可直接改后保存）</h2>
-      <p class="text-sm text-slate-500">保存后刷新首页生效（本机）。永久上线需同步进网页文件并上传 GitHub。</p>
-      <div class="grid sm:grid-cols-2 gap-4">
-        <label class="block text-sm">主标题
-          <input id="t_hero_title_1" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="雪域藏地好物">
-        </label>
-        <label class="block text-sm">副标题
-          <input id="t_hero_title_2" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="极致高原体验">
-        </label>
-        <label class="block text-sm sm:col-span-2">副文案
-          <textarea id="t_hero_subtitle" class="mt-1 w-full border rounded-lg px-3 py-2" rows="2">旅游摄影 · 藏地特产 · 信息技术 — 深度连接雪域高原的美好与智慧</textarea>
-        </label>
-        <label class="block text-sm">三大入口标题
-          <input id="t_portals_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="选择您的雪域之旅">
-        </label>
-        <label class="block text-sm">推荐特产标题
-          <input id="t_prod_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="推荐藏地特产">
-        </label>
-        <label class="block text-sm sm:col-span-2">关于我们
-          <textarea id="t_about_desc" class="mt-1 w-full border rounded-lg px-3 py-2" rows="3">我们植根雪域高原，融合传统与现代。通过旅游摄影记录美，通过特产传播文化和发展本地经济，通过信息技术赋能未来。</textarea>
-        </label>
-      </div>
-      <div class="flex flex-wrap gap-2 pt-2">
-        <button onclick="saveHomeTexts()" class="px-5 py-2 rounded-full bg-amber-500 text-white font-medium hover:bg-amber-600">保存首页文案</button>
-        <button onclick="loadHomeTexts()" class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200">重新加载</button>
-      </div>
-    </div>
-
-    <div id="panel-products" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">首页推荐特产（JSON，可复制粘贴）</h2>
-      <p class="text-sm text-slate-500">改 img 换图，改 name/desc/price 换文字。图片需先放到 images 文件夹。</p>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="loadHomeProducts()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
-        <button onclick="saveHomeProducts()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存</button>
-        <button onclick="copyEl('productsJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制全部</button>
-        <button onclick="clearKey('snowrealm_home_products')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
-      </div>
-      <textarea id="productsJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18" placeholder="粘贴产品 JSON..."></textarea>
-    </div>
-
-    <div id="panel-gallery" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">首页摄影作品（JSON，可复制粘贴）</h2>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="loadGallery()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
-        <button onclick="saveGallery()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存</button>
-        <button onclick="copyEl('galleryJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制全部</button>
-        <button onclick="clearKey('snowrealm_home_gallery')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
-      </div>
-      <textarea id="galleryJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18"></textarea>
-    </div>
-
-    <div id="panel-features" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">十二专题（photography 页）</h2>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="loadFeatures()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
-        <button onclick="saveFeatures()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存</button>
-        <button onclick="copyEl('featuresJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制全部</button>
-        <button onclick="clearKey('snowrealm_features')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
-      </div>
-      <textarea id="featuresJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18" placeholder="粘贴十二专题 JSON..."></textarea>
-    </div>
-
-    <div id="panel-fullprod" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">特产全库（products 页）</h2>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="loadFullProducts()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
-        <button onclick="saveFullProducts()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存</button>
-        <button onclick="copyEl('fullProductsJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制全部</button>
-        <button onclick="clearKey('snowrealm_products_full')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
-      </div>
-      <textarea id="fullProductsJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18"></textarea>
-    </div>
-
-    <div id="panel-qr" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">支付二维码</h2>
-      <p class="text-sm text-slate-500">请替换本地文件夹中的图片后上传 GitHub：</p>
-      <ul class="text-sm list-disc list-inside space-y-1 text-slate-600">
-        <li><code>images/wechat-qr.jpg</code> — 微信</li>
-        <li><code>images/alipay-qr.jpg</code> — 支付宝</li>
-        <li><code>images/paypal-qr.jpg</code> — PayPal</li>
-      </ul>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 text-center text-sm">
+  <!-- ========== 正式后台 ========== -->
+  <div id="adminApp">
+    <header class="bg-slate-900 text-white px-4 sm:px-6 py-4 sticky top-0 z-50">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p class="font-medium mb-2">微信</p>
-          <img src="images/wechat-qr.jpg" alt="wechat" class="w-44 h-44 mx-auto object-contain border rounded-xl bg-white">
+          <h1 class="text-lg font-bold">雪域藏地好物 · 完整后台</h1>
+          <p class="text-xs text-white/50">本机预览 + 一键生成可上线源码 · 别人无法进入</p>
         </div>
-        <div>
-          <p class="font-medium mb-2">支付宝</p>
-          <img src="images/alipay-qr.jpg" alt="alipay" class="w-44 h-44 mx-auto object-contain border rounded-xl bg-white">
-        </div>
-        <div>
-          <p class="font-medium mb-2">PayPal</p>
-          <img src="images/paypal-qr.jpg" alt="paypal" class="w-44 h-44 mx-auto object-contain border rounded-xl bg-white">
+        <div class="flex gap-2">
+          <button onclick="exportAll()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-sm">导出全部备份</button>
+          <button onclick="logout()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-sm">退出</button>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-sm font-medium">查看前台</a>
         </div>
       </div>
-    </div>
+    </header>
 
-    <div id="panel-help" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
-      <h2 class="font-bold text-lg">使用说明</h2>
-      <div class="text-sm text-slate-600 space-y-3 leading-relaxed">
-        <p><strong>改文字</strong>：在对应选项卡修改后点保存，刷新前台即可（仅本机浏览器）。</p>
-        <p><strong>改照片</strong>：新照片放入 <code>images/</code>，在 JSON 里改 <code>img</code> 路径并保存；永久生效需上传 GitHub。</p>
-        <p><strong>复制粘贴</strong>：每个面板可「复制全部」，便于备份或从别处粘贴。</p>
-        <p><strong>导出备份</strong>：右上角可下载全部本机数据 JSON。</p>
-        <p><strong>永久上线</strong>：GitHub Pages 无服务器数据库。本机保存只存在你的浏览器。要让所有人看到，需改源码或替换图片后重新上传仓库。</p>
-        <p><strong>防下载</strong>：前台已禁止图片右键与拖拽（无法完全防止截图）。</p>
-        <p class="text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">后台地址：网站域名后加 <code>/admin.html</code></p>
+    <div class="max-w-6xl mx-auto p-4 sm:p-6">
+      <!-- 重要提示 -->
+      <div class="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-sm text-amber-900 leading-relaxed">
+        <strong>永久上线流程（推荐）：</strong>
+        1. 在本后台修改并保存 → 2. 点「生成可粘贴代码」复制 → 3. 打开对应 .html 源文件，找到对应的 <code>let productsData = [...]</code> 等位置整段替换 → 4. 提交推送到 GitHub。
+        <br>本机保存只影响你自己的浏览器，别人看不到。
+      </div>
+
+      <div class="flex flex-wrap gap-2 mb-6">
+        <button class="tab-btn active px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="home">首页文案</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="products">推荐特产</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="gallery">摄影作品</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="features">十二专题</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="fullprod">特产全库</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="qr">支付二维码</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="sync">同步到源文件</button>
+        <button class="tab-btn px-4 py-2 rounded-full text-sm font-medium bg-white shadow" data-tab="help">使用说明</button>
+      </div>
+
+      <!-- 首页文案 -->
+      <div id="panel-home" class="panel active bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">首页文案（可直接改后保存）</h2>
+        <p class="text-sm text-slate-500">保存后刷新首页生效（仅本机）。永久上线请到「同步到源文件」页操作。</p>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="block text-sm">主标题
+            <input id="t_hero_title_1" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="雪域藏地好物">
+          </label>
+          <label class="block text-sm">副标题
+            <input id="t_hero_title_2" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="极致高原体验">
+          </label>
+          <label class="block text-sm sm:col-span-2">副文案
+            <textarea id="t_hero_subtitle" class="mt-1 w-full border rounded-lg px-3 py-2" rows="2">旅游摄影 · 藏地特产 · 信息技术 — 深度连接雪域高原的美好与智慧</textarea>
+          </label>
+          <label class="block text-sm">三大入口标题
+            <input id="t_portals_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="选择您的雪域之旅">
+          </label>
+          <label class="block text-sm">推荐特产标题
+            <input id="t_prod_title" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="推荐藏地特产">
+          </label>
+          <label class="block text-sm sm:col-span-2">关于我们
+            <textarea id="t_about_desc" class="mt-1 w-full border rounded-lg px-3 py-2" rows="3">我们植根雪域高原，融合传统与现代。通过旅游摄影记录美，通过特产传播文化和发展本地经济，通过信息技术赋能未来。</textarea>
+          </label>
+        </div>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <button onclick="saveHomeTexts()" class="px-5 py-2 rounded-full bg-amber-500 text-white font-medium hover:bg-amber-600">保存首页文案</button>
+          <button onclick="loadHomeTexts()" class="px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200">重新加载</button>
+        </div>
+      </div>
+
+      <!-- 推荐特产 -->
+      <div id="panel-products" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">首页推荐特产（JSON）</h2>
+        <p class="text-sm text-slate-500">改 <code>img</code> 换图，改 <code>name/desc/price</code> 换文字。图片需先放到 <code>images/</code> 文件夹。</p>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="loadHomeProducts()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
+          <button onclick="saveHomeProducts()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+          <button onclick="copyEl('productsJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制 JSON</button>
+          <button onclick="copyAsJsVar('productsJson','productsData')" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm">生成 index.html 可粘贴代码</button>
+          <button onclick="clearKey('snowrealm_home_products')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
+        </div>
+        <textarea id="productsJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18" placeholder="粘贴产品 JSON..."></textarea>
+      </div>
+
+      <!-- 摄影作品 -->
+      <div id="panel-gallery" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">首页摄影作品（JSON）</h2>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="loadGallery()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
+          <button onclick="saveGallery()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+          <button onclick="copyEl('galleryJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制 JSON</button>
+          <button onclick="copyAsJsVar('galleryJson','galleryData')" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm">生成 index.html 可粘贴代码</button>
+          <button onclick="clearKey('snowrealm_home_gallery')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
+        </div>
+        <textarea id="galleryJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18" placeholder="粘贴摄影 JSON..."></textarea>
+      </div>
+
+      <!-- 十二专题 -->
+      <div id="panel-features" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">十二专题（photography.html）</h2>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="loadFeatures()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
+          <button onclick="saveFeatures()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+          <button onclick="copyEl('featuresJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制 JSON</button>
+          <button onclick="clearKey('snowrealm_features')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
+        </div>
+        <textarea id="featuresJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="18" placeholder="粘贴专题 JSON..."></textarea>
+      </div>
+
+      <!-- 特产全库 -->
+      <div id="panel-fullprod" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">特产全库（products.html）</h2>
+        <p class="text-sm text-slate-500">这里是完整产品数据（含规格、价格、描述等）。改完后可用下方按钮生成可粘贴代码。</p>
+        <div class="flex flex-wrap gap-2">
+          <button onclick="loadFullProducts()" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">加载</button>
+          <button onclick="saveFullProducts()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-white text-sm">保存到本机</button>
+          <button onclick="copyEl('fullProductsJson')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-sm">复制 JSON</button>
+          <button onclick="copyAsJsVar('fullProductsJson','products')" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-sm">生成 products.html 可粘贴代码</button>
+          <button onclick="clearKey('snowrealm_products_full')" class="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 text-sm">清除覆盖</button>
+        </div>
+        <textarea id="fullProductsJson" class="w-full border rounded-xl p-3 font-mono text-xs" rows="22" placeholder="粘贴全库 JSON..."></textarea>
+      </div>
+
+      <!-- 支付二维码 -->
+      <div id="panel-qr" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">支付二维码路径</h2>
+        <p class="text-sm text-slate-500">图片请先放到 <code>images/</code> 目录，然后修改路径并保存。永久生效需同步到源文件。</p>
+        <div class="grid sm:grid-cols-3 gap-4">
+          <label class="block text-sm">微信收款码
+            <input id="qr_wechat" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="images/wechat-qr.jpg">
+          </label>
+          <label class="block text-sm">支付宝收款码
+            <input id="qr_alipay" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="images/alipay-qr.jpg">
+          </label>
+          <label class="block text-sm">PayPal 收款码
+            <input id="qr_paypal" type="text" class="mt-1 w-full border rounded-lg px-3 py-2" value="images/paypal-qr.jpg">
+          </label>
+        </div>
+        <button onclick="saveQr()" class="px-5 py-2 rounded-full bg-amber-500 text-white font-medium">保存二维码路径</button>
+      </div>
+
+      <!-- 同步到源文件（核心功能） -->
+      <div id="panel-sync" class="panel bg-white rounded-2xl shadow p-6 space-y-5">
+        <h2 class="font-bold text-lg">同步到 .html 源文件（永久上线）</h2>
+        <div class="text-sm text-slate-600 space-y-3 leading-relaxed">
+          <p>GitHub Pages 没有服务器，所以改动必须写进 HTML 源文件才能让所有人看到。</p>
+          <ol class="list-decimal list-inside space-y-2 bg-slate-50 rounded-xl p-4">
+            <li>在本后台把内容改好，并点「保存到本机」</li>
+            <li>点击对应按钮，生成<strong>可直接粘贴的 JS 代码</strong></li>
+            <li>用编辑器打开对应的 <code>.html</code> 文件</li>
+            <li>搜索并找到旧的 <code>let productsData = [</code> 或 <code>const products = [</code> 整段，整段删除后粘贴新代码</li>
+            <li>保存文件 → 提交并推送到 GitHub 仓库</li>
+            <li>等待 1～2 分钟，线上网站即更新</li>
+          </ol>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-semibold">index.html（首页）</h3>
+            <p class="text-xs text-slate-500">替换 <code>let productsData</code> 和 <code>let galleryData</code></p>
+            <button onclick="copyAsJsVar('productsJson','productsData')" class="w-full py-2 rounded-lg bg-emerald-600 text-white text-sm">复制 productsData 代码</button>
+            <button onclick="copyAsJsVar('galleryJson','galleryData')" class="w-full py-2 rounded-lg bg-emerald-600 text-white text-sm">复制 galleryData 代码</button>
+          </div>
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-semibold">products.html（特产全库）</h3>
+            <p class="text-xs text-slate-500">替换 <code>const products = [...]</code></p>
+            <button onclick="copyAsJsVar('fullProductsJson','products')" class="w-full py-2 rounded-lg bg-emerald-600 text-white text-sm">复制 products 代码</button>
+          </div>
+        </div>
+
+        <div class="border rounded-xl p-4 space-y-3 bg-slate-50">
+          <h3 class="font-semibold">一键导出当前全部数据（JSON 备份）</h3>
+          <p class="text-xs text-slate-500">建议每次大改后都导出一份备份，防止丢失。</p>
+          <button onclick="exportAll()" class="px-5 py-2 rounded-lg bg-slate-800 text-white text-sm">下载完整备份 JSON</button>
+        </div>
+      </div>
+
+      <!-- 使用说明 -->
+      <div id="panel-help" class="panel bg-white rounded-2xl shadow p-6 space-y-4">
+        <h2 class="font-bold text-lg">使用说明</h2>
+        <div class="text-sm text-slate-600 space-y-3 leading-relaxed">
+          <p><strong>别人看不到后台</strong>：本页已加密码门禁。不知道密码的人打开 <code>/admin.html</code> 只会看到登录框，无法进入。</p>
+          <p><strong>改密码</strong>：打开本文件源码，找到顶部的 <code>ADMIN_PASSWORD</code>，改成你自己的密码即可（建议复杂一点）。</p>
+          <p><strong>改文字 / 改图片</strong>：在对应选项卡修改后点「保存到本机」，刷新前台即可预览（仅本机浏览器生效）。</p>
+          <p><strong>换照片</strong>：新照片放入 <code>images/</code> 或 <code>images/photo/</code>，在 JSON 里改 <code>img</code> 路径并保存。</p>
+          <p><strong>永久上线</strong>：使用「同步到源文件」选项卡，生成代码 → 粘贴进对应 HTML → 推送到 GitHub。</p>
+          <p><strong>防下载</strong>：前台已禁止图片右键与拖拽（无法完全防止截图）。</p>
+          <p class="text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
+            后台地址：网站域名后加 <code>/admin.html</code><br>
+            当前密码：<code>rqdj123456</code>
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    // ========== 在这里修改后台密码 ==========
+    const ADMIN_PASSWORD = 'rqdj123456';
+    // =====================================
+
+    // 登录逻辑
+    function tryLogin() {
+      const pwd = document.getElementById('adminPwd').value;
+      if (pwd === ADMIN_PASSWORD) {
+        sessionStorage.setItem('snowrealm_admin_ok', '1');
+        showAdmin();
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+        document.getElementById('adminPwd').value = '';
+        document.getElementById('adminPwd').focus();
+      }
+    }
+
+    function showAdmin() {
+      document.getElementById('loginGate').classList.add('hidden');
+      document.getElementById('adminApp').classList.add('visible');
+      // 加载数据
+      loadHomeTexts();
+      loadHomeProducts();
+      loadGallery();
+      loadFeatures();
+      loadFullProducts();
+      loadQr();
+    }
+
+    function logout() {
+      sessionStorage.removeItem('snowrealm_admin_ok');
+      location.reload();
+    }
+
+    // 已登录则直接进入
+    if (sessionStorage.getItem('snowrealm_admin_ok') === '1') {
+      showAdmin();
+    }
+
+    // 选项卡切换
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -165,30 +285,60 @@
       const el = document.getElementById(id);
       const text = el.value !== undefined ? el.value : el.textContent;
       navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板')).catch(() => {
-        el.select && el.select();
+        el.select();
         document.execCommand('copy');
         alert('已复制');
       });
     }
 
-    function clearKey(key) {
-      if (!confirm('确定清除本机覆盖？将恢复默认内容。')) return;
-      localStorage.removeItem(key);
-      alert('已清除');
+    // 生成可直接粘贴进 HTML 的 JS 变量代码
+    function copyAsJsVar(textareaId, varName) {
+      const el = document.getElementById(textareaId);
+      let data;
+      try {
+        data = JSON.parse(el.value || '[]');
+      } catch (e) {
+        alert('JSON 格式错误，无法生成：' + e.message);
+        return;
+      }
+      // 美化输出，使用 let 或 const 根据变量名习惯
+      const keyword = (varName === 'products') ? 'const' : 'let';
+      const code = keyword + ' ' + varName + ' = ' + JSON.stringify(data, null, 2) + ';';
+      navigator.clipboard.writeText(code).then(() => {
+        alert('已复制「' + keyword + ' ' + varName + ' = ...」代码！\n请打开对应 .html 文件，找到旧的同名变量整段替换。');
+      }).catch(() => {
+        // 降级
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('已复制代码，请粘贴到对应 HTML 文件中替换。');
+      });
     }
 
-    const textFields = ['hero_title_1','hero_title_2','hero_subtitle','portals_title','prod_title','about_desc'];
+    function clearKey(key) {
+      if (confirm('确定清除本机覆盖数据？前台将恢复为源文件中的默认内容。')) {
+        localStorage.removeItem(key);
+        alert('已清除');
+        location.reload();
+      }
+    }
+
+    // ----- 首页文案 -----
+    const textFields = ['hero_title_1', 'hero_title_2', 'hero_subtitle', 'portals_title', 'prod_title', 'about_desc'];
     function loadHomeTexts() {
       try {
         const raw = localStorage.getItem('snowrealm_home_texts');
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        const zh = data.zh || data;
-        textFields.forEach(k => {
-          const el = document.getElementById('t_' + k);
-          if (el && zh[k]) el.value = zh[k];
-        });
-      } catch(e) {}
+        if (raw) {
+          const texts = JSON.parse(raw).zh || JSON.parse(raw);
+          textFields.forEach(k => {
+            const el = document.getElementById('t_' + k);
+            if (el && texts[k] !== undefined) el.value = texts[k];
+          });
+        }
+      } catch (e) {}
     }
     function saveHomeTexts() {
       const zh = {};
@@ -197,6 +347,7 @@
       alert('首页文案已保存到本机');
     }
 
+    // ----- 推荐特产 -----
     function loadHomeProducts() {
       const s = localStorage.getItem('snowrealm_home_products');
       document.getElementById('productsJson').value = s ? JSON.stringify(JSON.parse(s), null, 2) : '';
@@ -204,10 +355,11 @@
     function saveHomeProducts() {
       try {
         localStorage.setItem('snowrealm_home_products', JSON.stringify(JSON.parse(document.getElementById('productsJson').value)));
-        alert('推荐特产已保存');
-      } catch(e) { alert('JSON 错误：' + e.message); }
+        alert('推荐特产已保存到本机');
+      } catch (e) { alert('JSON 错误：' + e.message); }
     }
 
+    // ----- 摄影 -----
     function loadGallery() {
       const s = localStorage.getItem('snowrealm_home_gallery');
       document.getElementById('galleryJson').value = s ? JSON.stringify(JSON.parse(s), null, 2) : '';
@@ -215,10 +367,11 @@
     function saveGallery() {
       try {
         localStorage.setItem('snowrealm_home_gallery', JSON.stringify(JSON.parse(document.getElementById('galleryJson').value)));
-        alert('摄影作品已保存');
-      } catch(e) { alert('JSON 错误：' + e.message); }
+        alert('摄影作品已保存到本机');
+      } catch (e) { alert('JSON 错误：' + e.message); }
     }
 
+    // ----- 专题 -----
     function loadFeatures() {
       const s = localStorage.getItem('snowrealm_features');
       document.getElementById('featuresJson').value = s ? JSON.stringify(JSON.parse(s), null, 2) : '';
@@ -226,10 +379,11 @@
     function saveFeatures() {
       try {
         localStorage.setItem('snowrealm_features', JSON.stringify(JSON.parse(document.getElementById('featuresJson').value)));
-        alert('十二专题已保存');
-      } catch(e) { alert('JSON 错误：' + e.message); }
+        alert('十二专题已保存到本机');
+      } catch (e) { alert('JSON 错误：' + e.message); }
     }
 
+    // ----- 全库 -----
     function loadFullProducts() {
       const s = localStorage.getItem('snowrealm_products_full');
       document.getElementById('fullProductsJson').value = s ? JSON.stringify(JSON.parse(s), null, 2) : '';
@@ -237,10 +391,33 @@
     function saveFullProducts() {
       try {
         localStorage.setItem('snowrealm_products_full', JSON.stringify(JSON.parse(document.getElementById('fullProductsJson').value)));
-        alert('特产全库已保存');
-      } catch(e) { alert('JSON 错误：' + e.message); }
+        alert('特产全库已保存到本机');
+      } catch (e) { alert('JSON 错误：' + e.message); }
     }
 
+    // ----- 二维码 -----
+    function loadQr() {
+      try {
+        const s = localStorage.getItem('snowrealm_qr');
+        if (s) {
+          const q = JSON.parse(s);
+          if (q.wechat) document.getElementById('qr_wechat').value = q.wechat;
+          if (q.alipay) document.getElementById('qr_alipay').value = q.alipay;
+          if (q.paypal) document.getElementById('qr_paypal').value = q.paypal;
+        }
+      } catch (e) {}
+    }
+    function saveQr() {
+      const q = {
+        wechat: document.getElementById('qr_wechat').value,
+        alipay: document.getElementById('qr_alipay').value,
+        paypal: document.getElementById('qr_paypal').value
+      };
+      localStorage.setItem('snowrealm_qr', JSON.stringify(q));
+      alert('二维码路径已保存到本机');
+    }
+
+    // ----- 导出备份 -----
     function exportAll() {
       const all = {
         home_texts: safeParse('snowrealm_home_texts'),
@@ -248,23 +425,18 @@
         home_gallery: safeParse('snowrealm_home_gallery'),
         features: safeParse('snowrealm_features'),
         products_full: safeParse('snowrealm_products_full'),
+        qr: safeParse('snowrealm_qr'),
         exported_at: new Date().toISOString()
       };
       const blob = new Blob([JSON.stringify(all, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'snowrealm-backup-' + new Date().toISOString().slice(0,10) + '.json';
+      a.download = 'snowrealm-backup-' + new Date().toISOString().slice(0, 10) + '.json';
       a.click();
     }
     function safeParse(key) {
-      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch(e) { return null; }
+      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { return null; }
     }
-
-    loadHomeTexts();
-    loadHomeProducts();
-    loadGallery();
-    loadFeatures();
-    loadFullProducts();
   </script>
 </body>
 </html>
