@@ -1,6 +1,13 @@
-// Product image + USD currency overrides for 雪域瑰宝
+// Product image + USD overrides; also loads currency-fix.js
 (function () {
-  var RATE = 7; // CNY per USD (approx)
+  // load currency-fix.js once
+  if (!document.querySelector('script[src="currency-fix.js"]')) {
+    var s = document.createElement('script');
+    s.src = 'currency-fix.js';
+    document.head.appendChild(s);
+  }
+
+  var RATE = 7;
   function toUSD(n) {
     var usd = Number(n) / RATE;
     if (usd >= 100) return Math.round(usd / 5) * 5;
@@ -9,7 +16,6 @@
     return Math.round(usd * 10) / 10;
   }
 
-  // --- Image path overrides ---
   if (typeof products !== 'undefined') {
     var map = {
       3: { img: 'images/butter-tea-pot.jpg' },
@@ -23,59 +29,53 @@
         if (o.img2) p.img2 = o.img2;
         if (o.placeholder === false) delete p.placeholder;
       }
-      // Convert specs prices CNY -> USD if still large (looks like CNY)
       if (p.specs && p.specs.length) {
         p.specs.forEach(function (s) {
-          if (typeof s.price === 'number' && s.price >= 40) {
-            s.price = toUSD(s.price);
-          }
+          if (typeof s.price === 'number' && s.price >= 40) s.price = toUSD(s.price);
         });
       }
     });
   }
 
-  // --- Force $ currency in DOM display helpers ---
-  // Patch common ¥ → $ on textContent setters if page already loaded patterns
-  function swapYenInTree(root) {
-    if (!root) return;
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+  function applyCurrency() {
+    if (!document.body) return;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
     var node;
     while ((node = walker.nextNode())) {
+      if (node.nodeValue && node.nodeValue.indexOf('\u00a5') !== -1) {
+        node.nodeValue = node.nodeValue.split('\u00a5').join('$');
+      }
       if (node.nodeValue && node.nodeValue.indexOf('¥') !== -1) {
         node.nodeValue = node.nodeValue.split('¥').join('$');
       }
     }
+    ['cartTotal', 'payAmount', 'modalPrice'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.textContent) {
+        el.textContent = el.textContent.split('\u00a5').join('$').split('¥').join('$');
+      }
+    });
   }
 
-  // Replace ¥ in template-rendered areas after brief delay
-  function applyCurrency() {
-    swapYenInTree(document.body);
-    var ids = ['cartTotal', 'payAmount', 'modalPrice'];
-    ids.forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el && el.textContent) el.textContent = el.textContent.split('¥').join('$');
-    });
+  function boot() {
+    if (typeof renderProducts === 'function') {
+      try { renderProducts(typeof currentFilter !== 'undefined' ? currentFilter : 'all'); } catch (e) {}
+    }
+    applyCurrency();
   }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      setTimeout(applyCurrency, 50);
-      setTimeout(applyCurrency, 400);
+      setTimeout(boot, 50);
+      setTimeout(boot, 400);
     });
   } else {
-    setTimeout(applyCurrency, 50);
-    setTimeout(applyCurrency, 400);
+    setTimeout(boot, 50);
+    setTimeout(boot, 400);
   }
-
-  // Monkey-patch textContent assignment for cart total if functions exist later
-  var _orig = Element.prototype;
-  // Safer: observe mutations for ¥
   try {
-    var obs = new MutationObserver(function () { applyCurrency(); });
-    obs.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    new MutationObserver(function () { applyCurrency(); }).observe(document.documentElement, {
+      childList: true, subtree: true, characterData: true
+    });
   } catch (e) {}
-
-  if (typeof renderProducts === 'function') {
-    try { renderProducts(typeof currentFilter !== 'undefined' ? currentFilter : 'all'); } catch (e) {}
-  }
 })();
