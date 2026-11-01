@@ -195,7 +195,7 @@
     <div class="p-5 border-t border-snow-200 bg-snow-50">
       <div class="flex items-center justify-between mb-4">
         <span class="text-slate-600" data-i18n="cart_total">合计</span>
-        <span id="cartTotal" class="text-2xl font-extrabold text-gold-600">$0</span>
+        <span id="cartTotal" class="text-2xl font-extrabold text-gold-600">¥0</span>
       </div>
       <p class="text-xs text-slate-400 mb-4" data-i18n="cart_note">价格为示例参考价，实际以订单确认为准。物流与税费另计。</p>
       <button onclick="checkout()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition flex items-center justify-center gap-2">
@@ -226,7 +226,7 @@
       </div>
       <div class="p-5">
         <p class="text-center text-slate-600 text-sm mb-1" data-i18n="pay_amount_label">应付金额</p>
-        <p id="payAmount" class="text-center text-3xl font-extrabold text-gold-600 mb-6">$0</p>
+        <p id="payAmount" class="text-center text-3xl font-extrabold text-gold-600 mb-6">¥0</p>
 
         <!-- Tabs -->
         <div class="flex rounded-full bg-snow-100 p-1 mb-5 gap-0.5">
@@ -360,7 +360,7 @@
     // Prices are SAMPLE REFERENCE only (示例参考价)
     const products = [
       {
-        id: 1, cat: "food", img: "images/dcxc.png", img2: "images/dcxc2.jpeg",
+        id: 1, cat: "food", img: "images/IMG_8450.jpg", img2: "images/IMG_8435.jpg",
         name: { zh: "冬虫夏草", en: "Cordyceps", bo: "དབྱར་རྩྭ་དགུན་འབུ།" },
         subtitle: { zh: "雪域珍稀菌虫共生体，本页不构成医疗建议。", en: "A rare plateau fungus-insect organism; this page does not constitute medical advice.", bo: "གངས་ལྗོངས་ཀྱི་རྩ་ཆེའི་དབྱར་རྩྭ་དགུན་འབུ། ཤོག་ངོས་འདིས་སྨན་བཅོས་ཀྱི་སློབ་སྟོན་མི་བྱེད།" },
         desc: { zh: "冬虫夏草是来自高原高海拔地区的一种真菌与昆虫幼虫的独特共生体，外形似茎草，历来被作为地区性珍品。我们提供的产品为天然采集或传统处理的食用/收藏品，供烹调或研究使用。本页不构成医疗建议，具体用途请咨询专业人士并遵守当地法规。", en: "Cordyceps is a unique organism formed by a fungus parasitizing insect larvae in high-altitude environments. Presented here as naturally collected, traditionally processed specimens suitable for culinary use, study, or collection. This page is not medical advice—consult professionals and follow local regulations for specific uses.", bo: "དབྱར་རྩྭ་དགུན་འབུ་ནི་ས་བབ་མཐོ་སའི་འབུ་དང་སྨིན་མ་ཟུང་འབྲེལ་གྱི་སྐྱེ་དངོས་ཁྱད་པར་བ་ཞིག་ཡིན། འདི་ནི་ཟས་རིགས་དང་ཉར་ཚགས་བྱེད་རྒྱུར་མཁོ་འདོན་བྱས་པ་ལས་སྨན་བཅོས་ཀྱི་སློབ་སྟོན་མིན།" },
@@ -370,13 +370,13 @@
         storage: { zh: "密封、避光、低温干燥保存，防潮防蛀。", en: "Store sealed, away from light, in a cool, dry place; protect from moisture and pests.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉི་འོད་མི་ཕོག་པར་ཉར་དགོས།" },
         allergens: { zh: "纯品无添加；若加工为配方，请参照商品标签中的配料与过敏原说明。", en: "Single-ingredient natural product; for processed formulations refer to the product label for ingredients and allergen information.", bo: "རང་བྱུང་ལྷད་མེད་ཀྱི་ཐོན་རྫས་ཡིན། ལས་སྣོན་བྱས་པའི་རིགས་ཡིན་ན་ཐོན་རྫས་ཀྱི་ཁ་བྱང་ལ་ལྟ་རོགས།" },
         specs: [
-          { id: "s1", label: { zh: "10g 精选", en: "10g Selected", bo: "༡༠ཁེ།" }, price: 500 },
-          { id: "s2", label: { zh: "25g 礼盒", en: "25g Gift Box", bo: "༢༥ཁེ།" }, price: 1250},
-          { id: "s3", label: { zh: "50g 珍藏", en: "50g Collector", bo: "༥༠ཁེ།" }, price: 2500}
+          { id: "s1", label: { zh: "10g 精选", en: "10g Selected", bo: "༡༠ཁེ།" }, price: 1280 },
+          { id: "s2", label: { zh: "25g 礼盒", en: "25g Gift Box", bo: "༢༥ཁེ།" }, price: 2980 },
+          { id: "s3", label: { zh: "50g 珍藏", en: "50g Collector", bo: "༥༠ཁེ།" }, price: 5680 }
         ]
       },
       {
-        id: 2, cat: "food", img: "images/贝母.jpg", img2: "images/贝母.jpg",
+        id: 2, cat: "food", img: "images/IMG_8449.jpg", img2: "images/IMG_8446.jpg",
         name: { zh: "高原贝母", en: "Highland Beimu", bo: "ས་མཐོའི་ཨ་པི་ཀ" },
         subtitle: { zh: "雪域高原的白色鳞茎，本页不构成医疗建议。", en: "Highland bulbous rhizomes; this page does not constitute medical advice.", bo: "གངས་ལྗོངས་ས་མཐོའི་དཀར་མདོག་གི་རྩ་བ། ཤོག་ངོས་འདིས་སྨན་བཅོས་ཀྱི་སློབ་སྟོན་མི་བྱེད།" },
         desc: { zh: "高原贝母为百合科若干种干燥鳞茎的统称，产自高海拔地带，常用于烹饪与日常配料或作为传统用途素材。作为植物性食材，请遵循当地法规和专业建议。本页不构成医疗建议，具体用途请咨询专业人士并遵守当地法规。", en: "Highland \"Beimu\" refers to dried bulbous rhizomes of several Liliaceae species collected at high altitudes. Suited for culinary use, craft ingredients, or traditional preparations. This page is not medical advice—consult professionals and follow local laws for specific uses.", bo: "ས་མཐོའི་འབེ་མུ་ནི་ས་བབ་མཐོ་སར་སྐྱེ་བའི་སྐམ་པོར་བཟོས་པའི་རྩ་བ་ཞིག་ཡིན། འདི་ནི་ཟ་མ་གཡོ་སྐོལ་དང་རྒྱུན་ལྡན་གྱི་རྒྱུ་ཆར་སྤྱོད་པ་ལས་སྨན་བཅོས་ཀྱི་སློབ་སྟོན་མིན།" },
@@ -386,9 +386,9 @@
         storage: { zh: "置于阴凉干燥处，密封防潮。", en: "Store sealed in a cool, dry place to prevent moisture.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས།" },
         allergens: { zh: "纯植物性原料；若为配方产品，请依商品标签提示。", en: "Single-ingredient plant product; follow product label for any processed items.", bo: "རྩི་ཤིང་གི་རྒྱུ་ཆ་རྐྱང་པ་ཡིན།" },
         specs: [
-          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠ཁེ།" }, price: 39.00},
-          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠ཁེ།" }, price: 78.00},
-          { id: "s3", label: { zh: "250g 礼盒", en: "250g Gift", bo: "༢༥༠ཁེ།" }, price: 195.00}
+          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠ཁེ།" }, price: 168 },
+          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠ཁེ།" }, price: 298 },
+          { id: "s3", label: { zh: "250g 礼盒", en: "250g Gift", bo: "༢༥༠ཁེ།" }, price: 680 }
         ]
       },
       {
@@ -402,9 +402,9 @@
         storage: { zh: "密封冷藏或阴凉避光处，避免高温化油。", en: "Keep sealed and refrigerated or stored in a cool dark place; avoid high heat that causes melting.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་འཁྱག་སྒམ་ནང་ངམ་བསིལ་སར་ཉར་དགོས། ཚ་བ་ཆེ་སར་བཞག་ན་བཞུ་འགྲོ།" },
         allergens: { zh: "牦牛奶制品，乳制品过敏者慎用；参考包装上的配料标示。", en: "Derived from yak milk; individuals with dairy allergies should avoid. See package label for full ingredient information.", bo: "འབྲིའི་འོ་མ་ལས་བཟོས་པས་འོ་མར་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠ཁེ།" }, price: 12.2},
-          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠ཁེ།" }, price: 21.9},
-          { id: "s3", label: { zh: "1kg 家庭装", en: "1kg Family", bo: "༡སྤྱི་རྒྱ།" }, price: 41.4}
+          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠ཁེ།" }, price: 88 },
+          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠ཁེ།" }, price: 158 },
+          { id: "s3", label: { zh: "1kg 家庭装", en: "1kg Family", bo: "༡སྤྱི་རྒྱ།" }, price: 298 }
         ]
       },
       {
@@ -440,7 +440,7 @@
         ]
       },
       {
-        id: 6, cat: "food", img: "images/IMG_8440.jpg", img2: "images/hmg.jpg",
+        id: 6, cat: "food", img: "images/IMG_8440.jpg", img2: "images/IMG_8439.jpg",
         name: { zh: "高原黄蘑菇", en: "Wild Yellow Mushroom", bo: "ས་མཐོའི་སེར་ཤ།" },
         subtitle: { zh: "草甸野生的鲜香珍菇，须来自正规渠道、准确鉴别并充分加热。", en: "A rare meadow mushroom prized for rich flavor—must come from verified sources, be accurately identified and thoroughly cooked.", bo: "སྤང་ལྗོངས་ཀྱི་རི་སྐྱེས་ཤ་མོ་སྟེ། ངེས་པར་དུ་ལེགས་པར་བཙོས་ནས་བཟའ་དགོས།" },
         desc: { zh: "高原黄蘑菇为高海拔草甸中自然生长的野生菌类，肉质肥厚、风味鲜美且稀有。因野生菌种类复杂，采购与食用须谨慎：产品须来自正规渠道，准确鉴别并充分加热后食用，以保障安全。", en: "The wild yellow mushroom grows naturally in high-altitude meadows, prized for its meaty texture and intense aroma. Wild fungi can be diverse and potentially hazardous; purchase only through reputable channels, ensure proper identification, and cook thoroughly before eating.", bo: "ས་མཐོའི་སེར་ཤ་ནི་ས་བབ་མཐོ་སའི་སྤང་དུ་སྐྱེ་བའི་རི་སྐྱེས་ཤ་མོ་ཞིག་ཡིན། ཤ་མོ་རི་སྐྱེས་རིགས་རྙོག་འཛིང་ཆེ་བས་ངེས་པར་དུ་ཁུངས་ལྡན་ནས་ཉོ་དགོས་ཤིང་། བདེ་འཇགས་ཀྱི་ཆེད་དུ་ལེགས་པར་བཙོས་ནས་བཟའ་དགོས།" },
@@ -504,7 +504,7 @@
         ]
       },
       {
-        id: 10, cat: "dairy", img: "images/点心.png", placeholder: true,
+        id: 10, cat: "dairy", img: "images/IMG_8447.jpg", placeholder: true,
         name: { zh: "人参果奶渣酥油点心", en: "Handmade Pastry (Three Treasures)", bo: "གྲོ་མ་ཕྱུར་བ་མར་གྱི་མངར་ཟས།" },
         subtitle: { zh: "高原“三宝”手工合制的软糯点心。", en: "A handcrafted pastry combining the plateau’s three treasures.", bo: "ས་མཐོའི་རིན་ཆེན་གསུམ་ལས་ལག་པས་བཟོས་པའི་མངར་ཟས།" },
         desc: { zh: "人参果奶渣酥油点心由人参果（蕨麻）、奶渣（曲拉）与牦牛酥油手工制作而成，无人工防腐，口感酸甜软糯，适合搭配暖茶或作为便携能量点心。", en: "This pastry blends the plateau tuber, curd residue and yak butter by hand—no artificial preservatives. The texture is soft, slightly tart and rich with butter aroma, ideal with warm tea or as a portable energy snack.", bo: "མངར་ཟས་འདི་ནི་གྲོ་མ་དང་ཕྱུར་བ། འབྲིའི་མར་བཅས་ལག་པས་བསྲེས་ནས་བཟོས་པ་ཞིག་ཡིན། རུལ་འགོག་རྫས་མེད་ཅིང་སྐྱུར་མངར་མཉེན་པོའི་བྲོ་བ་ལྡན་པས་ཇ་དང་མཉམ་དུ་བཟའ་བར་ཤིན་ཏུ་འཚམ།" },
@@ -520,7 +520,7 @@
         ]
       },
       {
-        id: 11, cat: "spice", img: "images/藏茶.jpg", placeholder: true,
+        id: 11, cat: "spice", img: "images/IMG_8448.jpg", placeholder: true,
         name: { zh: "藏茶砖茶", en: "Brick Tea", bo: "བོད་ཇ་སོ་ཕག་མ།" },
         subtitle: { zh: "雪域日常的暖意之茶。", en: "Compressed brick tea for everyday warmth on the plateau.", bo: "གངས་ལྗོངས་ཀྱི་རྒྱུན་ལྡན་དྲོད་འཇམ་གྱི་ཇ།" },
         desc: { zh: "藏茶砖茶为压制成砖的黑茶类，常与酥油、盐或茴香搭配制成酥油茶。适合熬煮与长期保存，是藏区日常饮用与待客的基础茶品。", en: "Brick tea is a compressed form of dark tea commonly brewed and mixed with butter, salt or fennel to make traditional butter tea. It stores and travels well, and is a staple for daily drinking and hospitality.", bo: "བོད་ཇ་སོ་ཕག་མ་ནི་སོ་ཕག་གི་དབྱིབས་སུ་བཙིར་བའི་ཇ་ནག་གི་རིགས་ཤིག་ཡིན་ཞིང་། རྒྱུན་དུ་མར་དང་ཚྭ། གོ་སྙོད་སོགས་དང་མཉམ་དུ་བོད་ཇ་སྲུབ་པར་སྤྱོད།" },
@@ -536,7 +536,7 @@
         ]
       },
       {
-        id: 12, cat: "other", img: "images/青稞酒.jpeg", placeholder: true,
+        id: 12, cat: "other", img: "images/IMG_8441.jpg", placeholder: true,
         name: { zh: "青稞酒", en: "Barley Wine", bo: "ནས་ཆང་།" },
         subtitle: { zh: "高原粮谷酿造的传统酒品，含酒精，未成年人和孕期人群不宜饮用，请勿酒后驾驶并适量。", en: "Traditional barley wine from highland grains—contains alcohol. Not suitable for minors or pregnant individuals. Do not drive after drinking and consume responsibly.", bo: "ས་མཐོའི་འབྲུ་རིགས་ལས་བཙོས་པའི་སྲོལ་རྒྱུན་གྱི་ཆང་། ཆང་བཅུད་ཡོད་པས་ལོ་མ་ལོན་པ་དང་སྦྲུམ་མས་འཐུང་མི་རུང་།" },
         desc: { zh: "青稞酒以青稞为主要原料，采用传统发酵工艺酿制而成，酒体具有典型的粮香与地区风味。含酒精，请遵守饮酒法规与个人健康考量。", en: "Made from highland barley through traditional fermentation, this barley wine carries a characteristic grain aroma and regional taste. It contains alcohol—observe legal drinking ages and personal health advisories.", bo: "ནས་ཆང་ནི་ནས་གཙོ་བོར་བྱས་ཏེ་སྲོལ་རྒྱུན་གྱི་ཕབ་རྩིའི་སྦྱོར་བཟོ་ལས་བྱུང་བ་ཞིག་ཡིན་ཞིང་། འབྲུ་རིགས་ཀྱི་དྲི་ཞིམ་དང་ས་གནས་ཀྱི་ཁྱད་ཆོས་ལྡན་ཡོད།" },
@@ -552,7 +552,7 @@
         ]
       },
       {
-        id: 13, cat: "other", img: "images/高原蜂蜜.jpeg", img2: "images/高原蜂蜜.jpeg", placeholder: true,
+        id: 13, cat: "other", img: "images/IMG_8444.jpg", img2: "images/IMG_8443.jpg", placeholder: true,
         name: { zh: "高原蜂蜜", en: "Plateau Honey", bo: "ས་མཐོའི་སྦྲང་རྩི།" },
         subtitle: { zh: "高地花源蜜，纯净风味。1岁以下婴儿不宜食用。", en: "Highland floral honey with a pure, delicate flavor. Not suitable for infants under 1 year.", bo: "ས་མཐོའི་མེ་ཏོག་ལས་བྱུང་བའི་སྦྲང་རྩི་གཙང་མ། ལོ་གཅིག་མན་གྱི་བྱིས་པར་སྟེར་མི་རུང་།" },
         desc: { zh: "高原蜂蜜采自高海拔花源，风味独特且香气清新，适合作为甜味剂或烹饪用料。请注意：1岁以下婴儿不宜食用蜂蜜。", en: "Sourced from high-altitude floral sources, plateau honey offers a unique, fresh aroma suitable as a sweetener or cooking ingredient. Note: Honey must not be fed to infants under one year of age.", bo: "ས་མཐོའི་སྦྲང་རྩི་ནི་ས་བབ་མཐོ་སའི་མེ་ཏོག་ལས་བླངས་པ་ཡིན་ཞིང་། བྲོ་བ་ཁྱད་པར་བ་དང་དྲི་མ་གཙང་བས་མངར་ཆའམ་ཟ་མ་གཡོ་སྐོལ་ལ་སྤྱོད་བདེ།" },
@@ -635,7 +635,7 @@
             <p class="text-slate-500 text-xs line-clamp-2 mb-3 flex-1">${p.subtitle[currentLang]}</p>
             <div class="flex items-center justify-between mt-auto">
               <div>
-                <span class="text-gold-600 font-extrabold text-lg">$${minPrice}</span>
+                <span class="text-gold-600 font-extrabold text-lg">¥${minPrice}</span>
                 <span class="text-slate-400 text-xs ml-1">起</span>
               </div>
               <button onclick="openDetail(${p.id})" class="px-3 py-1.5 rounded-full bg-gold-500 hover:bg-gold-600 text-white text-xs font-medium transition flex items-center gap-1">
@@ -694,7 +694,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="spec_${p.id}" value="${s.id}" ${i===0?'checked':''} class="peer sr-only" onchange="updateModalPrice(${p.id})">
                 <span class="inline-block px-4 py-2 rounded-full border text-sm peer-checked:bg-gold-500 peer-checked:text-white peer-checked:border-gold-500 bg-white text-slate-700 hover:border-gold-400 transition">
-                  ${s.label[currentLang]} · $${s.price}
+                  ${s.label[currentLang]} · ¥${s.price}
                 </span>
               </label>
             `).join('')}
@@ -710,7 +710,7 @@
           <div class="flex items-center justify-between">
             <div>
               <span class="text-sm text-slate-500">${t[currentLang].price}</span>
-              <span id="modalPrice" class="text-2xl font-extrabold text-gold-600 ml-2">$${p.specs[0].price}</span>
+              <span id="modalPrice" class="text-2xl font-extrabold text-gold-600 ml-2">¥${p.specs[0].price}</span>
             </div>
             <button onclick="addToCart(${p.id})" class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition flex items-center gap-2">
               <i class="fas fa-cart-plus"></i>
@@ -739,7 +739,7 @@
       const selected = document.querySelector(`input[name="spec_${pid}"]:checked`);
       if (!selected) return;
       const spec = p.specs.find(s => s.id === selected.value);
-      document.getElementById('modalPrice').textContent = '$' + spec.price;
+      document.getElementById('modalPrice').textContent = '¥' + spec.price;
     }
 
     // ========== CART ==========
@@ -793,7 +793,7 @@
       const container = document.getElementById('cartItems');
       if (cart.length === 0) {
         container.innerHTML = `<div class="text-center py-16 text-slate-400"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>${t[currentLang].empty_cart}</p></div>`;
-        document.getElementById('cartTotal').textContent = '$0';
+        document.getElementById('cartTotal').textContent = '¥0';
         return;
       }
       let total = 0;
@@ -806,7 +806,7 @@
             <h4 class="font-semibold text-slate-800 text-sm truncate">${c.name[currentLang]}</h4>
             <p class="text-xs text-slate-500">${c.specLabel[currentLang]}</p>
             <div class="flex items-center justify-between mt-1">
-              <span class="text-gold-600 font-bold text-sm">$${c.price}</span>
+              <span class="text-gold-600 font-bold text-sm">¥${c.price}</span>
               <div class="flex items-center gap-2">
                 <button onclick="updateCartQty(${i}, -1)" class="w-6 h-6 rounded-full bg-white border text-xs">−</button>
                 <span class="text-sm font-medium w-6 text-center">${c.qty}</span>
@@ -817,7 +817,7 @@
           </div>
         </div>`;
       }).join('');
-      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString();
+      document.getElementById('cartTotal').textContent = '¥' + total.toLocaleString();
     }
 
     function updateCartQty(index, delta) {
@@ -855,7 +855,7 @@
     function checkout() {
       if (cart.length === 0) return;
       const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-      document.getElementById('payAmount').textContent = '$' + total.toLocaleString();
+      document.getElementById('payAmount').textContent = '¥' + total.toLocaleString();
       switchPayTab('wechat');
       document.getElementById('payModal').classList.remove('hidden');
       // close cart sidebar
@@ -916,7 +916,6 @@
       setLang('zh');
       updateCartBadge();
     };
-</script>
-  <script src="product-img-overrides.js"></script>
+  </script>
 </body>
 </html>
