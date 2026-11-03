@@ -383,7 +383,7 @@
         </a>
 
         <!-- Portal 3: IT Services -->
-        <a href="it.html" class="portal-card cursor-pointer group relative rounded-3xl overflow-hidden h-[480px] block">
+        <a href="https://renqingtibet-lab.github.io/maqingitservice/" target="_blank" rel="noopener noreferrer" class="portal-card cursor-pointer group relative rounded-3xl overflow-hidden h-[480px] block">
           <img src="images/portal-it.jpg" 
                alt="信息技术" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
           <div class="portal-overlay absolute inset-0 bg-gradient-to-t from-snow-950 via-snow-950/60 to-transparent opacity-80 transition-opacity"></div>
@@ -417,6 +417,11 @@
         </a>
       </div>
 
+      <div class="w-full mb-8 rounded-xl border border-amber-300/50 bg-amber-500/10 px-4 py-3 text-sm text-amber-100 leading-relaxed">
+        <p lang="bo">ཨ་སྒོར་གྱི་རིན་གོང་ནི་དཔེ་མཚོན་ཙམ་ཡིན། མདུན་ངོས་ཀྱི་རིན་གོང་ནི་ཆེ་ཆུང་ཆུང་ཤོས་ལ་གཞི་བཞག་པ་ཡིན།</p>
+        <p>Prices are approximate USD estimates; homepage prices start at the lowest specification. We cannot cover shipping or any other fees.</p>
+        <p>商品价格均为美元近似估价；首页展示最低规格起价。运费等任何费用我们无法承担。</p>
+      </div>
       <!-- Dynamic Grid Rendered via JS -->
       <div id="productGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Products generated dynamically based on active language -->
@@ -567,7 +572,7 @@
           <ul class="space-y-3 text-sm">
             <li><a href="photography.html" class="hover:text-gold-400 transition" data-i18n="p1_title">旅游与摄影服务</a></li>
             <li><a href="products.html" class="hover:text-gold-400 transition" data-i18n="p2_title">藏地特产销售与展览</a></li>
-            <li><a href="it.html" class="hover:text-gold-400 transition" data-i18n="p3_title">高原信息技术</a></li>
+            <li><a href="https://renqingtibet-lab.github.io/maqingitservice/" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition" data-i18n="p3_title">高原信息技术</a></li>
           </ul>
         </div>
 
@@ -793,7 +798,7 @@
         id: "p1",
         category: "特产",
         img: "images/IMG_8450.jpg",
-        price: "¥1,280",
+        price: "~US$450+",
         badge: { zh: "珍稀", en: "Rare", bo: "རྩ་ཆེན།" },
         name: { zh: "冬虫夏草", en: "Cordyceps", bo: "དབྱར་རྩྭ་དགུན་འབུ།" },
         desc: { zh: "雪域珍稀 · 天然共生体", en: "Plateau rare · Natural organism", bo: "གངས་ལྗོངས་རྩ་ཆེ།" }
@@ -802,7 +807,7 @@
         id: "p2",
         category: "特产",
         img: "images/IMG_8447.jpg",
-        price: "¥88",
+        price: "~US$5.50+",
         badge: { zh: "热销", en: "Hot", bo: "ཚོང་ལེགས།" },
         name: { zh: "传统牦牛酥油", en: "Yak Butter", bo: "འབྲི་མར།" },
         desc: { zh: "牧区手工 · 纯正奶香", en: "Handcrafted · Pure dairy aroma", bo: "འབྲི་མོའི་འོ་མ།" }
@@ -811,7 +816,7 @@
         id: "p3",
         category: "特产",
         img: "images/IMG_8437.jpg",
-        price: "¥128",
+        price: "~US$7+",
         badge: { zh: "精选", en: "Selected", bo: "ཧྲགས་བསྡུས།" },
         name: { zh: "风干牦牛肉", en: "Air-dried Yak Beef", bo: "ནོར་ཤ་སྐམ་པོ།" },
         desc: { zh: "自然风干 · 肉香嚼劲", en: "Wind-dried · Savory chew", bo: "རང་བྱུང་རླུང་སྐམ།" }
@@ -820,7 +825,7 @@
         id: "p4",
         category: "特产",
         img: "images/IMG_8442.jpg",
-        price: "¥48",
+        price: "~US$5+",
         badge: { zh: "新品", en: "New", bo: "ཐོན་རྫས་གསརབ།།" },
         name: { zh: "藏香", en: "Tibetan Incense", bo: "བོད་སྤོས།" },
         desc: { zh: "天然草木 · 传统气息", en: "Natural botanicals · Traditional scent", bo: "རང་བྱུང་རྩི་ཤིང་།" }
@@ -902,16 +907,18 @@
     }
 
     // Shared cart via localStorage (works with products.html)
+    if (localStorage.getItem('snowrealm_cart_currency') !== 'USD') { localStorage.removeItem('snowrealm_cart'); localStorage.setItem('snowrealm_cart_currency', 'USD'); }
     function getCart() {
       try { return JSON.parse(localStorage.getItem('snowrealm_cart') || '[]'); } catch(e) { return []; }
     }
     function saveCart(cart) {
       localStorage.setItem('snowrealm_cart', JSON.stringify(cart));
+      localStorage.setItem('snowrealm_cart_currency', 'USD');
     }
     function addHomeProductToCart(id) {
       const item = productsData.find(p => p.id === id);
       if (!item) return;
-      const priceNum = parseInt(String(item.price).replace(/[^\d]/g, ''), 10) || 0;
+      const priceNum = parseFloat(String(item.price).replace(/[^\d.]/g, '')) || 0;
       const cart = getCart();
       const key = id + '_default';
       const existing = cart.find(c => c.key === key);
@@ -962,7 +969,7 @@
             </div>
           </div>
           <div class="px-5 pb-5 flex items-center justify-between mt-auto gap-2">
-            <span class="text-gold-600 font-extrabold text-xl">${item.price}</span>
+            <span class="text-yellow-600 font-extrabold text-xl">${item.price}</span>
             <div class="flex items-center gap-2">
               <button type="button" onclick="addHomeProductToCart('${item.id}')" class="px-3.5 py-1.5 rounded-full bg-gold-500 hover:bg-gold-600 text-white text-xs font-medium transition-colors flex items-center gap-1.5">
                 <i class="fas fa-cart-plus"></i>
@@ -1087,7 +1094,7 @@
       } else {
         resultsContainer.innerHTML = filtered.map(item => `
           <div class="flex items-center gap-4 p-3 rounded-2xl hover:bg-snow-100 transition cursor-pointer border border-transparent hover:border-snow-200"
-               onclick="${item.type === 'gallery' ? `openPhotoLightbox('${item.id}'); closeSearchModal();` : item.type === 'products' ? `location.href='products.html';` : `location.href='it.html';`}">
+               onclick="${item.type === 'gallery' ? `openPhotoLightbox('${item.id}'); closeSearchModal();` : item.type === 'products' ? `location.href='products.html';` : `location.href='https://renqingtibet-lab.github.io/maqingitservice/';`}">
             <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover shrink-0">
             <div class="flex-1">
               <div class="flex items-center gap-2">
@@ -1096,7 +1103,7 @@
               </div>
               <p class="text-xs text-slate-500 mt-1">${item.displaySub}</p>
             </div>
-            ${item.price ? `<span class="text-gold-600 font-bold text-sm">${item.price}</span>` : `<i class="fas fa-chevron-right text-slate-300 text-xs"></i>`}
+            ${item.price ? `<span class="text-yellow-600 font-bold text-sm">${item.price}</span>` : `<i class="fas fa-chevron-right text-slate-300 text-xs"></i>`}
           </div>
         `).join('');
       }
@@ -1144,7 +1151,16 @@
     window.onload = function() {
       try {
         const hp = localStorage.getItem('snowrealm_home_products');
-        if (hp) productsData = JSON.parse(hp);
+        if (hp) {
+          const basePrices = Object.fromEntries(productsData.map(item => [item.id, item.price]));
+          const saved = JSON.parse(hp);
+          if (Array.isArray(saved)) productsData = saved.map(item => {
+            const raw = String(item.price ?? '').trim();
+            if (/^~?US\$/i.test(raw)) return { ...item, price: raw.startsWith('~') ? raw : `~${raw}` };
+            const numeric = raw.replace(/[^0-9.]/g, '');
+            return { ...item, price: basePrices[item.id] || `~US$${numeric || '0'}` };
+          });
+        }
         const hg = localStorage.getItem('snowrealm_home_gallery');
         if (hg) galleryData = JSON.parse(hg);
         const ht = localStorage.getItem('snowrealm_home_texts');

@@ -137,6 +137,16 @@
           <p class="text-slate-600 text-sm leading-relaxed" data-i18n="shopping_notes">产地、批次、净含量、配料、过敏原、保质期、储存方式、检测报告、包装与物流等信息，请以商品实际标签和商家资料为准。价格为示例参考价，实际成交价以订单确认时为准。</p>
         </div>
       </div>
+      <div class="mt-6 rounded-xl border border-snow-200 bg-snow-50 px-4 py-3 text-sm text-slate-700 leading-relaxed">
+        <p lang="bo"><strong>ཐོན་ཁུངས།</strong> ཚོང་པའི་གསལ་བཤད་ལྟར། ཐོན་རྫས་འདི་དག་མཚོ་འཕགས་སྨི་3000–5400 བར་གྱི་མཚོ་སྔོན་བོད་མཐོ་སྒང་ནས་ཐོན་པའི་རང་བྱུང་ཐོན་རྫས་ཡིན། ཤོག་ངོས་འདིར་རང་དཔང་གི་ཨོ་གེ་ནིག་ངོས་ལེན་མེད།</p>
+        <p><strong>Origin:</strong> According to the seller, these naturally sourced specialties come from the Qinghai–Tibet Plateau at approximately 3,000–5,400 m. No independent organic certification is stated on this page.</p>
+        <p><strong>产地信息：</strong>根据商家提供的信息，这些特产来自海拔约 3000–5400 米的青藏高原，属于天然来源产品；页面未提供独立有机认证信息。</p>
+      </div>
+      <div class="mt-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900 leading-relaxed">
+        <p lang="bo"><strong>གླ་ཆའི་གསལ་བཤད།</strong> སྐྱེལ་གླ་སོགས་གླ་ཆ་གཞན་གང་ཡང་ང་ཚོས་འགན་ཁུར་མི་ཐུབ།</p>
+        <p><strong>Cost notice:</strong> We cannot cover shipping or any other fees.</p>
+        <p><strong>费用说明：</strong>运费等任何费用我们无法承担。</p>
+      </div>
     </div>
   </section>
 
@@ -195,7 +205,7 @@
     <div class="p-5 border-t border-snow-200 bg-snow-50">
       <div class="flex items-center justify-between mb-4">
         <span class="text-slate-600" data-i18n="cart_total">合计</span>
-        <span id="cartTotal" class="text-2xl font-extrabold text-gold-600">$0</span>
+        <span id="cartTotal" class="text-2xl font-extrabold text-yellow-600">≈ US$0</span>
       </div>
       <p class="text-xs text-slate-400 mb-4" data-i18n="cart_note">价格为示例参考价，实际以订单确认为准。物流与税费另计。</p>
       <button onclick="checkout()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-[1.02] transition flex items-center justify-center gap-2">
@@ -226,26 +236,16 @@
       </div>
       <div class="p-5">
         <p class="text-center text-slate-600 text-sm mb-1" data-i18n="pay_amount_label">应付金额</p>
-        <p id="payAmount" class="text-center text-3xl font-extrabold text-gold-600 mb-6">$0</p>
+        <p id="payAmount" class="text-center text-3xl font-extrabold text-yellow-600 mb-6">≈ US$0</p>
 
         <!-- Tabs -->
         <div class="flex rounded-full bg-snow-100 p-1 mb-5 gap-0.5">
-          <button id="tabWechat" onclick="switchPayTab('wechat')" class="flex-1 py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white shadow text-slate-800 transition">
-            <i class="fab fa-weixin text-green-500 mr-0.5"></i> <span data-i18n="pay_wechat">微信</span>
-          </button>
           <button id="tabAlipay" onclick="switchPayTab('alipay')" class="flex-1 py-2.5 rounded-full text-xs sm:text-sm font-medium text-slate-500 transition">
             <i class="fas fa-wallet text-blue-500 mr-0.5"></i> <span data-i18n="pay_alipay">支付宝</span>
           </button>
           <button id="tabPaypal" onclick="switchPayTab('paypal')" class="flex-1 py-2.5 rounded-full text-xs sm:text-sm font-medium text-slate-500 transition">
             <i class="fab fa-paypal text-blue-600 mr-0.5"></i> <span data-i18n="pay_paypal">PayPal</span>
           </button>
-        </div>
-
-        <!-- WeChat QR -->
-        <div id="payWechat" class="text-center">
-          <img src="images/wechat-qr.jpg" alt="WeChat Pay" class="w-56 h-56 mx-auto rounded-xl border border-snow-200 object-contain bg-white">
-          <p class="mt-3 text-sm text-slate-600" data-i18n="pay_wechat_tip">请使用微信扫一扫支付</p>
-          <p class="text-xs text-slate-400 mt-1">雪域it</p>
         </div>
 
         <!-- Alipay QR -->
@@ -260,6 +260,11 @@
           <img src="images/paypal-qr.jpg" alt="PayPal" class="w-56 h-56 mx-auto rounded-xl border border-snow-200 object-contain bg-white">
           <p class="mt-3 text-sm text-slate-600" data-i18n="pay_paypal_tip">请使用 PayPal 扫码支付</p>
           <p class="text-xs text-slate-400 mt-1">高原信息技术服务 · 多仁</p>
+          <div class="mt-3 space-y-1 text-sm text-slate-700 break-all">
+            <p lang="bo">PayPal ཡིག་སྒྲོམ།: <a class="underline" href="mailto:renqingtibet@gmail.com">renqingtibet@gmail.com</a></p>
+            <p>PayPal email: <a class="underline" href="mailto:renqingtibet@gmail.com">renqingtibet@gmail.com</a></p>
+            <p>PayPal 邮箱：<a class="underline" href="mailto:renqingtibet@gmail.com">renqingtibet@gmail.com</a></p>
+          </div>
         </div>
 
         <p class="mt-5 text-xs text-center text-slate-400" data-i18n="pay_note">支付完成后请保留截图并联系客服确认订单。价格为示例参考价。</p>
@@ -294,19 +299,18 @@
         page_summary_title: "页面简介",
         page_summary: "从雪山草甸到牧场人家，我们甄选质朴天然的高原食材与手工食品，提供详细食用与保存建议。购物信息以商品实物标签与商家资料为准。",
         shopping_notes_title: "通用购物提示",
-        shopping_notes: "产地、批次、净含量、配料、过敏原、保质期、储存方式、检测报告、包装与物流等信息，请以商品实际标签和商家资料为准。价格为示例参考价，实际成交价以订单确认时为准。",
+        shopping_notes: "产地、批次、净含量、配料、过敏原、保质期、储存方式、检测报告、包装与物流等信息，请以商品实际标签和商家资料为准。黄色美元价格为国际零售可比估价，并非统一国际标准价。",
         products_heading: "精选高原食材与风味", products_count: "共 14 款 · 点击卡片查看详情并选购",
         filter_all: "全部", filter_food: "食材", filter_dairy: "乳制品", filter_spice: "香料/茶", filter_other: "其他",
         view_detail: "查看详情", highlights: "产品亮点", usage: "推荐食用/使用方式",
         safety: "安全提示", storage: "储存建议", allergens: "配料/过敏原提示",
         rights: "保留所有权利.", back_home: "返回首页", placeholder_note: "（实拍图待补）",
         add_to_cart: "加入购物车", select_spec: "选择规格", quantity: "数量", price: "价格",
-        cart_title: "购物车", cart_total: "合计", cart_note: "价格为示例参考价，实际以订单确认为准。物流与税费另计。",
+        cart_title: "购物车", cart_total: "合计", cart_note: "美元价格为近似参考价。运费等任何费用我们无法承担。",
         checkout: "去结算", clear_cart: "清空购物车", added: "已加入购物车", empty_cart: "购物车是空的",
         unit: "规格", remove: "移除", checkout_msg: "感谢您的关注！当前为演示模式，实际下单请联系客服。",
-        pay_title: "选择支付方式", pay_amount_label: "应付金额", pay_wechat: "微信", pay_alipay: "支付宝", pay_paypal: "PayPal",
-        pay_wechat_tip: "请使用微信扫一扫支付", pay_alipay_tip: "请使用支付宝扫一扫支付", pay_paypal_tip: "请使用 PayPal 扫码支付",
-        pay_note: "支付完成后请保留截图并联系客服确认订单。价格为示例参考价。"
+        pay_title: "选择支付方式", pay_amount_label: "应付金额", pay_alipay: "支付宝", pay_paypal: "PayPal", pay_alipay_tip: "请使用支付宝扫一扫支付", pay_paypal_tip: "请使用 PayPal 扫码支付",
+        pay_note: "当前为演示页面，美元价格为近似参考价。运费等任何费用我们无法承担。实际订单请联系客服。"
       },
       en: {
         brand_title: "SnowRealm", nav_services: "Services", nav_products: "Specialties", nav_series: "Treasures",
@@ -317,19 +321,18 @@
         page_summary_title: "Page Summary",
         page_summary: "Sourced from meadow, wetland and pasture, we select authentic plateau ingredients and handcrafted foods, providing clear usage and storage guidance. Product labels and merchant information govern origin, batch and testing details.",
         shopping_notes_title: "Shopping Notes",
-        shopping_notes: "Origin, batch, net weight, ingredients, allergens, shelf life, storage, test reports, packaging and logistics should follow the actual product label and merchant documentation. Prices shown are sample reference prices only.",
+        shopping_notes: "Origin, batch, net weight, ingredients, allergens, shelf life, storage, test reports, packaging and logistics should follow the actual product label and merchant documentation. Yellow USD prices are approximate international retail comparisons, not a universal standard.",
         products_heading: "Curated Highland Ingredients & Flavors", products_count: "14 products · Click for details & purchase",
         filter_all: "All", filter_food: "Ingredients", filter_dairy: "Dairy", filter_spice: "Spice / Tea", filter_other: "Others",
         view_detail: "View Details", highlights: "Highlights", usage: "Recommended Use",
         safety: "Safety Notice", storage: "Storage", allergens: "Ingredients / Allergens",
         rights: "All Rights Reserved.", back_home: "Back to Home", placeholder_note: "(Photo pending)",
         add_to_cart: "Add to Cart", select_spec: "Select Spec", quantity: "Qty", price: "Price",
-        cart_title: "Cart", cart_total: "Total", cart_note: "Sample reference prices only. Shipping & tax extra.",
+        cart_title: "Cart", cart_total: "Total", cart_note: "USD prices are approximate references. We cannot cover shipping or any other fees.",
         checkout: "Checkout", clear_cart: "Clear Cart", added: "Added to cart", empty_cart: "Your cart is empty",
         unit: "Spec", remove: "Remove", checkout_msg: "Thank you! This is a demo. Please contact us for real orders.",
-        pay_title: "Select Payment", pay_amount_label: "Amount Due", pay_wechat: "WeChat", pay_alipay: "Alipay", pay_paypal: "PayPal",
-        pay_wechat_tip: "Scan with WeChat to pay", pay_alipay_tip: "Scan with Alipay to pay", pay_paypal_tip: "Scan with PayPal to pay",
-        pay_note: "After payment, keep the screenshot and contact us to confirm your order. Prices are sample references."
+        pay_title: "Select Payment", pay_amount_label: "Amount Due", pay_alipay: "Alipay", pay_paypal: "PayPal", pay_alipay_tip: "Scan with Alipay to pay", pay_paypal_tip: "Scan with PayPal to pay",
+        pay_note: "This is a demo. USD prices are approximate references. We cannot cover shipping or any other fees. Contact us for real orders."
       },
       bo: {
         brand_title: "གངས་ལྗོངས་བོད་ཀྱི་ཁྱད་ནོར།", nav_services: "ཞབས་ཞུ་ཆེན་པོ་གསུམ།", nav_products: "བོད་ཀྱི་ཁྱད་ཐོན།",
@@ -340,24 +343,24 @@
         page_summary_title: "སྡེབ་ངོས་འཚམས་སྦྱོར།",
         page_summary: "འཛམ་གླིང་ཡང་རྩེ་ནས་ཐོན་པའི་ཟས་རིགས་དང་ལག་བཟོས་ཐོན་རྫས་སྣ་ཚོགས་ངོ་སྤྲོད་བྱེད། མཐོ་བ་གངས་རི་དང་ཡངས་པ་རྩྭ་ཐང་ནས་ཕྱུགས་རྫིའི་ཁྱིམ་ཚང་བར་ང་ཚོས་གཟབ་གཟབ་བྱེད་ནས་བདེ་ཐང་ལྡན་པའི་རང་བྱུང་མཐོ་སྒང་གི་རྒྱུ་ཆ་དང་ལག་ཤེས་བཟོ་རྩལ་གྱི་ཟས་རིགས་འདེམས་ནས་བེད་སྤྱོད་དང་གསོག་འཇོག་སྐོར་ལ་ཞིབ་ཕྲའི་བསླབ་བྱ་སྤྲོད་ཀྱི་ཡོད། ཉོ་སྒྲུབ་ཀྱི་ཞིབ་ཕྲའི་ཆེད་དུ་ཐོན་རྫས་ཀྱི་མཚོན་རྟགས་དང་ཚོང་པའི་གནས་ཚུལ་ལ་གཟིགས་རོགས་གནང་།",
         shopping_notes_title: "འཚོལ་ཞིབ་ཚིག",
-        shopping_notes: "ཐོན་རྫས་ཀྱི་མིང་བྱང་ངོ་མ་དང་ཚོང་པའི་གནས་ཚུལ་ལ་ལྟོས་ནས་ཐོན་རྫས་ཀྱི་ཐོན་ཁུངས་དང་། སྡེ་ཚན་གྱི་ཨང་གྲངས། ནང་དོན། ཆ་རྐྱེན། ཐོ་འགོད་བྱས་པའི་རིན་གོང་ནི་གཞི་གྲངས་ཁོ་ནའི་ཆེད་དུ་ཡིན། ཚོང་དོན་གྱི་རིན་གོང་ངོ་མ་དེ་མངགས་ཉོ་གཏན་འཁེལ་བྱེད་པའི་སྐབས་ལ་གཏན་འབེབས་བྱེད་ཀྱི་ཡོད།",
+        shopping_notes: "ཨ་སྒོར་གྱི་རིན་གོང་དག་ནི་ཚོང་རའི་དཔེ་མཚོན་ལ་གཞི་བཞག་པའི་དཔེ་མཚོན་རིན་གོང་ཙམ་ཡིན་པ་ལས་འཛམ་གླིང་གི་ཚད་གཞི་གཅིག་མིན།",
         products_heading: "ས་མཐོའི་ཟས་རིགས་དང་བྲོ་བ།", products_count: "ཐོན་རྫས་༡༤ · ཞིབ་ཕྲ་བལྟ་བ་དང་ཉོ་བ།",
         filter_all: "ཡོངས་རྫོགས།", filter_food: "ཟས་རིགས།", filter_dairy: "འོ་མའི་ཐོན་རྫས།", filter_spice: "སྨན་སྣ་/ཇ།", filter_other: "གཞན།",
         view_detail: "ཞིབ་ཕྲ་བལྟ་བ།", highlights: "ཐོན་རྫས་ཀྱི་ཁྱད་ཆོས།", usage: "ཟ་སྟངས་དང་སྤྱོད་སྟངས།",
         safety: "བདེ་འཇགས་དོ་སྣང་།", storage: "ཉར་ཚགས་བྱེད་སྟངས།", allergens: "རྒྱུ་ཆ་དང་མི་འཕྲོད་པའི་དོ་སྣང་།",
         rights: "ཐོབ་ཐང་ཡོངས་རྫོགས་ཉར་ཡོད།", back_home: "མདུན་ངོས་ལ་ལོག་པ།", placeholder_note: "（པར་རིས་ད་དུང་མེད།）",
         add_to_cart: "ཉོ་སྒྲོམ་ནང་བླུགས།", select_spec: "རིགས་འདེམས།", quantity: "གྲངས།", price: "རིན་གོང་།",
-        cart_title: "ཉོ་སྒྲོམ།", cart_total: "བསྡོམས།", cart_note: "རིན་གོང་དཔེ་མཚོན་ཡིན།",
+        cart_title: "ཉོ་སྒྲོམ།", cart_total: "བསྡོམས།", cart_note: "ཨ་སྒོར་རིན་གོང་ནི་དཔེ་མཚོན་ཙམ་ཡིན། སྐྱེལ་གླ་སོགས་གླ་ཆ་གཞན་གང་ཡང་ང་ཚོས་འགན་ཁུར་མི་ཐུབ།",
         checkout: "ཉོ་བ།", clear_cart: "སྟོང་པར་བཟོ།", added: "ཉོ་སྒྲོམ་ནང་བླུགས་ཟིན།", empty_cart: "ཉོ་སྒྲོམ་སྟོང་པ་ཡིན།",
         unit: "རིགས།", remove: "བསུབ།", checkout_msg: "ཐུགས་རྗེ་ཆེ། དཔེ་མཚོན་ཡིན། དངོས་སུ་ཉོ་ན་འབྲེལ་གཏུག་བྱེད་རོགས།",
-        pay_title: "སྤྲོད་ཐབས་འདེམས།", pay_amount_label: "སྤྲོད་དགོས་པའི་རིན།", pay_wechat: "ཝེ་ཆིན།", pay_alipay: "ཨ་ལི་སྤྲོད།", pay_paypal: "PayPal",
-        pay_wechat_tip: "ཝེ་ཆིན་གྱིས་སྐྱེལ་བ།", pay_alipay_tip: "ཨ་ལི་སྤྲོད་ཀྱིས་སྐྱེལ་བ།", pay_paypal_tip: "PayPal་གྱིས་སྐྱེལ་བ།",
-        pay_note: "སྤྲོད་རྗེས་པར་རིས་ཉར་ནས་འབྲེལ་གཏུག་བྱེད་རོགས། རིན་གོང་དཔེ་མཚོན་ཡིན།"
+        pay_title: "སྤྲོད་ཐབས་འདེམས།", pay_amount_label: "སྤྲོད་དགོས་པའི་རིན།", pay_alipay: "ཨ་ལི་སྤྲོད།", pay_paypal: "PayPal", pay_alipay_tip: "ཨ་ལི་སྤྲོད་ཀྱིས་སྐྱེལ་བ།", pay_paypal_tip: "PayPal་གྱིས་སྐྱེལ་བ།",
+        pay_note: "དྲ་ངོས་འདི་དཔེ་མཚོན་ཙམ་ཡིན། ཨ་སྒོར་གྱི་རིན་གོང་ནི་དཔེ་མཚོན་ཙམ་ཡིན། སྐྱེལ་གླ་སོགས་གླ་ཆ་གཞན་གང་ཡང་ང་ཚོས་འགན་ཁུར་མི་ཐུབ།"
       }
     };
 
     // ========== PRODUCTS DATA (with price & specs) ==========
-    // Prices are SAMPLE REFERENCE only (示例参考价)
+    // Approximate USD retail comparisons; no universal standard price exists.
+    const formatUSD = amount => 'US$' + Number(amount).toLocaleString('en-US', { maximumFractionDigits: 2 });
     const products = [
       {
         id: 1, cat: "food", img: "images/dcxc.png", img2: "images/dcxc2.jpeg",
@@ -370,9 +373,9 @@
         storage: { zh: "密封、避光、低温干燥保存，防潮防蛀。", en: "Store sealed, away from light, in a cool, dry place; protect from moisture and pests.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉི་འོད་མི་ཕོག་པར་ཉར་དགོས།" },
         allergens: { zh: "纯品无添加；若加工为配方，请参照商品标签中的配料与过敏原说明。", en: "Single-ingredient natural product; for processed formulations refer to the product label for ingredients and allergen information.", bo: "རང་བྱུང་ལྷད་མེད་ཀྱི་ཐོན་རྫས་ཡིན། ལས་སྣོན་བྱས་པའི་རིགས་ཡིན་ན་ཐོན་རྫས་ཀྱི་ཁ་བྱང་ལ་ལྟ་རོགས།" },
         specs: [
-          { id: "s1", label: { zh: "10g 精选", en: "10g Selected", bo: "༡༠གྲམ།" }, price: 1280 },
-          { id: "s2", label: { zh: "25g 礼盒", en: "25g Gift Box", bo: "༢༥གྲམ།" }, price: 2980 },
-          { id: "s3", label: { zh: "50g 珍藏", en: "50g Collector", bo: "༥༠གྲམ།" }, price: 5680 }
+          { id: "s1", label: { zh: "10g 精选", en: "10g Selected", bo: "༡༠གྲམ།" }, price: 450 },
+          { id: "s2", label: { zh: "25g 礼盒", en: "25g Gift Box", bo: "༢༥གྲམ།" }, price: 1100 },
+          { id: "s3", label: { zh: "50g 珍藏", en: "50g Collector", bo: "༥༠གྲམ།" }, price: 2200 }
         ]
       },
       {
@@ -386,9 +389,9 @@
         storage: { zh: "置于阴凉干燥处，密封防潮。", en: "Store sealed in a cool, dry place to prevent moisture.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས།" },
         allergens: { zh: "纯植物性原料；若为配方产品，请依商品标签提示。", en: "Single-ingredient plant product; follow product label for any processed items.", bo: "རྩི་ཤིང་གི་རྒྱུ་ཆ་རྐྱང་པ་ཡིན།" },
         specs: [
-          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠གྲམ།" }, price: 168 },
-          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 298 },
-          { id: "s3", label: { zh: "250g 礼盒", en: "250g Gift", bo: "༢༥༠གྲམ།" }, price: 680 }
+          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠གྲམ།" }, price: 40 },
+          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 70 },
+          { id: "s3", label: { zh: "250g 礼盒", en: "250g Gift", bo: "༢༥༠གྲམ།" }, price: 150 }
         ]
       },
       {
@@ -402,9 +405,9 @@
         storage: { zh: "密封冷藏或阴凉避光处，避免高温化油。", en: "Keep sealed and refrigerated or stored in a cool dark place; avoid high heat that causes melting.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་འཁྱག་སྒམ་ནང་ངམ་བསིལ་སར་ཉར་དགོས། ཚ་བ་ཆེ་སར་བཞག་ན་བཞུ་འགྲོ།" },
         allergens: { zh: "牦牛奶制品，乳制品过敏者慎用；参考包装上的配料标示。", en: "Derived from yak milk; individuals with dairy allergies should avoid. See package label for full ingredient information.", bo: "འབྲིའི་འོ་མ་ལས་བཟོས་པས་འོ་མར་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 88 },
-          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 158 },
-          { id: "s3", label: { zh: "1kg 家庭装", en: "1kg Family", bo: "༡ཀེ།" }, price: 298 }
+          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 5.5 },
+          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 8 },
+          { id: "s3", label: { zh: "1kg 家庭装", en: "1kg Family", bo: "༡ཀེ།" }, price: 22 }
         ]
       },
       {
@@ -418,9 +421,9 @@
         storage: { zh: "密封防潮，冷藏或阴凉保存以延长风味。", en: "Seal to prevent moisture; refrigerate or keep in a cool dry place to preserve flavor.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་འཁྱག་སྒམ་ནང་ངམ་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས།" },
         allergens: { zh: "牦牛奶制品，含乳蛋白及乳糖。", en: "Made from yak milk; contains milk proteins and lactose. Check product label for details.", bo: "འབྲིའི་འོ་མ་ལས་བཟོས་པས་འོ་མའི་སྤྲི་དཀར་ཡོད།" },
         specs: [
-          { id: "s1", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 58 },
-          { id: "s2", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 128 },
-          { id: "s3", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 228 }
+          { id: "s1", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 11 },
+          { id: "s2", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 27 },
+          { id: "s3", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 54 }
         ]
       },
       {
@@ -434,9 +437,9 @@
         storage: { zh: "阴凉干燥处密封保存，避免阳光直射与高温潮湿。", en: "Keep sealed in a cool, dry place; avoid direct sunlight and high humidity.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས། ཉི་འོད་དང་ཚ་བ་ཆེ་སར་འཇོག་མི་རུང་།" },
         allergens: { zh: "纯肉制品，如含调味剂请参照标签；肉类过敏者慎用。", en: "Pure meat product; for seasoned items see package label. Avoid if you have meat allergies.", bo: "ཤ་རྐྱང་པ་ཡིན། ཤ་རིགས་ལ་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 68 },
-          { id: "s2", label: { zh: "200g", en: "200g", bo: "༢༠༠གྲམ།" }, price: 128 },
-          { id: "s3", label: { zh: "500g 家庭装", en: "500g Family", bo: "༥༠༠གྲམ།" }, price: 298 }
+          { id: "s1", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 7 },
+          { id: "s2", label: { zh: "200g", en: "200g", bo: "༢༠༠གྲམ།" }, price: 14 },
+          { id: "s3", label: { zh: "500g 家庭装", en: "500g Family", bo: "༥༠༠གྲམ།" }, price: 35 }
         ]
       },
       {
@@ -450,9 +453,9 @@
         storage: { zh: "鲜品冷藏短期保存，干品密封置阴凉干燥处；标注采摘/干燥日期。", en: "Fresh mushrooms refrigerate for short-term use; dried mushrooms keep sealed in a cool dry place. Label harvest or drying dates.", bo: "རློན་པ་འཁྱག་སྒམ་ནང་དུས་ཐུང་ཉར་བ་དང་། སྐམ་པོ་ཁ་དམ་པོར་བརྒྱབ་ནས་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས།" },
         allergens: { zh: "真菌类产品，若加工混合请参见标签。", en: "Fungal product—see package for mixed-ingredient details.", bo: "ཤ་མོའི་རིགས་ཡིན་པས་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "干品 50g", en: "Dried 50g", bo: "སྐམ་པོ་༥༠གྲམ།" }, price: 98 },
-          { id: "s2", label: { zh: "干品 100g", en: "Dried 100g", bo: "སྐམ་པོ་༡༠༠གྲམ།" }, price: 178 },
-          { id: "s3", label: { zh: "干品 250g", en: "Dried 250g", bo: "སྐམ་པོ་༢༥༠གྲམ།" }, price: 398 }
+          { id: "s1", label: { zh: "干品 50g", en: "Dried 50g", bo: "སྐམ་པོ་༥༠གྲམ།" }, price: 10 },
+          { id: "s2", label: { zh: "干品 100g", en: "Dried 100g", bo: "སྐམ་པོ་༡༠༠གྲམ།" }, price: 21 },
+          { id: "s3", label: { zh: "干品 250g", en: "Dried 250g", bo: "སྐམ་པོ་༢༥༠གྲམ།" }, price: 32 }
         ]
       },
       {
@@ -466,9 +469,9 @@
         storage: { zh: "密封、避光、干燥保存以保留挥发油。", en: "Store sealed, away from light and moisture to preserve essential oils.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་ཉི་འོད་མི་ཕོག་པའི་སྐམ་སར་ཉར་དགོས།" },
         allergens: { zh: "植物种子类，过敏体质请注意。", en: "Seed spice—those with seed allergies should exercise caution.", bo: "རྩི་ཤིང་གི་ས་བོན་ཡིན་པས་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠གྲམ།" }, price: 38 },
-          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 68 },
-          { id: "s3", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 148 }
+          { id: "s1", label: { zh: "50g", en: "50g", bo: "༥༠གྲམ།" }, price: 4 },
+          { id: "s2", label: { zh: "100g", en: "100g", bo: "༡༠༠གྲམ།" }, price: 6 },
+          { id: "s3", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 10 }
         ]
       },
       {
@@ -482,9 +485,9 @@
         storage: { zh: "密封干燥保存，避免受潮或虫蛀。", en: "Keep sealed in a dry place to prevent moisture and pests.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་སྐམ་སར་ཉར་ཏེ་འབུ་མི་ཞུགས་པ་བྱེད་དགོས།" },
         allergens: { zh: "主成分为青稞（含谷蛋白），对谷物过敏者慎用。", en: "Mainly highland barley (contains gluten). See label for full ingredient list.", bo: "གཙོ་བོ་ནས་ཡིན་པས་འབྲུ་རིགས་ལ་མི་འཕྲོད་མཁན་གྱིས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 48 },
-          { id: "s2", label: { zh: "1kg", en: "1kg", bo: "༡ཀེ།" }, price: 88 },
-          { id: "s3", label: { zh: "2kg 家庭装", en: "2kg Family", bo: "༢ཀེ།" }, price: 158 }
+          { id: "s1", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 10 },
+          { id: "s2", label: { zh: "1kg", en: "1kg", bo: "༡ཀེ།" }, price: 18 },
+          { id: "s3", label: { zh: "2kg 家庭装", en: "2kg Family", bo: "༢ཀེ།" }, price: 34 }
         ]
       },
       {
@@ -498,9 +501,9 @@
         storage: { zh: "鲜品冷藏短期保存，煮熟后冷藏并尽快食用；干品密封保存。", en: "Fresh tubers refrigerate for short-term use; cooked items refrigerate and consume promptly. Dried tubers keep sealed and dry.", bo: "རློན་པ་འཁྱག་སྒམ་ནང་དུས་ཐུང་ཉར་བ་དང་། བཙོས་རྗེས་མགྱོགས་པོར་བཟའ་དགོས། སྐམ་པོ་ཁ་དམ་པོར་བརྒྱབ་ནས་ཉར་དགོས།" },
         allergens: { zh: "块根类植物，若为加工品请参考包装成分与过敏原信息。", en: "Tuberous plant product—see label for processed item details.", bo: "རྩ་བའི་རིགས་ཀྱི་རྩི་ཤིང་ཡིན།" },
         specs: [
-          { id: "s1", label: { zh: "干品 100g", en: "Dried 100g", bo: "སྐམ་པོ་༡༠༠གྲམ།" }, price: 68 },
-          { id: "s2", label: { zh: "干品 250g", en: "Dried 250g", bo: "སྐམ་པོ་༢༥༠གྲམ།" }, price: 148 },
-          { id: "s3", label: { zh: "干品 500g", en: "Dried 500g", bo: "སྐམ་པོ་༥༠༠གྲམ།" }, price: 268 }
+          { id: "s1", label: { zh: "干品 100g", en: "Dried 100g", bo: "སྐམ་པོ་༡༠༠གྲམ།" }, price: 16 },
+          { id: "s2", label: { zh: "干品 250g", en: "Dried 250g", bo: "སྐམ་པོ་༢༥༠གྲམ།" }, price: 35 },
+          { id: "s3", label: { zh: "干品 500g", en: "Dried 500g", bo: "སྐམ་པོ་༥༠༠གྲམ།" }, price: 47 }
         ]
       },
       {
@@ -514,9 +517,9 @@
         storage: { zh: "冷藏或阴凉干燥处保存，开封后建议尽快食用。", en: "Refrigerate or keep in a cool dry place; consume soon after opening.", bo: "འཁྱག་སྒམ་ནང་ངམ་བསིལ་ཞིང་སྐམ་པའི་སར་ཉར་དགོས། ཁ་ཕྱེ་རྗེས་མགྱོགས་པོར་བཟའ་དགོས།" },
         allergens: { zh: "人参果、奶渣、酥油等；含乳制品及可能的坚果或谷物，详见包装。", en: "Contains tuber, curd, and butter. May contain milk, grains or nuts—see product label for full allergen information.", bo: "གྲོ་མ་དང་ཕྱུར་བ། མར་སོགས་ཡོད། འོ་མའི་ཐོན་རྫས་དང་འབྲུ་རིགས་ཡོད་སྲིད།" },
         specs: [
-          { id: "s1", label: { zh: "6枚装", en: "6 pcs", bo: "༦ཐུམ།" }, price: 78 },
-          { id: "s2", label: { zh: "12枚礼盒", en: "12 pcs Gift", bo: "༡༢ཐུམ།" }, price: 148 },
-          { id: "s3", label: { zh: "24枚家庭装", en: "24 pcs Family", bo: "༢༤ཐུམ།" }, price: 268 }
+          { id: "s1", label: { zh: "6枚装", en: "6 pcs", bo: "༦ཐུམ།" }, price: 16 },
+          { id: "s2", label: { zh: "12枚礼盒", en: "12 pcs Gift", bo: "༡༢ཐུམ།" }, price: 31 },
+          { id: "s3", label: { zh: "24枚家庭装", en: "24 pcs Family", bo: "༢༤ཐུམ།" }, price: 56 }
         ]
       },
       {
@@ -530,9 +533,9 @@
         storage: { zh: "干燥避潮、避光保存，保持砖体完整。", en: "Store in a cool, dry place away from light, keeping the brick intact.", bo: "སྐམ་ཞིང་ཉི་འོད་མི་ཕོག་པའི་སར་ཇ་རང་འཇགས་སུ་ཉར་དགོས།" },
         allergens: { zh: "茶叶制品，按包装标示查看成分。", en: "Tea leaf product—see label for specific ingredient details.", bo: "ཇ་ལོ་ཡིན་པས་ཐུམ་སྒྲིལ་སྟེང་གི་རྒྱུ་ཆར་ལྟ་རོགས།" },
         specs: [
-          { id: "s1", label: { zh: "1砖 (约250g)", en: "1 Brick (~250g)", bo: "༡སོ་ཕག།" }, price: 58 },
-          { id: "s2", label: { zh: "2砖装", en: "2 Bricks", bo: "༢སོ་ཕག།" }, price: 108 },
-          { id: "s3", label: { zh: "5砖礼盒", en: "5 Bricks Gift", bo: "༥སོ་ཕག།" }, price: 248 }
+          { id: "s1", label: { zh: "1砖 (约250g)", en: "1 Brick (~250g)", bo: "༡སོ་ཕག།" }, price: 30 },
+          { id: "s2", label: { zh: "2砖装", en: "2 Bricks", bo: "༢སོ་ཕག།" }, price: 55 },
+          { id: "s3", label: { zh: "5砖礼盒", en: "5 Bricks Gift", bo: "༥སོ་ཕག།" }, price: 125 }
         ]
       },
       {
@@ -546,9 +549,9 @@
         storage: { zh: "避光、常温或冷藏保存，开封后请及时饮用。", en: "Store away from light at room temperature or refrigerated; consume soon after opening.", bo: "ཉི་འོད་མི་ཕོག་པའི་སར་རམ་འཁྱག་སྒམ་ནང་ཉར་དགོས། ཁ་ཕྱེ་རྗེས་མགྱོགས་པོར་འཐུང་དགོས།" },
         allergens: { zh: "青稞发酵制品，如含其他谷物或添加物以包装为准。", en: "Fermented barley—if mixed grains or additives are present, follow product label.", bo: "ནས་ལས་བཟོས་པ་ཡིན། རྒྱུ་ཆ་གཞན་ཡོད་ན་ཐུམ་སྒྲིལ་ལ་ལྟ་རོགས།" },
         specs: [
-          { id: "s1", label: { zh: "500ml", en: "500ml", bo: "༥༠༠མི་ལི།" }, price: 88 },
-          { id: "s2", label: { zh: "750ml", en: "750ml", bo: "༧༥༠མི་ལི།" }, price: 128 },
-          { id: "s3", label: { zh: "1.5L 分享装", en: "1.5L Share", bo: "༡.༥ལི།" }, price: 228 }
+          { id: "s1", label: { zh: "500ml", en: "500ml", bo: "༥༠༠མི་ལི།" }, price: 30 },
+          { id: "s2", label: { zh: "750ml", en: "750ml", bo: "༧༥༠མི་ལི།" }, price: 53 },
+          { id: "s3", label: { zh: "1.5L 分享装", en: "1.5L Share", bo: "༡.༥ལི།" }, price: 106 }
         ]
       },
       {
@@ -562,9 +565,9 @@
         storage: { zh: "密封避光、常温保存，避免高温引起发酵或结晶变质。", en: "Store sealed, away from light at room temperature; avoid high heat to prevent fermentation or crystallization changes.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་ཉི་འོད་མི་ཕོག་པའི་སར་ཉར་དགོས། ཚ་བ་ཆེ་སར་བཞག་ན་སྐྱུར་པོ་ཆགས་སྲིད།" },
         allergens: { zh: "纯蜂蜜或花源混合蜜，若为混合产品请参照包装说明。", en: "Pure honey; for blends or added ingredients consult the product label.", bo: "སྦྲང་རྩི་རྐྱང་པ་ཡིན། བསྲེས་མ་ཡིན་ན་ཐུམ་སྒྲིལ་ལ་ལྟ་རོགས།" },
         specs: [
-          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 88 },
-          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 158 },
-          { id: "s3", label: { zh: "1kg", en: "1kg", bo: "༡ཀེ།" }, price: 288 }
+          { id: "s1", label: { zh: "250g", en: "250g", bo: "༢༥༠གྲམ།" }, price: 15 },
+          { id: "s2", label: { zh: "500g", en: "500g", bo: "༥༠༠གྲམ།" }, price: 26 },
+          { id: "s3", label: { zh: "1kg", en: "1kg", bo: "༡ཀེ།" }, price: 48 }
         ]
       },
       {
@@ -578,9 +581,9 @@
         storage: { zh: "密封、避潮避光保存以保持香味稳定。", en: "Keep sealed, dry and away from direct sunlight to preserve fragrance.", bo: "ཁ་དམ་པོར་བརྒྱབ་ནས་བརླན་གཤེར་དང་ཉི་འོད་མི་ཕོག་པའི་སར་ཉར་དགོས།" },
         allergens: { zh: "草木与香料混合物，呼吸道敏感者与孕期人群使用前请谨慎，并参照包装成分。", en: "Botanical and spice blends—individual sensitivities, pregnancy considerations, or respiratory issues should consult product labeling and healthcare advice before use.", bo: "རྩི་ཤིང་དང་སྨན་སྣ་བསྲེས་མ་ཡིན། དབུགས་ལམ་ལ་མི་འཕྲོད་མཁན་དང་སྦྲུམ་མས་གཟབ་གཟབ་བྱེད་དགོས།" },
         specs: [
-          { id: "s1", label: { zh: "线香 20支", en: "20 Sticks", bo: "སྤོས་རིང་༢༠།" }, price: 48 },
-          { id: "s2", label: { zh: "线香 50支", en: "50 Sticks", bo: "སྤོས་རིང་༥༠།" }, price: 98 },
-          { id: "s3", label: { zh: "礼盒装", en: "Gift Box", bo: "ལག་རྟགས།" }, price: 168 }
+          { id: "s1", label: { zh: "线香 20支", en: "20 Sticks", bo: "སྤོས་རིང་༢༠།" }, price: 5 },
+          { id: "s2", label: { zh: "线香 50支", en: "50 Sticks", bo: "སྤོས་རིང་༥༠།" }, price: 12 },
+          { id: "s3", label: { zh: "礼盒装", en: "Gift Box", bo: "ལག་རྟགས།" }, price: 25 }
         ]
       }
     ];
@@ -588,6 +591,7 @@
     // ========== STATE ==========
     let currentLang = 'zh';
     let currentFilter = 'all';
+    if (localStorage.getItem('snowrealm_cart_currency') !== 'USD') { localStorage.removeItem('snowrealm_cart'); localStorage.setItem('snowrealm_cart_currency', 'USD'); }
     let cart = JSON.parse(localStorage.getItem('snowrealm_cart') || '[]');
 
     // ========== I18N ==========
@@ -635,7 +639,7 @@
             <p class="text-slate-500 text-xs line-clamp-2 mb-3 flex-1">${p.subtitle[currentLang]}</p>
             <div class="flex items-center justify-between mt-auto">
               <div>
-                <span class="text-gold-600 font-extrabold text-lg">$${minPrice}</span>
+                <span class="text-yellow-600 font-extrabold text-lg">~${formatUSD(minPrice)}</span>
                 <span class="text-slate-400 text-xs ml-1">起</span>
               </div>
               <button onclick="openDetail(${p.id})" class="px-3 py-1.5 rounded-full bg-gold-500 hover:bg-gold-600 text-white text-xs font-medium transition flex items-center gap-1">
@@ -694,7 +698,7 @@
               <label class="cursor-pointer">
                 <input type="radio" name="spec_${p.id}" value="${s.id}" ${i===0?'checked':''} class="peer sr-only" onchange="updateModalPrice(${p.id})">
                 <span class="inline-block px-4 py-2 rounded-full border text-sm peer-checked:bg-gold-500 peer-checked:text-white peer-checked:border-gold-500 bg-white text-slate-700 hover:border-gold-400 transition">
-                  ${s.label[currentLang]} · $${s.price}
+                  ${s.label[currentLang]} · <strong class="text-yellow-600">~${formatUSD(s.price)}</strong>
                 </span>
               </label>
             `).join('')}
@@ -710,7 +714,7 @@
           <div class="flex items-center justify-between">
             <div>
               <span class="text-sm text-slate-500">${t[currentLang].price}</span>
-              <span id="modalPrice" class="text-2xl font-extrabold text-gold-600 ml-2">$${p.specs[0].price}</span>
+              <span id="modalPrice" class="text-2xl font-extrabold text-yellow-600 ml-2">~${formatUSD(p.specs[0].price)}</span>
             </div>
             <button onclick="addToCart(${p.id})" class="px-6 py-3 bg-gradient-to-r from-gold-500 to-gold-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition flex items-center gap-2">
               <i class="fas fa-cart-plus"></i>
@@ -739,7 +743,7 @@
       const selected = document.querySelector(`input[name="spec_${pid}"]:checked`);
       if (!selected) return;
       const spec = p.specs.find(s => s.id === selected.value);
-      document.getElementById('modalPrice').textContent = '$' + spec.price;
+      document.getElementById('modalPrice').textContent = '~' + formatUSD(spec.price);
     }
 
     // ========== CART ==========
@@ -773,6 +777,7 @@
 
     function saveCart() {
       localStorage.setItem('snowrealm_cart', JSON.stringify(cart));
+      localStorage.setItem('snowrealm_cart_currency', 'USD');
       updateCartBadge();
     }
 
@@ -793,7 +798,7 @@
       const container = document.getElementById('cartItems');
       if (cart.length === 0) {
         container.innerHTML = `<div class="text-center py-16 text-slate-400"><i class="fas fa-shopping-basket text-4xl mb-3"></i><p>${t[currentLang].empty_cart}</p></div>`;
-        document.getElementById('cartTotal').textContent = '$0';
+        document.getElementById('cartTotal').textContent = '≈ US$0';
         return;
       }
       let total = 0;
@@ -806,7 +811,7 @@
             <h4 class="font-semibold text-slate-800 text-sm truncate">${c.name[currentLang]}</h4>
             <p class="text-xs text-slate-500">${c.specLabel[currentLang]}</p>
             <div class="flex items-center justify-between mt-1">
-              <span class="text-gold-600 font-bold text-sm">$${c.price}</span>
+              <span class="text-yellow-600 font-bold text-sm">~${formatUSD(c.price)}</span>
               <div class="flex items-center gap-2">
                 <button onclick="updateCartQty(${i}, -1)" class="w-6 h-6 rounded-full bg-white border text-xs">−</button>
                 <span class="text-sm font-medium w-6 text-center">${c.qty}</span>
@@ -817,7 +822,7 @@
           </div>
         </div>`;
       }).join('');
-      document.getElementById('cartTotal').textContent = '$' + total.toLocaleString();
+      document.getElementById('cartTotal').textContent = '≈ ' + formatUSD(total);
     }
 
     function updateCartQty(index, delta) {
@@ -855,8 +860,8 @@
     function checkout() {
       if (cart.length === 0) return;
       const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-      document.getElementById('payAmount').textContent = '$' + total.toLocaleString();
-      switchPayTab('wechat');
+      document.getElementById('payAmount').textContent = '≈ ' + formatUSD(total);
+      switchPayTab('paypal');
       document.getElementById('payModal').classList.remove('hidden');
       // close cart sidebar
       document.getElementById('cartSidebar').classList.add('translate-x-full');
@@ -868,7 +873,7 @@
     }
 
     function switchPayTab(tab) {
-      const tabs = ['wechat', 'alipay', 'paypal'];
+      const tabs = ['alipay', 'paypal'];
       tabs.forEach(t => {
         const btn = document.getElementById('tab' + t.charAt(0).toUpperCase() + t.slice(1));
         const box = document.getElementById('pay' + t.charAt(0).toUpperCase() + t.slice(1));
@@ -911,7 +916,18 @@
     window.onload = () => {
       try {
         const p = localStorage.getItem('snowrealm_products_full');
-        if (p) { const data = JSON.parse(p); if (Array.isArray(data) && data.length) { products.length = 0; data.forEach(x => products.push(x)); } }
+        if (p) {
+          const data = JSON.parse(p);
+          if (Array.isArray(data) && data.length) {
+            const canonicalPrices = Object.fromEntries(products.map(item => [item.id, Object.fromEntries(item.specs.map(spec => [spec.id, spec.price]))]));
+            products.length = 0;
+            data.forEach(item => {
+              const prices = canonicalPrices[item.id];
+              if (prices && Array.isArray(item.specs)) item.specs = item.specs.map(spec => ({ ...spec, price: prices[spec.id] ?? spec.price }));
+              products.push(item);
+            });
+          }
+        }
       } catch(e) {}
       setLang('zh');
       updateCartBadge();
